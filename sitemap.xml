@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <url>
+        <loc>http://web.engr.oregonstate.edu/~gattom/</loc>
+        <lastmod>2020-05-25T15:31:49+00:00</lastmod>
+        <priority>1.00</priority>
+    </url>
+    <url>
+        <loc>http://web.engr.oregonstate.edu/~gattom/assets/prizren_map.pdf</loc>
+        <lastmod>2020-05-18T23:32:13+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>http://web.engr.oregonstate.edu/~gattom/assets/blagaj_map.pdf</loc>
+        <lastmod>2020-05-24T01:47:37+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>http://web.engr.oregonstate.edu/~gattom/assets/sarajevo_map.pdf</loc>
+        <lastmod>2020-05-24T01:45:59+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+</urlset>

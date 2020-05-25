@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /components
+Disallow: *.js
+
+Sitemap: http://web.engr.oregonstate.edu/~gattom/sitemap.xml

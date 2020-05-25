@@ -1,0 +1,166 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald:wght@300;400&display=swap');
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	/*font: inherit;*/
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after {
+	content: '';
+	content: none;
+}
+
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*@font-face {
+	font-family: 'SinaNovaReg';
+	src: url("../fonts/SinaNovaReg-webfont.woff2") format("woff2"), url("../fonts/SinaNovaReg-webfont.woff") format("woff");
+	font-style: normal;
+}*/
+
+html {
+	font-weight: normal;
+	font-family: 'Oswald', sans-serif;
+	font-variation-settings: 'wdth' 115;
+	/*font-family: SinaNovaReg, serif;*/
+	color: #333;
+	line-height: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'EB Garamond', serif !important;
+	/*font-family: 'Oswald', sans-serif;*/
+	/*font-variation-settings: 'wdth' 115;*/
+}
+
+html {
+	background-color: white;
+}
+
+/* pages */
+p {
+	font-family: 'Oswald', sans-serif;
+	/*font-family: 'EB Garamond', serif !important;*/
+	font-weight: lighter;
+	margin-bottom: 1rem;
+}
+
+.title {
+	margin-top: 0.5em;
+}
+
+main p {
+	line-height: 1.4rem;
+}
+main p.intro {
+	font-size: 1.3rem;
+	line-height: 1.65rem;
+	margin-bottom: 1.2rem;
+}
+
+h2 {
+	font-size: 2rem;
+	line-height: 3rem;
+	margin-top: 0.6rem;
+	margin-bottom: 0.6rem;
+	text-align: center;
+}
+
+figcaption {
+	text-align: center;
+	padding-left: 2em;
+	font-style: italic;
+	font-size: smaller;
+	margin-bottom: 1rem;
+}
+
+#home .hero img {
+	filter: sepia(50%) drop-shadow(10px 10px 10px gray);
+	border-right: 40px;
+}
+#home .hero figcaption {
+	margin-top: 1rem;
+}
+
+#home ul {
+	list-style-type: none;
+}
+#home ul li {
+	line-height: 1.5rem;
+}
+#home ul li:before {
+	content: '\2605';
+	margin: 0 1em;
+}
+
+#bridge .hero {
+	clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+	float: left;
+	width: 70%;
+	shape-outside: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+	shape-margin: 1.5rem;
+}
+
+#bridge main section div {
+	margin-top: 1rem;
+}
+
+#fountain .hero {
+	clip-path: circle(260px at center);
+	float: left;
+	width: 70%;
+	shape-outside: circle(260px at center);
+	shape-margin: 1.5rem;
+}
+
+#monastery .hero {
+	/* let's keep it a large photo, that's how nice it looks */
+}
+
+legend {
+	margin-bottom: 1rem;
+}
+
+.primary-content {
+	overflow-y: auto;
+	height: 500px;
+}
+
+.attribution {
+	text-align: right;
+	display: block;
+	margin-right: 2rem;
+}

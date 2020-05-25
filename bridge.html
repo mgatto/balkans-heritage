@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Balkan Heritage :: The Bridge</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="/assets/img/albanian_eagle.svg">
+        <link rel="icon" type="image/svg+xml" href="assets/img/albanian_eagle.svg">
+        <link rel=”mask-icon” href=”assets/img/albanian_eagle.svg” color=”#000000">
+
+        <link rel="stylesheet" href="assets/css/normalize.css">
+        <link rel="stylesheet" href="assets/css/kube.css">
+        <link rel="stylesheet" href="assets/css/index.css">
+
+        <link rel="prev" href="monastery.html">
+        <link rel="next" href="">
+
+        <script src="components/FooterComponent/Footer.js"></script> <!-- type="module"-->
+        <script src="components/MastComponent/MedallionMast.js"></script> <!-- type="module"-->
+        <script src="components/NavigationComponent/Navigation.js"></script> <!-- type="module"-->
+    </head>
+
+    <body id="bridge" vocab="http://schema.org/">
+        <header>
+            <balkans-navigation></balkans-navigation>
+
+            <balkans-mast country="albania"></balkans-mast>
+        </header>
+
+        <main typeof="TouristAttraction LandmarksOrHistoricalBuildings">
+            <div property="geo" typeof="GeoCoordinates">
+                <!-- 42° 12′ 34.77″ N, 20° 44′ 25.29″ E-->
+                <meta property="latitude" content="42.20972222">
+                <meta property="longitude" content="20.74027778">
+            </div>
+
+            <header class="row align-center">
+                <div class="col col-8">
+                    <h1 class="title text-center">The Bridge</h1>
+               </div>
+           </header>
+
+            <section class="row gutters around primary-content">
+                <article class="col col-10">
+                    <header>
+                        <h2>In Prizren, spans a bridge&hellip;</h2>
+                    </header>
+
+                    <figure class="hero">
+                        <img property="photo" src="assets/img/prizren_bridge.jpg" alt="A stone bridge over the low-tide river in Prizren.">
+                        <figcaption property="">
+                            Image: <a property="dc:source" href="https://commons.wikimedia.org/wiki/File:2013-10-06_Stone_Bridge,_Prizren,_Kosovo_8649.jpg">Wikipedia</a> / <span property="dc:creator">Tobias Klenze</span> / <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"><span property="dc:license">CC-BY-SA 4.0</span></a>
+                        </figcaption>
+                    </figure>
+
+                    <p class="intro">
+                        &quot;Throughout history Prizren has played an important role in the region which was first settled in Illyrian times.
+                        Situated at a major crossroad on the Balkan peninsula, the town hosted a handful of empires, with Byzantine and Ottoman architecture leaving the most distinctive marks on the cityscape.
+                    </p>
+                    <p>
+                        Ottoman vibes can be felt especially around Shadervan &ndash; near this main, cobbled square you&apos;ll find a great selection of bars and restaurants, as well as the lovely <a target="_blank" href="https://en.wikipedia.org/wiki/Sinan_Pasha_Mosque_(Prizren)">Sinan Pasha Mosque</a> (one of over 20 mosques in the city) and the <strong property="name">Old Stone Bridge</strong> <a href="https://dtk.rks-gov.net/tkk_objekti_en.aspx?id=1550"><sup>1</sup></a>, which dates back to the 16th century but was reconstructed in the 1980s after it was destroyed by a flood.&quot;
+                    </p>
+
+                    <div class="columns-2">
+                        <p>
+                            &quot;On the other side of the Bistrica (Lumbardhi) river, on Rr Adem Jashari, is the Gazi Mehmet Pasha Hammam; when it&apos;s not being used as an exhibition space, it remains closed to the public.
+                            Not far from the hammam, on Rr Sharri, is the Prizren League House, of particular importance for Albanian history as the site of the most significant attempt to unite all Albanians in the region within one state.
+                            Standing proudly on the hill above town is the 11th-century <a href="https://en.wikipedia.org/wiki/Prizren_Fortress">Prizren Fortress</a>.
+                            Entrance is free and it&apos;s open 24 hours a day, though climbing up for sunrise or sunset is highly recommended.&quot;
+                        </p>
+                        <small class="attribution">&mdash; <strong property="dc:source">Lonely Planet</strong></small>
+                    </div>
+                </article>
+            </section>
+        </main>
+
+        <balkans-footer></balkans-footer>
+    </body>
+</html>

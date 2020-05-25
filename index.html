@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Balkan Heritage :: Home</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="manifest" href="manifest.json">
+        <link rel="author" href="humans.txt" />
+
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="msapplication-starturl" content="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="apple-touch-icon" href="/assets/img/star_and_crescent.svg">
+        <link rel="icon" type="image/svg+xml" href="assets/img/star_and_crescent.svg">
+        <link rel=”mask-icon” href=”assets/img/star_and_crescent.svg” color=”#007f00">
+
+        <link rel="stylesheet" href="assets/css/normalize.css">
+        <link rel="stylesheet" href="assets/css/kube.css">
+        <link rel="stylesheet" href="assets/css/index.css">
+
+        <link rel="prev" href="">
+        <link rel="next" href="fountain.html">
+
+        <script src="components/FooterComponent/Footer.js"></script> <!-- type="module"-->
+        <script src="components/MastComponent/MedallionMast.js"></script> <!-- type="module"-->
+        <script src="components/NavigationComponent/Navigation.js"></script> <!-- type="module"-->
+        <script src="components/NavigationComponent/Carousel.js"></script> <!-- type="module"-->
+    </head>
+
+    <body id="home">
+        <header>
+            <balkans-navigation></balkans-navigation>
+
+            <balkans-mast country="balkans"></balkans-mast>
+        </header>
+
+        <main>
+            <header class="row align-center">
+                <div class="col col-8">
+                    <h1 class="title text-center">Poetic Tour of the Balkans</h1>
+                </div>
+            </header>
+
+            <section id="" class="row gutters around">
+                <article class="col col-10">
+                    <header>
+                        <h2>Part I: The Ottoman Heritage</h2>
+                    </header>
+
+                    <p>
+                    &quot;When most people think of this region today, images of the most recent wars, devastation, and
+                        chaos of post-communist times come to mind. However, hidden behind these images is a region
+                        rich in history and culture: Viennese cafe culture meets the best of Southern Europe; Adriatic
+                        beaches rival those of Southern France; Western, Byzantine, and Islamic influences come
+                        together; while contemporary art, architecture, literature, film, and music are some of the best the
+                        world has to offer.&quot;
+                    </p>
+                    <small class="attribution">&mdash; <strong property="dc:source">Marina Antić</strong></small>
+
+                    <br>
+                    <br>
+                    <hr>
+
+                    <form class="form-inline" action="http://web.engr.oregonstate.edu/~zhangluy/tools/class-content/form_tests/check_request.php" method="post">
+                        <fieldset>
+                            <legend>Notify me for Parts II, III, IV</legend>
+                            <label class="label form-item" for="fullname">
+                                Name:
+                                <input type="text" name="fullname" id="fullname">
+                            </label>
+
+                            <label class="label form-item" for="email">
+                                Email
+                                <input type="email" name="email" id="email">
+                            </label>
+
+                            <label class="label form-item checkbox">
+                                Hope to see next:
+                                <input type="checkbox" name="next" value="byzantine">Byzantine&nbsp;
+                                <input type="checkbox" name="next" value="hapsburg">Hapsburg&nbsp;
+                                <input type="checkbox" name="next" value="yugoslav">Yugoslav&nbsp;
+                            </label>
+
+                            <label class="label form-item checkbox" style="padding: 0">
+                                <input type="submit" class="button secondary" value="Save">
+                            </label>
+                        </fieldset>
+                    </form>
+
+                    <hr>
+
+                    <div>
+                        <form style="display: inline-block"><button type="submit" style="background-color: #E30A17;" formaction="assets/balkans_ottoman_heritage_maps.zip">Download</button></form> a package of maps (PDF's in .zip file, 1MB) for the points of interest, including:
+                    </div>
+
+                    <ul>
+                        <li>
+                            <a href="assets/prizren_map.pdf">The Fountain</a> in Sarajevo, Bosnia
+                        </li>
+                        <li>
+                            <a href="assets/blagaj_map.pdf">The Monastery</a> near Mostar, Bosnia
+                        </li>
+                        <li>
+                            <a href="assets/sarajevo_map.pdf">The Bridge</a> in Prizren, Kosova
+                        </li>
+                        <li>
+                            &hellip;And separately, a <a href="assets/img/raised_relief_map.jpg">wallmap of the entire region</a>
+                        </li>
+                    </ul>
+                    <br>
+
+                    <balkans-carousel>
+                        <img src="assets/img/screen_3.png" slot="start" alt="">
+                        <img src="assets/img/screen_2.png" slot="middle" alt="">
+                        <img src="assets/img/screen_1.png" slot="end" alt="">
+                    </balkans-carousel>
+                </article>
+            </section>
+        </main>
+
+        <balkans-footer></balkans-footer>
+    </body>
+</html>

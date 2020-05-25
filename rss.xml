@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Poetic Tour of the Balkans</title>
+    <link>http://web.engr.oregonstate.edu/~gattom</link>
+    <description />
+    <item>
+      <guid>http://web.engr.oregonstate.edu/~gattom/</guid>
+      <title>Poetic Tour of the Balkans</title>
+      <link>http://web.engr.oregonstate.edu/~gattom/</link>
+      <description />
+    </item>
+    <item>
+      <guid>http://web.engr.oregonstate.edu/~gattom/assets/sarajevo_map.pdf</guid>
+      <title>sarajevo_map.pdf</title>
+      <link>http://web.engr.oregonstate.edu/~gattom/assets/sarajevo_map.pdf</link>
+      <description />
+      <pubDate>Sun, 24 May 2020 01:45:00 Z</pubDate>
+    </item>
+    <item>
+      <guid>http://web.engr.oregonstate.edu/~gattom/assets/blagaj_map.pdf</guid>
+      <title>blagaj_map.pdf</title>
+      <link>http://web.engr.oregonstate.edu/~gattom/assets/blagaj_map.pdf</link>
+      <description />
+      <pubDate>Sun, 24 May 2020 01:47:00 Z</pubDate>
+    </item>
+    <item>
+      <guid>http://web.engr.oregonstate.edu/~gattom/assets/prizren_map.pdf</guid>
+      <title>prizren_map.pdf</title>
+      <link>http://web.engr.oregonstate.edu/~gattom/assets/prizren_map.pdf</link>
+      <description />
+      <pubDate>Mon, 18 May 2020 11:32:00 Z</pubDate>
+    </item>
+  </channel>
+</rss>

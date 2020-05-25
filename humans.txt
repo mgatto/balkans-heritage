@@ -1,0 +1,17 @@
+/* TEAM */
+Your title: Michael Gatto.
+Location: Tucson, AZ
+
+
+/* THANKS */
+Name: The CS-290 Crew
+Name: Eric Meyer
+Name: Jeffrey Zeldman
+Name: A List Apart
+
+
+/* SITE */
+Last update: 2020/05/25
+Standards: HTML5, CSS3, WebComponents v1, ES6, RDFa Lite, Shadow DOM.
+Components: Normalize.css, Kube.css, Google Fonts.
+Software: WebStorm.

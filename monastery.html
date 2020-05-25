@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Balkan Heritage :: The Monastery</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="assets/img/bosnian_coat_of_arms.svg">
+        <link rel="icon" type="image/svg+xml" href="assets/img/bosnian_coat_of_arms.svg">
+        <link rel=”mask-icon” href=”assets/img/bosnian_coat_of_arms.svg” color=”#000000">
+
+        <link rel="stylesheet" href="assets/css/normalize.css">
+        <link rel="stylesheet" href="assets/css/index.css">
+        <link rel="stylesheet" href="assets/css/kube.css">
+
+        <link rel="prev" href="fountain.html">
+        <link rel="next" href="bridge.html">
+
+        <script src="components/FooterComponent/Footer.js"></script> <!-- type="module"-->
+        <script src="components/MastComponent/MedallionMast.js"></script> <!-- type="module"-->
+        <script src="components/NavigationComponent/Navigation.js"></script> <!-- type="module"-->
+    </head>
+
+    <body id="monastery">
+        <header>
+            <balkans-navigation></balkans-navigation>
+
+            <balkans-mast country="bosnia"></balkans-mast>
+        </header>
+
+        <main typeof="TouristAttraction LandmarksOrHistoricalBuildings">
+            <div property="geo" typeof="GeoCoordinates">
+                <!--   -->
+                <meta property="latitude" content="">
+                <meta property="longitude" content="">
+            </div>
+
+            <header class="row align-center">
+                <div class="col col-8">
+                    <h1 class="title text-center">The Monastery</h1>
+                </div>
+            </header>
+
+            <section class="row gutters around primary-content">
+                <article class="col col-10">
+                    <header>
+                        <h2>Beside a monastery, springs the Buna river&hellip;</h2>
+                    </header>
+
+                    <figure class="hero">
+                        <img property="photo" src="assets/img/blagaj_tekke.jpg" alt="a rock facade nestles a white building next to a srpouting river">
+                        <figcaption property="">
+                            Image: <a property="dc:source" href="">Wikipedia</a> / <span property="dc:creator">Talha Şamil &Ccedil;akır</span> / <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/"><span property="dc:license">CC-BY-SA 3.0</span></a>
+                        </figcaption>
+                    </figure>
+
+                    <p class="intro">
+                        Forming Blagaj's signature attraction, the centrepiece of this complex of traditional stone-roofed buildings is a very pretty half-timbered dervish house with wobbly rug-covered floors, carved doorways, curious niches and a bathroom with star-shaped coloured glass set into the ceiling.
+                    </p>
+                    <p>
+                        The tekke's last sheikh died in 1923 and dervish spirituality was suppressed following WWII.
+                        The Blagaj Tekke is now once again a venue for Zikr praise-chanting three nights a week.
+                    </p>
+                    <p>
+                        The dervishes follow a mystical strand of Islam in which the peaceful contemplation of nature plays a part, hence the tekke's idyllic positioning above the cave mouth from which the Buna River's surreally blue-green waters flow forth.
+                    </p>
+                    <small class="attribution">&mdash; <strong property="dc:source">Lonely Planet</strong></small>
+
+                </article>
+            </section>
+        </main>
+
+        <balkans-footer></balkans-footer>
+    </body>
+</html>
