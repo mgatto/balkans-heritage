@@ -10,7 +10,8 @@ class Footer extends HTMLElement {
         shadowRoot.appendChild(footer);
     }
 
-    connectedCallback() {}
+    connectedCallback() {
+    }
 
     static get template() {
         return `
@@ -32,8 +33,14 @@ class Footer extends HTMLElement {
                 </div>
                 
                 <div class="footer-primary"> <!--new Intl.Locale('en-Arab-US', {numberingSystem: 'arabext', calendar: 'islamic'})-->
-                    <span class="year">${new Intl.DateTimeFormat('en-US', {year : 'numeric', era: 'short'}).format(new Date())}</span>
-                    <span class="year" style="direction: rtl">${new Intl.DateTimeFormat('ar-SA', {year : 'numeric', era: 'short'}).format(new Date())}</span> 
+                    <span class="year">${new Intl.DateTimeFormat('en-US', {
+                        year: 'numeric',
+                        era: 'short'
+                    }).format(new Date())}</span>
+                    <span class="year" style="direction: rtl">${new Intl.DateTimeFormat('ar-SA', {
+                        year: 'numeric',
+                        era: 'short'
+                    }).format(new Date())}</span> 
 
                     <img src="assets/img/CC.png" alt="Logo for the Creative Commons License">
                     <span class="license">This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</span>
@@ -48,6 +55,6 @@ class Footer extends HTMLElement {
     }
 }
 
-if ( !customElements.get('balkans-footer')) {
+if (!customElements.get('balkans-footer')) {
     customElements.define('balkans-footer', Footer);
 }
