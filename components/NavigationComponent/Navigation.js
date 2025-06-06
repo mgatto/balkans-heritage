@@ -1,7 +1,7 @@
 class Navigation extends HTMLElement {
     /*
-    * all svg sourced from Wikipedia / Wikimedia and is used under the Creative Commons license
-    */
+     * all svg sourced from Wikipedia / Wikimedia and is used under the Creative Commons license
+     */
 
     constructor() {
         super();
@@ -10,7 +10,6 @@ class Navigation extends HTMLElement {
     connectedCallback() {
         this.render();
     }
-
 
     set page(name) {
         this._page = name;
@@ -21,21 +20,22 @@ class Navigation extends HTMLElement {
     }
 
     render() {
-        this.page = this.getAttribute('page');
+        this.page = this.getAttribute("page");
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
-        const nav = document.createElement('nav');
+        const shadowRoot = this.attachShadow({mode: "open"});
+        const nav = document.createElement("nav");
 
         nav.innerHTML = this.template;
         shadowRoot.appendChild(nav);
 
-        let filename = window.location.pathname.split('/').pop().split('.')[0] || '';
-        if (filename === '' || filename === 'index') {
-            filename = 'home';
+        let filename =
+            window.location.pathname.split("/").pop().split(".")[0] || "";
+        if (filename === "" || filename === "index") {
+            filename = "home";
         }
 
         const currentNavLI = shadowRoot.getElementById(`${filename}_link`);
-        currentNavLI.classList.add('active');
+        currentNavLI.classList.add("active");
     }
 
     get template() {
@@ -94,6 +94,10 @@ class Navigation extends HTMLElement {
                     <a href="fountain.html">Fountain</a>
                 </li>
                 
+                <li id="mosque_link">
+                    <a href="mosque.html">Mosque</a>
+                </li>
+                
                 <li id="monastery_link">
                     <a href="monastery.html">Monastery</a>
                 </li>
@@ -106,6 +110,6 @@ class Navigation extends HTMLElement {
     }
 }
 
-if ( !customElements.get('balkans-navigation')) {
-    customElements.define('balkans-navigation', Navigation);
+if (!customElements.get("balkans-navigation")) {
+    customElements.define("balkans-navigation", Navigation);
 }
