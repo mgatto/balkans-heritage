@@ -1,0 +1,12 @@
+{
+    "bracketSameLine": false,
+    "endOfLine": "lf",
+    "htmlWhitespaceSensitivity": "css",
+    "objectWrap": "preserve",
+    "parser": "html",
+    "printWidth": 1,
+    "singleAttributePerLine": false,
+    "singleQuote": false,
+    "tabWidth": 4,
+    "useTabs": true
+}
