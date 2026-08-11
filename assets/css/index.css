@@ -150,6 +150,14 @@ figcaption {
 	/* let's keep it a large photo, that's how nice it looks */
 }
 
+#mosque .hero {
+	clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+	float: left;
+	width: 55%;
+	shape-outside: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+	shape-margin: 1.5rem;
+}
+
 legend {
 	margin-bottom: 1rem;
 }
