@@ -7,6 +7,29 @@ import { ViteMinifyPlugin } from 'vite-plugin-minify';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// Vite's core HTML plugin resolves the `href` of every <link> tag as a static asset,
+// regardless of its `rel` value. Our pages use <link rel="prev"/"next" href="foo.html">
+// for pagination between sibling entry pages, so Vite was fingerprinting those sibling
+// HTML files and duplicating them into assets/ (in addition to their real root-level
+// entry output). This plugin hides the href on those specific tags before Vite's core
+// HTML resolution runs, then restores it once the final HTML has been generated.
+const NAV_LINK_ATTR = 'data-vite-skip-href';
+const LINK_TAG_RE = /<link\b[^>]*>/gi;
+
+function hidePaginationHrefs(html) {
+    return html.replace(LINK_TAG_RE, (tag) => {
+        if (/\brel=["'](?:prev|next)["']/i.test(tag) && /\bhref=/i.test(tag)) {
+            return tag.replace(/\bhref=/i, `${NAV_LINK_ATTR}=`);
+        }
+        return tag;
+    });
+}
+
+function restorePaginationHrefs(html) {
+    return html.replaceAll(`${NAV_LINK_ATTR}=`, 'href=');
+}
+
+// Vite will automatically copy everything from src/public into the root of your dist folder completely untouched during the build.
 export default defineConfig({
     root: resolve(__dirname, 'src'), // Sets the project root to the src folder
     build: {
@@ -23,19 +46,36 @@ export default defineConfig({
         rollupOptions: {
             // https://rollupjs.org/configuration-options/
             input: {
-                main: './index.html', // Main entry point
-                bridge: './bridge.html',
-                mosque: './mosque.html',
-                fountain: './fountain.html',
-                monastery: './monastery.html',
+                // Since root is 'src', specify paths relative to the src folder directly
+                main: 'index.html',
+                bridge: 'bridge.html',
+                mosque: 'mosque.html',
+                fountain: 'fountain.html',
+                monastery: 'monastery.html',
                 // Footer: './components/FooterComponent/Footer.js',
             },
-            /*output: {
-                entryFileNames: '[name].js', // This will output files like "button.js" and "card.js"
-            },*/
+            output: {
+                // Safely moves JS files and compiled CSS/image assets into an assets folder
+                // Vite automatically exempts primary HTML input entries from these rules
+                entryFileNames: 'assets/[name]-[hash].js',
+                chunkFileNames: 'assets/[name]-[hash].js',
+                assetFileNames: 'assets/[name]-[hash].[ext]',
+            }
         },
     },
     plugins: [
+        {
+            name: 'preserve-pagination-links',
+            enforce: 'pre',
+            transform(code, id) {
+                if (!id.endsWith('.html')) return;
+                return hidePaginationHrefs(code);
+            },
+            transformIndexHtml: {
+                order: 'post',
+                handler: restorePaginationHrefs,
+            },
+        },
         // input https://www.npmjs.com/package/html-minifier-terser options
         ViteMinifyPlugin({
             removeComments: true,
@@ -55,9 +95,9 @@ export default defineConfig({
         {
             name: 'html-minify-plugin',
             async transform(code, id) {
-                // Target HTML files that are likely imported as strings for web components
-                // Adjust the regex or file extension based on your project's conventions
-                if (id.endsWith('.html?inline')) {
+                // Strict check: Only intercept files explicitly queried with `?inline`
+                // This prevents your primary HTML files from turning into hashed JS strings
+                if (id.includes('.html?inline')) {
                     const minifiedHtml = await minify(code, {
                         collapseWhitespace: true,
                         removeComments: true,
