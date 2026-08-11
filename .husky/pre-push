@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Load nvm to make npm available in Git hook environments with a minimal PATH.
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+npm test || { echo 'ERROR: Tests failed. Please fix before pushing.'; exit 1; }

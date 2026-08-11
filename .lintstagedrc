@@ -1,0 +1,5 @@
+{
+    "*.html": "html-validate",
+    "*.css": "stylelint",
+    "*.{js,mjs,cjs,json,jsonc,json5}": "eslint"
+}

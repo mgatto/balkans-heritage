@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Load nvm to make node/npm available
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Prefer the project-local binary (requires `npm install`).
+if [ -x "./node_modules/.bin/lint-staged" ]; then
+  ./node_modules/.bin/lint-staged
+else
+  echo "lint-staged not found. Run: npm install"
+  exit 1
+fi
