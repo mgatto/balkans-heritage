@@ -9,8 +9,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	/*font: inherit;*/
 	vertical-align: baseline;
+    font-weight: normal;
+    font-family: Oswald, sans-serif;
+    font-variation-settings: 'wdth' 115;
+    color: #333;
+    line-height: normal;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -30,12 +34,12 @@ blockquote, q {
 	quotes: none;
 }
 
-blockquote:before, blockquote:after {
+blockquote::before, blockquote::after {
 	content: '';
 	content: none;
 }
 
-q:before, q:after {
+q::before, q::after {
 	content: '';
 	content: none;
 }
@@ -45,25 +49,18 @@ table {
 	border-spacing: 0;
 }
 
-/*@font-face {
+/* @font-face {
 	font-family: 'SinaNovaReg';
 	src: url("../fonts/SinaNovaReg-webfont.woff2") format("woff2"), url("../fonts/SinaNovaReg-webfont.woff") format("woff");
 	font-style: normal;
-}*/
-
-html {
-	font-weight: normal;
-	font-family: 'Oswald', sans-serif;
-	font-variation-settings: 'wdth' 115;
-	/*font-family: SinaNovaReg, serif;*/
-	color: #333;
-	line-height: normal;
-}
+} */
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'EB Garamond', serif !important;
-	/*font-family: 'Oswald', sans-serif;*/
-	/*font-variation-settings: 'wdth' 115;*/
+
+	/* font-family: 'Oswald', sans-serif; */
+
+	/* font-variation-settings: 'wdth' 115; */
 }
 
 html {
@@ -72,8 +69,9 @@ html {
 
 /* pages */
 p {
-	font-family: 'Oswald', sans-serif;
-	/*font-family: 'EB Garamond', serif !important;*/
+	font-family: Oswald, sans-serif;
+
+	/* font-family: 'EB Garamond', serif !important; */
 	font-weight: lighter;
 	margin-bottom: 1rem;
 }
@@ -85,6 +83,7 @@ p {
 main p {
 	line-height: 1.4rem;
 }
+
 main p.intro {
 	font-size: 1.3rem;
 	line-height: 1.65rem;
@@ -107,10 +106,23 @@ figcaption {
 	margin-bottom: 1rem;
 }
 
+ul.checkboxes {
+    list-style-type: none;
+}
+
+ul.checkboxes button[type="submit"] {
+    padding: 0;
+}
+
+button#maps-download{
+    background-color: #E30A17;
+}
+
 #home .hero img {
 	filter: sepia(50%) drop-shadow(10px 10px 10px gray);
 	border-right: 40px;
 }
+
 #home .hero figcaption {
 	margin-top: 1rem;
 }
@@ -118,10 +130,12 @@ figcaption {
 #home ul {
 	list-style-type: none;
 }
+
 #home ul li {
 	line-height: 1.5rem;
 }
-#home ul li:before {
+
+#home ul li::before {
 	content: '\2605';
 	margin: 0 1em;
 }
