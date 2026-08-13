@@ -9,6 +9,7 @@ The site is built with [Vite](https://vitejs.dev/) as a multi-page app of static
 The tour is structured as a series of parts, each covering a distinct period in the region's history:
 
 - **Part I: The Ottoman Heritage** — the current focus, featuring a bridge in Prizren, a mosque and fountain in Sarajevo, and a monastery near Mostar.
+- **The Byzantine** — planned. Sites and stories from the Byzantine (Eastern Roman) period.
 - **The Habsburg** — planned. Sites and stories from the Austro-Hungarian period.
 - **The Yugoslav** — planned. Sites and stories from the Yugoslav era.
 
@@ -31,7 +32,7 @@ If you enjoy meticulous, standards-first web development — or you care about B
 
 ## Project structure
 
-```
+```BASH
 src/
   index.html              # Home / tour entry point
   bridge.html             # Point-of-interest pages
@@ -111,9 +112,11 @@ Contributions of all kinds are welcome: content and translations, accessibility 
 
 1. **Fork** the repository and clone your fork locally.
 2. **Create a branch** for your change:
+
    ```bash
    git checkout -b feature/short-description
    ```
+
 3. **Make your changes.** Keep them focused and follow the design principles above.
 4. **Lint locally** with the commands in [Linting & formatting](#linting--formatting) and confirm the site still builds (`npm run build`).
 5. **Commit** with a clear, descriptive message.
