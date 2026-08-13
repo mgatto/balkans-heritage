@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="assets/css/kube.css">
     <link rel="stylesheet" href="assets/css/index.css">
 
-    <link rel="prev" href="">
     <link rel="next" href="fountain.html">
 
     <script type="module" src="/components/FooterComponent/Footer.js"></script>
@@ -45,7 +44,7 @@
             </div>
         </header>
 
-        <section id="" class="row gutters around">
+        <section id="the-ottoman" class="row gutters around">
             <article class="col col-10">
                 <header>
                     <h2>Part I: The Ottoman Heritage</h2>
@@ -70,25 +69,38 @@
                     method="post">
                     <fieldset>
                         <legend>Notify me for Parts II, III, IV</legend>
-                        <label class="label form-item" for="fullname">
+                        <label class="label form-item"><!-- for="" is redundant when <label> wraps the input -->
                             Name:
                             <input type="text" name="fullname" id="fullname">
                         </label>
 
-                        <label class="label form-item" for="email">
-                            Email
+                        <label class="label form-item">
+                            Email:
                             <input type="email" name="email" id="email">
                         </label>
 
-                        <label class="label form-item checkbox">
-                            Hope to see next:
-                            <input type="checkbox" name="next" value="byzantine">Byzantine&nbsp;
-                            <input type="checkbox" name="next" value="hapsburg">Hapsburg&nbsp;
-                            <input type="checkbox" name="next" value="yugoslav">Yugoslav&nbsp;
-                        </label>
+                        <fieldset>
+                            <legend>Hope to see next:</legend>
+                            <ul class="checkboxes">
+                                <li>
+                                    <label class="label form-item checkbox" for="byzantine-next">Byzantine&nbsp;</label>
+                                    <input id="byzantine-next" type="checkbox" name="next[]" value="byzantine">
+                                </li>
+                                <li>
+                                    <label class="label form-item checkbox" for="habsburg-next">Byzantine&nbsp;</label>
+                                    <input id="habsburg-next" type="checkbox" name="next[]"
+                                        value="habsburg">Habsburg&nbsp;
+                                </li>
+                                <li>
+                                    <label class="label form-item checkbox" for="yugoslav-next">Byzantine&nbsp;</label>
+                                    <input id="yugoslav-next" type="checkbox" name="next[]"
+                                        value="yugoslav">Yugoslav&nbsp;
+                                </li>
+                            </ul>
+                        </fieldset>
 
-                        <label class="label form-item checkbox" style="padding: 0">
-                            <input type="submit" class="button secondary" value="Save">
+                        <label class="label form-item checkbox">
+                            <button type="submit" class="button secondary" value="Save">Send</button>
                         </label>
                     </fieldset>
                 </form>
@@ -96,10 +108,9 @@
                 <hr>
 
                 <div>
-                    <form style="display: inline-block"><button type="submit" style="background-color: #E30A17;"
+                    <form style="display: inline-block"><button type="submit" id="maps-download"
                             formaction="assets/balkans_ottoman_heritage_maps.zip">Download</button></form> a package of
-                    maps (PDF's in
-                    .zip file, 1MB) for the points of interest, including:
+                    maps (PDF's in .zip file, 1MB) for the points of interest, including:
                 </div>
 
                 <ul>
