@@ -19,7 +19,7 @@ Additional parts and points of interest are welcome — see [How to contribute](
 
 - **Preserve and share culture.** The Balkans are often remembered for recent conflict; this project is a small effort to surface the region's deep history, art, and architecture instead.
 - **Learn from a clean, dependency-light codebase.** No heavy front-end framework — just modern, standards-based HTML, CSS, and vanilla Web Components bundled with Vite.
-- **Care about craft.** The project aims for strict HTML5 conformance, structured data via [Schema.org](https://schema.org/), and accessible, semantic markup.
+- **Care about craft.** The project aims for strict HTML5 conformance, structured data via [Schema.org](https://schema.org/) expressed as inline [RDFa](https://www.w3.org/TR/rdfa-primer/), and accessible, semantic markup.
 
 If you enjoy meticulous, standards-first web development — or you care about Balkan history and culture — you're very welcome to contribute.
 
@@ -27,7 +27,7 @@ If you enjoy meticulous, standards-first web development — or you care about B
 
 - **Strict HTML5 conformance** — validated markup (see `npm run lint:html`).
 - **Progressive enhancement** — pages work as plain HTML; Web Components layer on extra behavior.
-- **Structured data** — usage of [Schema.org](https://schema.org/) vocabulary where appropriate.
+- **Structured data** — [Schema.org](https://schema.org/) vocabulary expressed as inline [RDFa](https://www.w3.org/TR/rdfa-primer/) attributes (`vocab`, `typeof`, `property`) on the semantic HTML, rather than a separate JSON-LD block.
 - **Minimal dependencies** — no front-end framework; vanilla JS Web Components only.
 
 ## Project structure
@@ -56,24 +56,31 @@ The main types and properties used are:
 
 - [`TouristAttraction`](https://schema.org/TouristAttraction) / [`LandmarksOrHistoricalBuildings`](https://schema.org/LandmarksOrHistoricalBuildings) — declared on each page's `<main>` to describe the landmark itself.
 - [`GeoCoordinates`](https://schema.org/GeoCoordinates) — a nested `geo` object carrying the landmark's `latitude` and `longitude`.
-- `photo` and `name` — the landmark's hero image and title.
-- Dublin Core terms (`dc:source`, `dc:creator`, `dc:license`) — image and quotation attribution and licensing.
+- [`ImageObject`](https://schema.org/ImageObject) — the hero image as a nested object with its own `contentUrl`, `creator`, `copyrightHolder`, and `license`, so image attribution attaches to the image rather than the landmark.
+- [`sameAs`](https://schema.org/sameAs) — links each landmark to its [Wikidata](https://www.wikidata.org/) and [DBpedia](https://www.dbpedia.org/) entities, turning the page into a node in the global linked-data graph.
+- [`subjectOf`](https://schema.org/subjectOf) → `CreativeWork` — attributes quoted descriptive text to its publisher (e.g. Lonely Planet, UNESCO).
+- Dublin Core terms (`dc:source`, `dc:creator`, `dc:license`) — supplementary image attribution and licensing.
 
-For example, `src/bridge.html` sets the Schema.org vocabulary on `<body>` and marks up the landmark and its coordinates:
+For example, `src/bridge.html` sets the Schema.org vocabulary and Dublin Core prefix on `<body>` and marks up the landmark, its coordinates, and its linked-data identity:
 
 ```html
-<body id="bridge" vocab="http://schema.org/">
+<body id="bridge" vocab="http://schema.org/" prefix="dc: http://purl.org/dc/terms/">
     <main typeof="TouristAttraction LandmarksOrHistoricalBuildings">
         <div property="geo" typeof="GeoCoordinates">
-            <meta property="latitude" content="42.20972222">
-            <meta property="longitude" content="20.74027778">
+            <span property="latitude" content="42.20972222"></span>
+            <span property="longitude" content="20.74027778"></span>
         </div>
+        <span property="sameAs" resource="http://www.wikidata.org/entity/Q6085799"></span>
         ...
     </main>
 </body>
 ```
 
-> **Note:** The RDFa markup is a work in progress and is not yet consistent across every page (for example, some pages are missing the `vocab`/`prefix` declarations needed to resolve their terms). Tightening this up is planned for a future contribution.
+Coordinates use an empty `<span … content="…">` rather than `<meta>` because `<meta>` is not valid HTML body content without a microdata `itemprop`; RDFa's `content` attribute works on any element.
+
+You can inspect the extracted triples for every page with `npm run validate:rdfa`, or paste a page into the [W3C RDFa Play](https://rdfa.info/play/) / [Schema Markup Validator](https://validator.schema.org/).
+
+> **Note:** The RDFa markup is substantially complete and consistent across all four landmark pages. A couple of image-source links remain unverified — see `docs/future/schema-org-structured-data.md` for the remaining follow-ups.
 
 ## Getting started
 

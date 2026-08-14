@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html class="no-js" lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -22,7 +22,7 @@
 		<script src="components/NavigationComponent/Navigation.js"></script>
 	</head>
 
-	<body id="mosque">
+	<body id="mosque" vocab="http://schema.org/" prefix="dc: http://purl.org/dc/terms/">
 		<header>
 			<balkans-navigation></balkans-navigation>
 			<balkans-mast country="bosnia"></balkans-mast>
@@ -30,9 +30,11 @@
 
 		<main typeof="TouristAttraction LandmarksOrHistoricalBuildings">
 			<div property="geo" typeof="GeoCoordinates">
-				<meta property="latitude" content="43.859167">
-				<meta property="longitude" content="18.429028">
+				<span property="latitude" content="43.859167"></span>
+				<span property="longitude" content="18.429028"></span>
 			</div>
+			<span property="sameAs" resource="http://www.wikidata.org/entity/Q1255835"></span>
+			<span property="sameAs" resource="http://dbpedia.org/resource/Gazi_Husrev-beg_Mosque"></span>
 
 			<header class="row align-center">
 				<div class="col col-8">
@@ -47,13 +49,13 @@
 						<h2>From the hills, rises a mosque&hellip;</h2>
 					</header>
 
-					<figure class="hero">
-						<img property="photo" src="assets/img/husrev_beg_mosque.jpg"
+					<figure class="hero" property="photo" typeof="ImageObject">
+						<img property="contentUrl" src="assets/img/husrev_beg_mosque.jpg"
 							 alt="The Gazi Husrev-beg Mosque, a grand Ottoman-era mosque with a large central dome and tall minaret">
 						<figcaption>
-							Image: <a property="dc:source" href="">Wikipedia</a> /
-							<span property="dc:creator">Dinozzza</span> /
-							<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"><span property="dc:license">CC-BY-SA 4.0</span></a>
+							Image: <a href="">Wikipedia</a> /
+							<span property="creator copyrightHolder">Dinozzza</span> /
+							<a property="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a>
 						</figcaption>
 					</figure>
 
@@ -84,8 +86,8 @@
 							glory, standing as a testament to Bosnia's rich Islamic heritage
 							and architectural prowess.
 						</p>
-						<small class="attribution">&mdash;
-							<strong property="dc:source">UNESCO World Heritage</strong>
+						<small class="attribution" property="subjectOf" typeof="CreativeWork">&mdash;
+							<span property="publisher">UNESCO World Heritage</span>
 						</small>
 					</div>
 				</article>

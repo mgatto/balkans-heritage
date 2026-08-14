@@ -22,7 +22,7 @@
         <script src="components/NavigationComponent/Navigation.js"></script> <!-- type="module"-->
     </head>
 
-    <body id="monastery">
+    <body id="monastery" vocab="http://schema.org/" prefix="dc: http://purl.org/dc/terms/">
         <header>
             <balkans-navigation></balkans-navigation>
 
@@ -31,10 +31,11 @@
 
         <main typeof="TouristAttraction LandmarksOrHistoricalBuildings">
             <div property="geo" typeof="GeoCoordinates">
-                <!--   -->
-                <meta property="latitude" content="">
-                <meta property="longitude" content="">
+                <!-- 43° 15′ 25.15″ N, 17° 54′ 10.87″ E -->
+                <span property="latitude" content="43.25698"></span>
+                <span property="longitude" content="17.90302"></span>
             </div>
+            <span property="sameAs" resource="http://www.wikidata.org/entity/Q43951226"></span>
 
             <header class="row align-center">
                 <div class="col col-8">
@@ -48,10 +49,10 @@
                         <h2>Beside a monastery, springs the Buna river&hellip;</h2>
                     </header>
 
-                    <figure class="hero">
-                        <img property="photo" src="assets/img/blagaj_tekke.jpg" alt="a rock facade nestles a white building next to a srpouting river">
-                        <figcaption property="">
-                            Image: <a property="dc:source" href="">Wikipedia</a> / <span property="dc:creator">Talha Şamil &Ccedil;akır</span> / <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/"><span property="dc:license">CC-BY-SA 3.0</span></a>
+                    <figure class="hero" property="photo" typeof="ImageObject">
+                        <img property="contentUrl" src="assets/img/blagaj_tekke.jpg" alt="a rock facade nestles a white building next to a srpouting river">
+                        <figcaption>
+                            Image: <a href="">Wikipedia</a> / <span property="creator copyrightHolder">Talha Şamil &Ccedil;akır</span> / <a property="license" href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA 3.0</a>
                         </figcaption>
                     </figure>
 
@@ -65,7 +66,7 @@
                     <p>
                         The dervishes follow a mystical strand of Islam in which the peaceful contemplation of nature plays a part, hence the tekke's idyllic positioning above the cave mouth from which the Buna River's surreally blue-green waters flow forth.
                     </p>
-                    <small class="attribution">&mdash; <strong property="dc:source">Lonely Planet</strong></small>
+                    <small class="attribution" property="subjectOf" typeof="CreativeWork">&mdash; <span property="publisher">Lonely Planet</span></small>
 
                 </article>
             </section>
