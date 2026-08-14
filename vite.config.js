@@ -1,12 +1,33 @@
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { minify } from 'html-minifier-terser';
+import { writeFileSync } from 'node:fs';
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import { ViteMinifyPlugin } from 'vite-plugin-minify';
+import { generateSeoFiles } from './scripts/generate-seo-files.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Placeholder domain (balkans-heritage.example, RFC 2606 reserved for documentation)
+// pending the canonical domain & hosting decision tracked in docs/future/seo-modernization.md.
+// Update this single constant once a real domain is chosen.
+const SITE_URL = 'https://balkans-heritage.example';
+
+// Single source of truth for the site's pages. Drives both `build.rollupOptions.input`
+// (name -> file) and the SEO file generator (sitemap.xml / rss.xml), so neither can
+// drift from the actual set of pages. Routes keep their `.html` extension to match the
+// site's internal links. `title`/`description` feed the RSS items.
+const pages = [
+    { name: 'main', file: 'index.html', route: '/', title: 'Poetic Tour of the Balkans', description: 'A poetic tour of the Balkans\' layered cultural heritage across the empires and eras that shaped it.' },
+    { name: 'bridge', file: 'bridge.html', route: '/bridge.html', title: 'The Bridge', description: 'In Prizren, spans a bridge…' },
+    { name: 'mosque', file: 'mosque.html', route: '/mosque.html', title: 'The Mosque', description: 'From the hills, rises a mosque…' },
+    { name: 'fountain', file: 'fountain.html', route: '/fountain.html', title: 'The Fountain', description: 'In Sarajevo, flows a fountain…' },
+    { name: 'monastery', file: 'monastery.html', route: '/monastery.html', title: 'The Monastery', description: 'Beside a monastery, springs the Buna river…' },
+];
+
+const pageInput = Object.fromEntries(pages.map((p) => [p.name, p.file]));
 
 // Vite's core HTML plugin resolves the `href` of every <link> tag as a static asset,
 // regardless of its `rel` value. Our pages use <link rel="prev"/"next" href="foo.html">
@@ -47,15 +68,8 @@ export default defineConfig({
         },*/
         rollupOptions: {
             // https://rollupjs.org/configuration-options/
-            input: {
-                // Since root is 'src', specify paths relative to the src folder directly
-                main: 'index.html',
-                bridge: 'bridge.html',
-                mosque: 'mosque.html',
-                fountain: 'fountain.html',
-                monastery: 'monastery.html',
-                // Footer: './components/FooterComponent/Footer.js',
-            },
+            // Since root is 'src', paths are specified relative to the src folder directly
+            input: pageInput,
             output: {
                 // Safely moves JS files and compiled CSS/image assets into an assets folder
                 // Vite automatically exempts primary HTML input entries from these rules
@@ -110,6 +124,28 @@ export default defineConfig({
                     return `export default ${JSON.stringify(minifiedHtml)}`;
                 }
                 return code;
+            },
+        },
+        {
+            // Generates sitemap.xml, rss.xml, and robots.txt from the `pages` registry
+            // (see scripts/generate-seo-files.mjs, which uses the `sitemap` and `feed`
+            // libraries), instead of hand-maintaining static copies in src/public/ that
+            // drift as pages are added, renamed, or removed. Runs in closeBundle so it
+            // fires after Vite's built-in public-dir copy, guaranteeing nothing overwrites
+            // the generated files.
+            name: 'generate-seo-files',
+            apply: 'build',
+            async closeBundle() {
+                const distDir = resolve(__dirname, 'dist');
+                const files = await generateSeoFiles({
+                    pages,
+                    siteUrl: SITE_URL,
+                    srcDir: resolve(__dirname, 'src'),
+                });
+
+                for (const [filename, contents] of Object.entries(files)) {
+                    writeFileSync(resolve(distDir, filename), contents, 'utf-8');
+                }
             },
         },
     ],

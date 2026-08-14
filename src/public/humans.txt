@@ -1,6 +1,7 @@
 /* TEAM */
 Your title: Michael Gatto.
 Location: Tucson, AZ
+Github: https://github.com/mgatto/balkans-heritage
 
 
 /* THANKS */
@@ -8,10 +9,13 @@ Name: The CS-290 Crew
 Name: Eric Meyer
 Name: Jeffrey Zeldman
 Name: A List Apart
+Name: Wikidata, DBpedia & Wikimedia Commons contributors
 
 
 /* SITE */
-Last update: 2020/05/25
-Standards: HTML5, CSS3, WebComponents v1, ES6, RDFa Lite, Shadow DOM.
+Last update: 2026/08/14
+Language: English
+Doctype: HTML5
+Standards: HTML5, CSS3, WebComponents v1, ES6, RDFa Lite, Shadow DOM, Schema.org, WCAG 2.2 AA.
 Components: Normalize.css, Kube.css, Google Fonts.
-Software: WebStorm.
+Software: Vite, WebStorm.
