@@ -32,7 +32,7 @@
     "vite-plugin-minify": "^3.0.0"
   },
   "homepage": "https://github.com/mgatto/balkans-heritage#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "index.html",
   "name": "balkans-heritage",
   "repository": {

@@ -139,6 +139,12 @@ Contributions of all kinds are welcome: content and translations, accessibility 
 
 Not ready to write code? Opening an [issue](https://github.com/mgatto/balkans-heritage/issues) with a bug report, correction, or idea is a great way to help.
 
+## Cross-browser testing
+
+This project is tested with BrowserStack.
+
+Real-browser rendering checks run against [BrowserStack](https://www.browserstack.com/), whose Open Source program generously supports this project.
+
 ## License
 
-Released under the [ISC License](https://opensource.org/licenses/ISC).
+Released under the [MIT License](https://opensource.org/licenses/MIT) — see [LICENSE](LICENSE).
