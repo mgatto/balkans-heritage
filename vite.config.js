@@ -1,3 +1,4 @@
+import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { minify } from 'html-minifier-terser';
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -35,6 +36,7 @@ export default defineConfig({
     build: {
         outDir: resolve(__dirname, 'dist'), // Places the build folder back at the project root
         emptyOutDir: true, // Forces Vite to empty the dist folder outside the root before building
+        target: browserslistToEsbuild(), // Derives esbuild's target from the `browserslist` key in package.json
 
         /*lib:{
             entry: resolve(__dirname, "components/index.ts"),

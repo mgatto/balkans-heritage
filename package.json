@@ -1,5 +1,15 @@
 {
   "author": "Michael Gatto <gatto_omar@hotmail.com>",
+  "browserslist": [
+    "Chrome >= 67",
+    "Edge >= 79",
+    "Firefox >= 63",
+    "Safari >= 11",
+    "iOS >= 11",
+    "Samsung >= 6.2",
+    "Opera >= 64",
+    "not dead"
+  ],
   "bugs": {
     "url": "https://github.com/mgatto/balkans-heritage/issues"
   },
@@ -13,7 +23,10 @@
     "@eslint/js": "^10.0.1",
     "@eslint/json": "^2.0.1",
     "@lhci/cli": "^0.15.1",
+    "browserslist": "^4.28.8",
+    "browserslist-to-esbuild": "^2.1.1",
     "eslint": "^10.8.1",
+    "eslint-plugin-compat": "^7.0.2",
     "globals": "^17.11.0",
     "html-minifier-terser": "^7.2.0",
     "html-validate": "^10.9.0",
@@ -24,6 +37,7 @@
     "rollup": "^4.62.4",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
+    "stylelint-no-unsupported-browser-features": "^8.1.1",
     "vite": "^8.2.1",
     "vite-plugin-minify": "^3.0.0"
   },

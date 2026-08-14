@@ -1,3 +1,4 @@
+import compat from "eslint-plugin-compat";
 import js from "@eslint/js";
 import globals from "globals";
 import json from "@eslint/json";
@@ -8,7 +9,9 @@ export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs}"],
     ignores: ["scripts/**", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs"],
+    plugins: { compat },
     languageOptions: { globals: globals.browser },
+    rules: { "compat/compat": "error" },
   },
   {
     files: ["scripts/**/*.{js,mjs,cjs}", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs"],
