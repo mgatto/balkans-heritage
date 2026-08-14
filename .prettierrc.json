@@ -4,7 +4,7 @@
     "htmlWhitespaceSensitivity": "css",
     "objectWrap": "preserve",
     "parser": "html",
-    "printWidth": 1,
+    "printWidth": 80,
     "singleAttributePerLine": false,
     "singleQuote": false,
     "tabWidth": 4,
