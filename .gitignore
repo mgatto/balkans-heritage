@@ -3,4 +3,6 @@
 node_modules
 /package-lock.json
 /dist
+.lighthouseci
+*.report.html
 .DS_Store
