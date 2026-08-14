@@ -21,7 +21,6 @@
     "picocolors": "^1.1.1",
     "picomatch": "^4.0.5",
     "postcss": "^8.5.26",
-    "prettier": "3.9.6",
     "rdfa-streaming-parser": "^3.0.2",
     "rollup": "^4.62.4",
     "source-map-js": "^1.2.1",
