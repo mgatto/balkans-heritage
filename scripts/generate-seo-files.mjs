@@ -44,7 +44,7 @@ async function renderSitemap(pages, siteUrl, srcDir) {
     return `${xml}\n`;
 }
 
-function renderRss(pages, siteUrl, srcDir) {
+function renderRss(pages, siteUrl) {
     const feed = new Feed({
         title: CHANNEL_TITLE,
         description: CHANNEL_DESCRIPTION,
@@ -57,12 +57,23 @@ function renderRss(pages, siteUrl, srcDir) {
 
     for (const page of pages) {
         const url = `${siteUrl}${page.route}`;
+        // Explicit publication date from the registry, not the file's mtime, so
+        // editing an existing page doesn't bump it to the top of the feed. Guard
+        // against a missing/invalid value so a forgotten field fails the build
+        // loudly instead of emitting an `Invalid Date` into the feed.
+        const date = new Date(page.datePublished);
+        if (Number.isNaN(date.getTime())) {
+            throw new Error(
+                `Page "${page.name}" has a missing or invalid \`datePublished\` (${JSON.stringify(page.datePublished)}). ` +
+                'Add an ISO date (e.g. "2025-06-06") to its entry in the `pages` registry in vite.config.js.'
+            );
+        }
         feed.addItem({
             title: page.title,
             id: url,
             link: url,
             description: page.description,
-            date: lastModified(srcDir, page.file),
+            date,
         });
     }
 
@@ -81,7 +92,7 @@ Sitemap: ${siteUrl}/sitemap.xml
 
 /**
  * @param {object} options
- * @param {Array<{name: string, file: string, route: string, title: string, description: string}>} options.pages
+ * @param {Array<{name: string, file: string, route: string, title: string, description: string, datePublished: string}>} options.pages
  *   the page registry shared with `build.rollupOptions.input` in vite.config.js.
  * @param {string} options.siteUrl - canonical origin, no trailing slash.
  * @param {string} options.srcDir - absolute path to the `src` directory (used for lastmod mtimes).
@@ -90,7 +101,7 @@ Sitemap: ${siteUrl}/sitemap.xml
 export async function generateSeoFiles({ pages, siteUrl, srcDir }) {
     return {
         'sitemap.xml': await renderSitemap(pages, siteUrl, srcDir),
-        'rss.xml': renderRss(pages, siteUrl, srcDir),
+        'rss.xml': renderRss(pages, siteUrl),
         'robots.txt': renderRobots(siteUrl),
     };
 }

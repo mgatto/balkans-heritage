@@ -18,13 +18,17 @@ const SITE_URL = 'https://balkans-heritage.example';
 // Single source of truth for the site's pages. Drives both `build.rollupOptions.input`
 // (name -> file) and the SEO file generator (sitemap.xml / rss.xml), so neither can
 // drift from the actual set of pages. Routes keep their `.html` extension to match the
-// site's internal links. `title`/`description` feed the RSS items.
+// site's internal links. `title`/`description` feed the RSS items. `datePublished`
+// (ISO date) is the feed item's publication date — kept explicit here rather than
+// derived from the file's mtime, so editing an existing page doesn't re-surface it at
+// the top of the feed. Seeded from each file's first commit; update when a page is
+// genuinely (re)published.
 const pages = [
-    { name: 'main', file: 'index.html', route: '/', title: 'Poetic Tour of the Balkans', description: 'A poetic tour of the Balkans\' layered cultural heritage across the empires and eras that shaped it.' },
-    { name: 'bridge', file: 'bridge.html', route: '/bridge.html', title: 'The Bridge', description: 'In Prizren, spans a bridge…' },
-    { name: 'mosque', file: 'mosque.html', route: '/mosque.html', title: 'The Mosque', description: 'From the hills, rises a mosque…' },
-    { name: 'fountain', file: 'fountain.html', route: '/fountain.html', title: 'The Fountain', description: 'In Sarajevo, flows a fountain…' },
-    { name: 'monastery', file: 'monastery.html', route: '/monastery.html', title: 'The Monastery', description: 'Beside a monastery, springs the Buna river…' },
+    { name: 'main', file: 'index.html', route: '/', title: 'Poetic Tour of the Balkans', description: 'A poetic tour of the Balkans\' layered cultural heritage across the empires and eras that shaped it.', datePublished: '2020-05-25' },
+    { name: 'bridge', file: 'bridge.html', route: '/bridge.html', title: 'The Bridge', description: 'In Prizren, spans a bridge…', datePublished: '2020-05-25' },
+    { name: 'mosque', file: 'mosque.html', route: '/mosque.html', title: 'The Mosque', description: 'From the hills, rises a mosque…', datePublished: '2025-06-06' },
+    { name: 'fountain', file: 'fountain.html', route: '/fountain.html', title: 'The Fountain', description: 'In Sarajevo, flows a fountain…', datePublished: '2020-05-25' },
+    { name: 'monastery', file: 'monastery.html', route: '/monastery.html', title: 'The Monastery', description: 'Beside a monastery, springs the Buna river…', datePublished: '2020-05-25' },
 ];
 
 const pageInput = Object.fromEntries(pages.map((p) => [p.name, p.file]));
