@@ -28,6 +28,7 @@ If you enjoy meticulous, standards-first web development — or you care about B
 - **Strict HTML5 conformance** — validated markup (see `npm run lint:html`).
 - **Progressive enhancement** — pages work as plain HTML; Web Components layer on extra behavior.
 - **Structured data** — [Schema.org](https://schema.org/) vocabulary expressed as inline [RDFa](https://www.w3.org/TR/rdfa-primer/) attributes (`vocab`, `typeof`, `property`) on the semantic HTML, rather than a separate JSON-LD block.
+- **Accessibility** — targets [WCAG 2.2](https://www.w3.org/TR/WCAG22/) Level AA; see [`docs/accessibility.md`](docs/accessibility.md) for the standard, automated verification (`npm run a11y`), and manual testing checklist.
 - **Minimal dependencies** — no front-end framework; vanilla JS Web Components only.
 
 ## Project structure
@@ -109,6 +110,7 @@ npm run lint:html     # validate HTML
 npm run lint:css      # lint CSS
 npm run lint:js       # lint JS/JSON
 npm run lint:fix      # auto-fix JS and CSS where possible
+npm run a11y          # check accessibility (pa11y-ci/axe-core) against a production build
 ```
 
 Git hooks (via [Husky](https://typicode.github.io/husky/)) run `lint-staged` on commit. There is no automated test suite yet, so the `pre-push` hook is currently a no-op — contributions that add tests are welcome.

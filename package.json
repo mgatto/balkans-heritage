@@ -33,8 +33,10 @@
     "husky": "^9.1.7",
     "lighthouse": "^12.8.2",
     "lint-staged": "^16.4.0",
+    "pa11y-ci": "^4.1.1",
     "rdfa-streaming-parser": "^3.0.2",
     "rollup": "^4.62.4",
+    "start-server-and-test": "^3.0.12",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-no-unsupported-browser-features": "^8.1.1",
@@ -50,8 +52,9 @@
     "url": "git+https://mgatto@github.com/mgatto/balkans-heritage.git"
   },
   "scripts": {
+    "a11y": "start-server-and-test preview:test http://localhost:4173 pa11y:run",
     "build": "vite build",
-    "postbuild": "npm run lighthouse",
+    "postbuild": "npm run lighthouse && npm run a11y",
     "dev": "vite",
     "lighthouse": "npm run lighthouse:desktop && npm run lighthouse:mobile",
     "lighthouse:desktop": "lhci autorun --config=lighthouserc.desktop.cjs",
@@ -63,9 +66,11 @@
     "lint:js": "eslint \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\"",
     "lint:js:fix": "eslint --fix \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\"",
     "lint:fix": "npm run lint:js:fix && npm run lint:css:fix",
-    "validate:rdfa": "node scripts/validate-rdfa.mjs",
+    "pa11y:run": "pa11y-ci --config .pa11yci.cjs || true",
     "preview": "vite preview",
+    "preview:test": "vite preview --port 4173 --strictPort",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "validate:rdfa": "node scripts/validate-rdfa.mjs",
     "prepare": "husky"
   },
   "version": "1.1.0"

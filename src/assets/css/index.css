@@ -104,6 +104,14 @@ figcaption {
 	font-style: italic;
 	font-size: smaller;
 	margin-bottom: 1rem;
+
+	/* kube.css dims captions via `opacity: .6`, which composites the whole
+	   caption (including its attribution/license links) down to a
+	   3.69:1 contrast ratio on white -- below WCAG 2.2 AA's 4.5:1 minimum
+	   for normal text. Cancel that and use a solid, still-muted gray that
+	   clears the threshold (roughly 7:1) instead of relying on opacity. */
+	opacity: 1;
+	color: #595959;
 }
 
 ul.checkboxes {

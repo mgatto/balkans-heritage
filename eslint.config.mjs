@@ -8,13 +8,13 @@ export default defineConfig([
   { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"] },
   {
     files: ["**/*.{js,mjs,cjs}"],
-    ignores: ["scripts/**", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs"],
+    ignores: ["scripts/**", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs", "**/.pa11yci.cjs"],
     plugins: { compat },
     languageOptions: { globals: globals.browser },
     rules: { "compat/compat": "error" },
   },
   {
-    files: ["scripts/**/*.{js,mjs,cjs}", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs"],
+    files: ["scripts/**/*.{js,mjs,cjs}", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs", "**/.pa11yci.cjs"],
     languageOptions: { globals: globals.node },
   },
   { files: ["**/*.json"], plugins: { json }, language: "json/json", extends: ["json/recommended"] },
