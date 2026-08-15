@@ -1,6 +1,6 @@
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { minify } from 'html-minifier-terser';
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolve } from 'path';
@@ -9,6 +9,14 @@ import { ViteMinifyPlugin } from 'vite-plugin-minify';
 import { generateSeoFiles } from './scripts/generate-seo-files.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// The `version` field is the single source of truth for the site's release —
+// see docs/engineering-practices.md for how it's bumped (`npm run release`,
+// via Conventional Commits). Reading it here, rather than hardcoding it,
+// keeps every build artifact traceable to the release that produced it.
+const { version: APP_VERSION } = JSON.parse(
+    readFileSync(resolve(__dirname, 'package.json'), 'utf-8')
+);
 
 // Placeholder domain (balkans-heritage.example, RFC 2606 reserved for documentation)
 // pending the canonical domain & hosting decision tracked in docs/future/seo-modernization.md.
@@ -58,6 +66,10 @@ function restorePaginationHrefs(html) {
 // Vite will automatically copy everything from src/public into the root of your dist folder completely untouched during the build.
 export default defineConfig({
     root: resolve(__dirname, 'src'), // Sets the project root to the src folder
+    define: {
+        // Available to client-side code as a global constant, e.g. for console/debug output.
+        __APP_VERSION__: JSON.stringify(APP_VERSION),
+    },
     build: {
         outDir: resolve(__dirname, 'dist'), // Places the build folder back at the project root
         emptyOutDir: true, // Forces Vite to empty the dist folder outside the root before building
@@ -84,6 +96,24 @@ export default defineConfig({
         },
     },
     plugins: [
+        {
+            // Stamps every built page with the release version so a deployed
+            // `dist/` artifact is traceable back to the `npm run release` that
+            // produced it (see docs/engineering-practices.md).
+            name: 'inject-generator-meta',
+            transformIndexHtml() {
+                return [
+                    {
+                        tag: 'meta',
+                        attrs: {
+                            name: 'generator',
+                            content: `balkans-heritage v${APP_VERSION}`,
+                        },
+                        injectTo: 'head',
+                    },
+                ];
+            },
+        },
         {
             name: 'preserve-pagination-links',
             enforce: 'pre',

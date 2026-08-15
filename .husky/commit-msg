@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Load nvm to make node/npm available
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Prefer the project-local binary (requires `npm install`).
+if [ -x "./node_modules/.bin/commitlint" ]; then
+  ./node_modules/.bin/commitlint --edit "$1"
+else
+  echo "commitlint not found. Run: npm install"
+  exit 1
+fi

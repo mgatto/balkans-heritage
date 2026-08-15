@@ -20,11 +20,14 @@
   "private": true,
   "type": "module",
   "devDependencies": {
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
     "@eslint/json": "^2.0.1",
     "@lhci/cli": "^0.15.1",
     "browserslist": "^4.28.8",
     "browserslist-to-esbuild": "^2.1.1",
+    "commit-and-tag-version": "^13.1.2",
     "eslint": "^10.8.1",
     "eslint-plugin-compat": "^7.0.2",
     "feed": "^6.0.0",
@@ -71,6 +74,7 @@
     "pa11y:run": "pa11y-ci --config .pa11yci.cjs || true",
     "preview": "vite preview",
     "preview:test": "vite preview --port 4173 --strictPort",
+    "release": "commit-and-tag-version",
     "test": "echo \"Error: no test specified\" && exit 1",
     "validate:rdfa": "node scripts/validate-rdfa.mjs",
     "prepare": "husky"
