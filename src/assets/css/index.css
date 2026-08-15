@@ -67,6 +67,32 @@ html {
 	background-color: white;
 }
 
+/* Skip link: visually offset off-screen until it receives keyboard focus,
+   then slides into view. Kept in the DOM/accessibility tree (not
+   display:none) so it stays reachable for keyboard and screen-reader users. */
+.skip-link {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	padding: 0.75rem 1rem;
+	background-color: #333;
+	color: #fff;
+	font-family: Oswald, sans-serif;
+	text-decoration: none;
+	transform: translateY(-150%);
+}
+
+.skip-link:focus {
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.skip-link {
+		transition: transform 0.2s ease-in-out;
+	}
+}
+
 /* pages */
 p {
 	font-family: Oswald, sans-serif;

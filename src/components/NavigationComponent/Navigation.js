@@ -36,6 +36,11 @@ class Navigation extends HTMLElement {
 
         const currentNavLI = shadowRoot.getElementById(`${filename}_link`);
         currentNavLI.classList.add("active");
+
+        const currentLink = currentNavLI.querySelector("a");
+        if (currentLink) {
+            currentLink.setAttribute("aria-current", "page");
+        }
     }
 
     get template() {
