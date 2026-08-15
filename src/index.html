@@ -28,7 +28,6 @@
     <script type="module" src="/components/FooterComponent/Footer.js"></script>
     <script type="module" src="/components/MastComponent/MedallionMast.js"></script>
     <script type="module" src="/components/NavigationComponent/Navigation.js"></script>
-    <script type="module" src="/components/NavigationComponent/Carousel.js"></script>
 </head>
 
 <body id="home">
@@ -61,50 +60,40 @@
                 </p>
                 <small class="attribution">&mdash; <strong property="dc:source">Marina Antić</strong></small>
 
-                <br>
-                <br>
-                <hr>
-
-                <form class="form-inline"
-                    action="http://web.engr.oregonstate.edu/~zhangluy/tools/class-content/form_tests/check_request.php"
-                    method="post">
-                    <fieldset>
-                        <legend>Notify me for Parts I, III, IV</legend>
-                        <label class="label form-item"><!-- for="" is redundant when <label> wraps the input -->
-                            Name:
-                            <input type="text" name="fullname" id="fullname">
-                        </label>
-
-                        <label class="label form-item">
-                            Email:
-                            <input type="email" name="email" id="email">
-                        </label>
-
-                        <fieldset>
-                            <legend>Hope to see next:</legend>
-                            <ul class="checkboxes">
-                                <li>
-                                    <label class="label checkbox" for="byzantine-next">I.
-                                        Byzantine&nbsp;</label>
-                                    <input id="byzantine-next" type="checkbox" name="next[]" value="byzantine">
-                                </li>
-                                <li>
-                                    <label class="label checkbox" for="habsburg-next">III.
-                                        Habsburg&nbsp;</label>
-                                    <input id="habsburg-next" type="checkbox" name="next[]" value="habsburg">
-                                </li>
-                                <li>
-                                    <label class="label checkbox" for="yugoslav-next">IV.
-                                        Yugoslav&nbsp;</label>
-                                    <input id="yugoslav-next" type="checkbox" name="next[]" value="yugoslav">
-                                </li>
-                            </ul>
-                        </fieldset>
-                        <br><br>
-                        <button type="submit" class="button secondary" value="Save">Send</button>
-                        <br><br>
-                    </fieldset>
-                </form>
+                <ul class="page-grid">
+                    <li>
+                        <a href="fountain.html">
+                            <figure>
+                                <img src="assets/img/fountain2.jpg" alt="">
+                                <figcaption>The Fountain</figcaption>
+                            </figure>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mosque.html">
+                            <figure>
+                                <img src="assets/img/husrev_beg_mosque.jpg" alt="">
+                                <figcaption>The Mosque</figcaption>
+                            </figure>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="monastery.html">
+                            <figure>
+                                <img src="assets/img/blagaj_tekke.jpg" alt="">
+                                <figcaption>The Monastery</figcaption>
+                            </figure>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="bridge.html">
+                            <figure>
+                                <img src="assets/img/prizren_bridge.jpg" alt="">
+                                <figcaption>The Bridge</figcaption>
+                            </figure>
+                        </a>
+                    </li>
+                </ul>
 
                 <hr>
 
@@ -129,13 +118,6 @@
                             region</a>
                     </li>
                 </ul>
-                <br>
-
-                <balkans-carousel>
-                    <img src="assets/img/screen_3.png" slot="start" alt="">
-                    <img src="assets/img/screen_2.png" slot="middle" alt="">
-                    <img src="assets/img/screen_1.png" slot="end" alt="">
-                </balkans-carousel>
             </article>
         </div>
     </main>
