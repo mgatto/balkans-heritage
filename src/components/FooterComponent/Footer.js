@@ -13,6 +13,13 @@ class Footer extends HTMLElement {
     }
 
     connectedCallback() {
+        const yearEl = this.shadowRoot.querySelector('.year');
+        if (yearEl) {
+            yearEl.textContent = new Intl.DateTimeFormat('en-US', {
+                year: 'numeric',
+                era: 'short',
+            }).format(new Date());
+        }
     }
 
     static get template() {
