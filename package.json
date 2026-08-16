@@ -46,7 +46,8 @@
     "stylelint-config-standard": "^40.0.0",
     "stylelint-no-unsupported-browser-features": "^8.1.1",
     "vite": "^8.2.1",
-    "vite-plugin-minify": "^3.0.0"
+    "vite-plugin-minify": "^3.0.0",
+    "vitest": "^4.1.10"
   },
   "homepage": "https://github.com/mgatto/balkans-heritage#readme",
   "license": "MIT",
@@ -68,14 +69,15 @@
     "lint:html": "html-validate \"src/**/*.html\"",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:css:fix": "stylelint --fix \"src/**/*.css\"",
-    "lint:js": "eslint \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\"",
-    "lint:js:fix": "eslint --fix \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\"",
+    "lint:js": "eslint \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\" \"scripts/**/*.{js,mjs,cjs}\" \"vitest.config.mjs\"",
+    "lint:js:fix": "eslint --fix \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\" \"scripts/**/*.{js,mjs,cjs}\" \"vitest.config.mjs\"",
     "lint:fix": "npm run lint:js:fix && npm run lint:css:fix",
     "pa11y:run": "pa11y-ci --config .pa11yci.cjs || true",
     "preview": "vite preview",
     "preview:test": "vite preview --port 4173 --strictPort",
     "release": "commit-and-tag-version",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "validate:rdfa": "node scripts/validate-rdfa.mjs",
     "prepare": "husky"
   },

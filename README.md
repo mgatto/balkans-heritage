@@ -115,9 +115,10 @@ npm run lint:css      # lint CSS
 npm run lint:js       # lint JS/JSON
 npm run lint:fix      # auto-fix JS and CSS where possible
 npm run a11y          # check accessibility (pa11y-ci/axe-core) against a production build
+npm test              # run the Vitest suite (scripts/*.mjs)
 ```
 
-Git hooks (via [Husky](https://typicode.github.io/husky/)) run `lint-staged` on commit. There is no automated test suite yet, so the `pre-push` hook is currently a no-op — contributions that add tests are welcome.
+Git hooks (via [Husky](https://typicode.github.io/husky/)) run `lint-staged` on commit and `npm test` on push. Test coverage currently spans the pure-Node build scripts (`scripts/generate-seo-files.mjs`, `scripts/validate-rdfa.mjs`) — the Web Components in `src/components/` aren't covered yet; contributions that extend coverage are welcome.
 
 ## How to contribute
 
