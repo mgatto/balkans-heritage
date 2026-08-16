@@ -239,7 +239,17 @@ button#maps-download{
 }
 
 #monastery .hero {
-	/* let's keep it a large photo, that's how nice it looks */
+	margin-bottom: 1.5rem;
+}
+
+/* Keep the photo large and immersive, but cap its height so the heading and
+   the start of the intro paragraph stay visible on load -- the clearest cue
+   that there's more to read below. */
+#monastery .hero img {
+	display: block;
+	width: 100%;
+	max-height: min(65vh, 620px);
+	object-fit: cover;
 }
 
 #mosque .hero {
@@ -252,11 +262,6 @@ button#maps-download{
 
 legend {
 	margin-bottom: 1rem;
-}
-
-.primary-content {
-	overflow-y: auto;
-	height: 500px;
 }
 
 .attribution {
