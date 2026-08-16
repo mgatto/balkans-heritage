@@ -1,3 +1,9 @@
+<!--
+    The `.cc-logo`/`.humanstxt-logo` images below use `src="data:,"` (a valid, network-free
+    placeholder — `<img>` requires a `src` for HTML5 conformance) because this markup is only
+    ever loaded as a raw string (see Footer.js's `?inline` import) and rendered into a shadow
+    root; Footer.js sets the real `src` from an imported (Vite-fingerprinted) asset once mounted.
+-->
 <footer>
     <div>
         <hr>
@@ -6,13 +12,13 @@
     <div class="footer-primary">
         <span class="year"></span>
 
-        <img src="assets/img/CC.png" alt="Logo for the Creative Commons License">
+        <img class="cc-logo" src="data:," alt="Logo for the Creative Commons License">
         <span class="license">This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0
             Unported License.</span>
     </div>
     <div>
         <a href="/humans.txt">
-            <img src="/assets/img/humanstxt-isolated-blank.gif" alt="the humans.txt logo">
+            <img class="humanstxt-logo" src="data:," alt="the humans.txt logo">
         </a>
     </div>
 </footer>

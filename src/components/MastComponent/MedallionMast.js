@@ -1,3 +1,10 @@
+// Imported (rather than referenced as a filename string below) so Vite fingerprints
+// these files and includes them in the build output; a plain string in a template
+// literal is invisible to Vite's asset pipeline and would 404 once built.
+import starAndCrescent from '../../assets/img/star_and_crescent.svg';
+import albanianEagle from '../../assets/img/albanian_eagle.svg';
+import bosnianCoatOfArms from '../../assets/img/bosnian_coat_of_arms.svg';
+
 class MedallionMast extends HTMLElement {
     /*
     * all svg sourced from Wikipedia / Wikimedia and is used under the Creative Commons license
@@ -33,15 +40,15 @@ class MedallionMast extends HTMLElement {
         const config = {
             balkans: {
                 colors: ['#E30A17','#fff','#E30A17'],
-                medallionImage: 'star_and_crescent.svg'
+                medallionImage: starAndCrescent
             },
             albania: {
                 colors: ['#ed1c24','#cfa550','#1d3c85'], // consider modern rgb or hsl
-                medallionImage: 'albanian_eagle.svg'
+                medallionImage: albanianEagle
             },
             bosnia: {
                 colors: ['#eec900','#fff','#003e9e'],
-                medallionImage: 'bosnian_coat_of_arms.svg'
+                medallionImage: bosnianCoatOfArms
             }
         };
 
@@ -84,7 +91,7 @@ class MedallionMast extends HTMLElement {
             </svg>
 
             <div id="medallion" class="row">
-                <img src="assets/img/${config[this.country].medallionImage}" alt="">
+                <img src="${config[this.country].medallionImage}" alt="">
             </div>
         `;
     }
