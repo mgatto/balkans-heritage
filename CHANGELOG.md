@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.1](https://github.com/mgatto/balkans-heritage/compare/v1.2.0...v1.2.1) (2026-08-16)
+
+### Bug Fixes
+
+* html referenced to-be-hashed asset files statically ([b04cb03](https://github.com/mgatto/balkans-heritage/commit/b04cb0304a137951562ae8e25b737422e6710c04))
 ## [1.2.0](https://github.com/mgatto/balkans-heritage/compare/v1.1.0...v1.2.0) (2026-08-15)
 
 ### Features
