@@ -329,12 +329,25 @@ button#maps-download {
     margin-top: 1rem;
 }
 
+/* Octagon echoing the Sebilj's octagonal kiosk. The clip is on the image (a
+   square via object-fit) so the figcaption stays fully visible below it, while
+   shape-outside on the floated figure wraps the copy around the octagon. The
+   right margin opens a real gap between the image and the text (shape-margin
+   alone can't, since the octagon's sides reach the float's box edge). */
 #fountain .hero {
-    clip-path: circle(260px at center);
     float: left;
-    width: 70%;
-    shape-outside: circle(260px at center);
+    width: 48%;
+    shape-outside: polygon(29.3% 0%, 70.7% 0%, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0% 70.7%, 0% 29.3%);
     shape-margin: 1.5rem;
+    margin-right: 2rem;
+}
+
+#fountain .hero img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    clip-path: polygon(29.3% 0%, 70.7% 0%, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0% 70.7%, 0% 29.3%);
 }
 
 #monastery .hero {
