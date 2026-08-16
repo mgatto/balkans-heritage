@@ -4,12 +4,92 @@
 */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald:wght@300;400&display=swap');
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
     font-weight: normal;
     font-family: Oswald, sans-serif;
     font-variation-settings: 'wdth' 115;
@@ -18,35 +98,49 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
 }
 
 body {
-	line-height: 1;
+    line-height: 1;
 }
 
-ol, ul {
-	list-style: none;
+ol,
+ul {
+    list-style: none;
 }
 
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+    quotes: none;
 }
 
-blockquote::before, blockquote::after {
-	content: '';
-	content: none;
+blockquote::before,
+blockquote::after {
+    content: '';
+    content: none;
 }
 
-q::before, q::after {
-	content: '';
-	content: none;
+q::before,
+q::after {
+    content: '';
+    content: none;
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /* @font-face {
@@ -55,89 +149,94 @@ table {
 	font-style: normal;
 } */
 
-h1, h2, h3, h4, h5, h6 {
-	font-family: 'EB Garamond', serif !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'EB Garamond', serif !important;
 
-	/* font-family: 'Oswald', sans-serif; */
+    /* font-family: 'Oswald', sans-serif; */
 
-	/* font-variation-settings: 'wdth' 115; */
+    /* font-variation-settings: 'wdth' 115; */
 }
 
 html {
-	background-color: white;
+    background-color: white;
 }
 
 /* Skip link: visually offset off-screen until it receives keyboard focus,
    then slides into view. Kept in the DOM/accessibility tree (not
    display:none) so it stays reachable for keyboard and screen-reader users. */
 .skip-link {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 10;
-	padding: 0.75rem 1rem;
-	background-color: #333;
-	color: #fff;
-	font-family: Oswald, sans-serif;
-	text-decoration: none;
-	transform: translateY(-150%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 0.75rem 1rem;
+    background-color: #333;
+    color: #fff;
+    font-family: Oswald, sans-serif;
+    text-decoration: none;
+    transform: translateY(-150%);
 }
 
 .skip-link:focus {
-	transform: translateY(0);
+    transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-	.skip-link {
-		transition: transform 0.2s ease-in-out;
-	}
+    .skip-link {
+        transition: transform 0.2s ease-in-out;
+    }
 }
 
 /* pages */
 p {
-	font-family: Oswald, sans-serif;
+    font-family: Oswald, sans-serif;
 
-	/* font-family: 'EB Garamond', serif !important; */
-	font-weight: lighter;
-	margin-bottom: 1rem;
+    /* font-family: 'EB Garamond', serif !important; */
+    font-weight: lighter;
+    margin-bottom: 1rem;
 }
 
 .title {
-	margin-top: 0.5em;
+    margin-top: 0.5em;
 }
 
 main p {
-	line-height: 1.4rem;
+    line-height: 1.4rem;
 }
 
 main p.intro {
-	font-size: 1.3rem;
-	line-height: 1.65rem;
-	margin-bottom: 1.2rem;
+    font-size: 1.3rem;
+    line-height: 1.65rem;
+    margin-bottom: 1.2rem;
 }
 
 h2 {
-	font-size: 2rem;
-	line-height: 3rem;
-	margin-top: 0.6rem;
-	margin-bottom: 0.6rem;
-	text-align: center;
+    font-size: 2rem;
+    line-height: 3rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+    text-align: center;
 }
 
 figcaption {
-	text-align: center;
-	padding-left: 2em;
-	font-style: italic;
-	font-size: smaller;
-	margin-bottom: 1rem;
+    text-align: center;
+    padding-left: 2em;
+    font-style: italic;
+    font-size: smaller;
+    margin-bottom: 1rem;
 
-	/* kube.css dims captions via `opacity: .6`, which composites the whole
+    /* kube.css dims captions via `opacity: .6`, which composites the whole
 	   caption (including its attribution/license links) down to a
 	   3.69:1 contrast ratio on white -- below WCAG 2.2 AA's 4.5:1 minimum
 	   for normal text. Cancel that and use a solid, still-muted gray that
 	   clears the threshold (roughly 7:1) instead of relying on opacity. */
-	opacity: 1;
-	color: #595959;
+    opacity: 1;
+    color: #595959;
 }
 
 ul.checkboxes {
@@ -148,124 +247,141 @@ ul.checkboxes button[type="submit"] {
     padding: 0;
 }
 
-button#maps-download{
+button#maps-download {
     background-color: #E30A17;
 }
 
 #home .hero img {
-	filter: sepia(50%) drop-shadow(10px 10px 10px gray);
-	border-right: 40px;
+    filter: sepia(50%) drop-shadow(10px 10px 10px gray);
+    border-right: 40px;
 }
 
 #home .hero figcaption {
-	margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 #home ul {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 #home ul li {
-	line-height: 1.5rem;
+    line-height: 1.5rem;
 }
 
 #home ul li::before {
-	content: '\2605';
-	margin: 0 1em;
+    content: '\2605';
+    margin: 0 1em;
 }
 
 #home .page-grid {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 1.5rem;
-	margin: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
 }
 
 #home .page-grid li::before {
-	content: none;
-	margin: 0;
+    content: none;
+    margin: 0;
 }
 
 #home .page-grid a {
-	display: block;
-	text-decoration: none;
+    display: block;
+    text-decoration: none;
 }
 
 #home .page-grid figure {
-	margin: 0;
+    margin: 0;
 }
 
 #home .page-grid img {
-	display: block;
-	width: 100%;
-	aspect-ratio: 16 / 10;
-	object-fit: cover;
-	filter: sepia(50%) drop-shadow(6px 6px 8px gray);
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    filter: sepia(50%) drop-shadow(6px 6px 8px gray);
 }
 
 #home .page-grid figcaption {
-	margin-top: 0.75rem;
-	padding-left: 0;
-	font-family: 'EB Garamond', serif;
-	font-size: 1.3rem;
-	font-style: normal;
-	text-align: center;
+    margin-top: 0.75rem;
+    padding-left: 0;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.3rem;
+    font-style: normal;
+    text-align: center;
 }
 
-@media (width <= 600px) {
-	#home .page-grid {
-		grid-template-columns: 1fr;
-	}
+@media (width <=600px) {
+    #home .page-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 #bridge .hero {
-	clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-	float: left;
-	width: 70%;
-	shape-outside: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-	shape-margin: 1.5rem;
+    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+    float: left;
+    width: 70%;
+    shape-outside: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+    shape-margin: 1.5rem;
 }
 
 #bridge main section div {
-	margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 #fountain .hero {
-	clip-path: circle(260px at center);
-	float: left;
-	width: 70%;
-	shape-outside: circle(260px at center);
-	shape-margin: 1.5rem;
+    clip-path: circle(260px at center);
+    float: left;
+    width: 70%;
+    shape-outside: circle(260px at center);
+    shape-margin: 1.5rem;
 }
 
 #monastery .hero {
-	margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Keep the photo large and immersive, but cap its height so the heading and
    the start of the intro paragraph stay visible on load -- the clearest cue
    that there's more to read below. */
 #monastery .hero img {
-	display: block;
-	width: 100%;
-	max-height: min(65vh, 620px);
-	object-fit: cover;
+    display: block;
+    width: 100%;
+    max-height: min(65vh, 620px);
+    object-fit: cover;
 }
 
+/* Pointed arch / mihrab silhouette: flat bottom, straight sides, curved
+   shoulders rising to a central peak. The same polygon drives both the
+   visual clip and the text-wrap contour so the copy hugs the arch. */
 #mosque .hero {
-	clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-	float: left;
-	width: 55%;
-	shape-outside: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-	shape-margin: 1.5rem;
+    clip-path: polygon(0% 100%, 0% 40%, 10% 20%, 25% 6%, 50% 0%, 75% 6%, 90% 20%, 100% 40%, 100% 100%);
+    float: left;
+    width: 55%;
+    shape-outside: polygon(0% 100%, 0% 40%, 10% 20%, 25% 6%, 50% 0%, 75% 6%, 90% 20%, 100% 40%, 100% 100%);
+    shape-margin: 2.5rem;
+
+    /* clip-path uses the border box while shape-outside uses the margin box, so
+	   this right margin opens a real gap between the image edge and the wrapped
+	   text -- something shape-margin alone can't do once the arch's straight
+	   side already reaches the float's box edge. */
+    margin-right: 2rem;
+}
+
+/* The source image is small (512px wide); let it scale up to always fill the
+   arch box so the shape reads consistently instead of leaving slack on wide
+   screens. */
+#mosque .hero img {
+    display: block;
+    width: 100%;
 }
 
 legend {
-	margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .attribution {
-	text-align: right;
-	display: block;
-	margin-right: 2rem;
+    text-align: right;
+    display: block;
+    margin-right: 2rem;
 }
