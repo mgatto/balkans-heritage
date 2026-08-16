@@ -3,6 +3,7 @@
 node_modules
 /package-lock.json
 /dist
+.wrangler
 .lighthouseci
 *.report.html
 .DS_Store

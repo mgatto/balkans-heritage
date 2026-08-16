@@ -18,10 +18,10 @@ const { version: APP_VERSION } = JSON.parse(
     readFileSync(resolve(__dirname, 'package.json'), 'utf-8')
 );
 
-// Placeholder domain (balkans-heritage.example, RFC 2606 reserved for documentation)
-// pending the canonical domain & hosting decision tracked in docs/future/seo-modernization.md.
-// Update this single constant once a real domain is chosen.
-const SITE_URL = 'https://balkans-heritage.example';
+// Canonical production origin, deployed to Cloudflare Workers (Static Assets) — see the
+// "Deployment" section in README.md and docs/future/seo-modernization.md. Only the apex
+// is a custom domain; `www` 301-redirects to it, so this must stay the apex host.
+const SITE_URL = 'https://balkanheritage.info';
 
 // Single source of truth for the site's pages. Drives both `build.rollupOptions.input`
 // (name -> file) and the SEO file generator (sitemap.xml / rss.xml), so neither can

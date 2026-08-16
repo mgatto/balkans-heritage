@@ -111,6 +111,29 @@ npm run build
 npm run preview
 ```
 
+## Deployment
+
+The site is hosted on [Cloudflare Workers (Static Assets)](https://developers.cloudflare.com/workers/static-assets/) and published from the CLI via [Wrangler](https://developers.cloudflare.com/workers/wrangler/):
+
+```bash
+npm run deploy   # vite build && wrangler deploy
+```
+
+`npm run deploy` intentionally runs `vite build` directly rather than `npm run build`, skipping the slow Lighthouse/pa11y `postbuild` gate. Run `npm run build` locally first as your pre-release quality check, then `npm run deploy` to ship. Deploy config (asset directory, custom domain route) lives in `wrangler.jsonc`.
+
+### One-time setup checklist
+
+These steps happen once, outside the repo:
+
+- [x] Domain registered and zone Active on Cloudflare (purchased via Cloudflare Registrar).
+- [x] `npx wrangler login` completed on the machine that deploys (stores an OAuth token locally — no repo secret needed).
+- [x] First `npm run deploy` run — auto-attaches the `balkanheritage.info` apex custom domain and creates its proxied DNS record, with SSL provisioned automatically.
+- [x] `www` to apex redirect created — Rules → Redirect Rules → 301 from hostname `www.balkanheritage.info` to `concat("https://balkanheritage.info", http.request.uri.path)`, preserve query string.
+- [x] Proxied `www` DNS record exists (created by the redirect-rule flow, or added manually as a proxied placeholder) so `www` resolves to Cloudflare's edge.
+- [x] Verified: `https://balkanheritage.info` serves the site and `https://www.balkanheritage.info` 301-redirects to it.
+
+Only the apex is attached as a Worker custom domain — `www` is deliberately handled by the redirect rule instead of a second custom domain, so there is exactly one canonical host (matching `SITE_URL` in `vite.config.js` and the canonical URLs in the generated SEO files).
+
 ## Linting & formatting
 
 Please run the linters before opening a pull request:
