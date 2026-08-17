@@ -7,3 +7,8 @@ node_modules
 .lighthouseci
 *.report.html
 .DS_Store
+
+# BrowserStack real-browser screenshots (manual `bs:screenshots` runs)
+screenshots/
+local.log
+.env

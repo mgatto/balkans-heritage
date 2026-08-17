@@ -27,6 +27,7 @@
     "@lhci/cli": "^0.15.1",
     "browserslist": "^4.28.8",
     "browserslist-to-esbuild": "^2.1.1",
+    "browserstack-local": "^1.5.13",
     "commit-and-tag-version": "^13.1.2",
     "eslint": "^10.8.1",
     "eslint-plugin-compat": "^7.0.2",
@@ -60,6 +61,9 @@
   },
   "scripts": {
     "a11y": "start-server-and-test preview:test http://localhost:4173 pa11y:run",
+    "bs:browsers": "node --env-file-if-exists=.env scripts/browserstack-screenshots.mjs --list",
+    "bs:screenshots": "node --env-file-if-exists=.env scripts/browserstack-screenshots.mjs",
+    "bs:screenshots:local": "vite build && node --env-file-if-exists=.env scripts/browserstack-screenshots.mjs --local",
     "build": "vite build",
     "postbuild": "npm run lighthouse && npm run a11y",
     "deploy": "vite build && wrangler deploy",

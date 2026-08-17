@@ -190,7 +190,32 @@ Not ready to write code? Opening an [issue](https://github.com/mgatto/balkans-he
 
 This project is tested with BrowserStack.
 
-Real-browser rendering checks run against [BrowserStack](https://www.browserstack.com/), whose Open Source program generously supports this project.
+Real-browser rendering checks run against [BrowserStack](https://www.browserstack.com/), whose Open Source program generously supports this project. Keeping this repository public and retaining this attribution are conditions of that free access.
+
+Screenshots of every page are captured on real browsers and devices via BrowserStack's Screenshots API — real Safari, iOS Safari, Edge, and more, not an approximation — using a small script (`scripts/browserstack-screenshots.mjs`) with no browser-automation framework. The resulting PNGs land in a gitignored `screenshots/<timestamp>/` directory for manual visual review; there is no automated pass/fail comparison yet (the follow-up baseline/diff layer is planned in [`docs/future/visual-regression-testing.md`](docs/future/visual-regression-testing.md)). This is a manual, credential-gated command, deliberately kept out of `npm test` and the pre-push hook. Percy, Playwright, and `browserslist-browserstack` are intentionally not used.
+
+### Setup
+
+Copy `.env.example` to `.env` (gitignored) and fill in your BrowserStack credentials, or export them in your shell. The access key also serves as the BrowserStack Local tunnel key.
+
+```bash
+BROWSERSTACK_USERNAME=your-username
+BROWSERSTACK_ACCESS_KEY=your-access-key
+```
+
+### Commands
+
+```bash
+npm run bs:screenshots         # capture the deployed site (https://balkanheritage.info)
+npm run bs:screenshots:local   # build + serve locally, capture over a BrowserStack Local tunnel
+npm run bs:browsers            # list the account's available browsers/devices (to curate the matrix)
+```
+
+The browser/OS matrix lives in `.browserstack-browsers.json` — a small set of in-use browsers (loosely based on the Browserslist `defaults` query, Samsung Internet excluded), captured at two desktop resolutions (widescreen `1920x1080` and normal `1280x1024`) plus real mobile devices at their native size. This is deliberately narrower than, and decoupled from, the `browserslist` field in `package.json` that drives the build target and compatibility linting.
+
+Each run also writes a `manifest.json` into its `screenshots/<timestamp>/` directory recording the target URL, mode, and — per job — the BrowserStack job ID, detail URL, resolution/orientation, and each screenshot's state, image URL, and saved file path. It's a self-contained record for re-inspecting or re-fetching a run later, and is written even if the run fails partway through.
+
+Note on browser versions: the Screenshots API runs an older browser pool than BrowserStack Automate. Desktop Safari (Sonoma `17.3`) and Mobile Safari (iOS 17) are current, but the API's newest accepted Chrome is `71.0` and Firefox `89.0`; modern Chromium (`chromeForTesting`) and Chromium-based Edge are not offered through this API (only legacy EdgeHTML 18). So Chrome/Firefox entries here render on dated engines — good enough for a rough real-browser sanity check, but not a substitute for current-Chromium testing. Run `npm run bs:browsers` to see the exact versions the account can capture. Pinned versions (rather than `latest`, which the Screenshots API rejects) will drift over time; refresh them from `bs:browsers` periodically.
 
 ## License
 
