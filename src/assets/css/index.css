@@ -317,12 +317,25 @@ button#maps-download {
     }
 }
 
+/* Rounded (semicircular) arch echoing the Old Stone Bridge's span: flat bottom,
+   straight sides, semicircular top. Distinct from the mosque's pointed arch.
+   The clip is on the image (squared via object-fit) so the arch reads as a true
+   semicircle instead of a shallow, wide curve, while the figcaption stays
+   visible below it. margin-right opens a real gap to the wrapped text. */
 #bridge .hero {
-    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
     float: left;
-    width: 70%;
-    shape-outside: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+    width: 52%;
+    shape-outside: polygon(0% 100%, 0% 50%, 3.8% 30.9%, 14.6% 14.6%, 30.9% 3.8%, 50% 0%, 69.1% 3.8%, 85.4% 14.6%, 96.2% 30.9%, 100% 50%, 100% 100%);
     shape-margin: 1.5rem;
+    margin-right: 2rem;
+}
+
+#bridge .hero img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    clip-path: polygon(0% 100%, 0% 50%, 3.8% 30.9%, 14.6% 14.6%, 30.9% 3.8%, 50% 0%, 69.1% 3.8%, 85.4% 14.6%, 96.2% 30.9%, 100% 50%, 100% 100%);
 }
 
 #bridge main section div {
