@@ -1,9 +1,14 @@
-// Captures real-browser screenshots of the site via BrowserStack's Screenshots
-// REST API (https://www.browserstack.com/screenshots/api) and downloads the PNGs
-// into a gitignored `screenshots/<timestamp>/` folder for manual visual review.
-// Real Safari, iOS Safari, Edge, etc. — not an approximation — with no browser
-// automation framework: just plain `fetch` plus the lightweight `browserstack-local`
-// tunnel binary wrapper (only used by the opt-in `--local` path).
+// Captures real-browser screenshots of the site via BrowserStack Automate, driven by
+// `selenium-webdriver`, and saves the PNGs into a gitignored `screenshots/<timestamp>/`
+// folder for manual visual review. Automate exposes the current real browser/device
+// grid (modern Chrome, Firefox, Edge, Safari, iOS Safari — not the Screenshots API's
+// stale pool), so these are up-to-date real renders, not approximations.
+//
+// `selenium-webdriver` is a WebDriver client, not a test-runner framework; the only
+// other moving part is the lightweight `browserstack-local` tunnel binary wrapper
+// (used solely by the opt-in `--local` path). Captures are viewport-only at the two
+// resolution tiers below — WebDriver `takeScreenshot()` is viewport-only across every
+// real browser/device, which keeps output deterministic without image stitching.
 //
 // This is a manual, credential-gated command (see README "Cross-browser testing").
 // It is deliberately separate from `npm test` and the pre-push hook.
@@ -13,8 +18,8 @@
 //   --local        vite build + `npm run preview:test` + BrowserStack Local tunnel,
 //                  then capture http://bs-local.com:4173 (pre-deploy check of the
 //                  local build; `bs-local.com` avoids Safari/iOS localhost redirects)
-//   --list         print the account's available browsers/devices (browsers.json)
-//                  to help curate .browserstack-browsers.json, then exit
+//   --list         print the account's available Automate browsers/devices
+//                  (browsers.json) to help curate .browserstack-browsers.json, then exit
 //
 // Credentials come from BROWSERSTACK_USERNAME / BROWSERSTACK_ACCESS_KEY (loaded from
 // a gitignored .env via Node's native --env-file-if-exists, or the shell environment).
@@ -26,13 +31,17 @@ import { dirname, resolve } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { fileURLToPath } from 'node:url';
 import browserstackLocal from 'browserstack-local';
+import webdriver from 'selenium-webdriver';
 
 const { Local } = browserstackLocal;
+const { Builder } = webdriver;
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-const SCREENSHOTS_ENDPOINT = 'https://www.browserstack.com/screenshots';
-const BROWSERS_ENDPOINT = 'https://www.browserstack.com/screenshots/browsers.json';
+// Automate WebDriver grid + the REST catalog used by `--list`.
+const HUB_HOST = 'hub-cloud.browserstack.com/wd/hub';
+const BROWSERS_ENDPOINT = 'https://api.browserstack.com/automate/browsers.json';
+const DASHBOARD_SESSION_BASE = 'https://automate.browserstack.com/dashboard/v2/sessions';
 
 // Canonical deployed origin (matches SITE_URL in vite.config.js).
 const DEPLOYED_BASE = 'https://balkanheritage.info';
@@ -50,28 +59,41 @@ const PAGES = [
     { name: 'monastery', path: '/monastery.html' },
 ];
 
-// Desktop resolution tiers. The Screenshots API sets screen size per-job via
-// win_res/mac_res (applied to Windows / macOS browsers respectively), not per-browser,
-// so each tier is a separate job. NOTE: the low-level API historically documents only
-// 1024x768 / 1280x1024 for win_res while the UI advertises up to 1920x1080 — if a
-// Windows job is rejected for `win_res`, cap the widescreen tier for Windows (macOS
-// Safari still covers true 1920x1080). Mobile devices ignore these and render native.
+// Desktop resolution tiers. Each desktop capture runs in its own session at the tier's
+// screen resolution (BrowserStack `resolution` capability) with the browser window
+// sized to match, so widescreen and normal are distinct viewport screenshots. Mobile
+// devices ignore tiers and render at their native resolution.
 const RESOLUTION_TIERS = [
     { label: 'widescreen', res: '1920x1080' },
     { label: 'normal', res: '1280x1024' },
 ];
 
-const WAIT_TIME = 5; // seconds BrowserStack waits after load before capturing
-const POLL_INTERVAL_MS = 5000;
-const POLL_TIMEOUT_MS = 5 * 60 * 1000;
+const PROJECT_NAME = 'balkans-heritage';
+const SETTLE_WAIT_MS = 5000; // pause after load before capturing (late assets/fonts)
+const PAGE_LOAD_TIMEOUT_MS = 60000;
 const PREVIEW_STARTUP_TIMEOUT_MS = 30000;
+// Stay under the OSS program's 5-parallel cap, leaving headroom for the dashboard.
+const CONCURRENCY = 4;
 
 function authHeader(username, accessKey) {
     return `Basic ${Buffer.from(`${username}:${accessKey}`).toString('base64')}`;
 }
 
+function hubUrl(username, accessKey) {
+    return `https://${encodeURIComponent(username)}:${encodeURIComponent(accessKey)}@${HUB_HOST}`;
+}
+
 function isMobile(entry) {
-    return Boolean(entry.device || entry.real_mobile);
+    return Boolean(entry.deviceName || entry.realMobile);
+}
+
+// Real-mobile entries imply their browser from the device; desktop entries name it
+// explicitly. iOS devices run Safari, Android devices run Chrome.
+function browserNameFor(entry) {
+    if (entry.browserName) {
+        return entry.browserName;
+    }
+    return /iphone|ipad/i.test(entry.deviceName ?? '') ? 'safari' : 'chrome';
 }
 
 async function loadMatrix() {
@@ -90,155 +112,165 @@ function slug(value) {
         .replace(/^-|-$/g, '');
 }
 
-function describe(shot) {
-    // Include both browser and device: mobile entries share browser "Mobile Safari",
-    // so the device is what distinguishes them (and vice versa for desktop).
-    return [shot.os, shot.os_version, shot.browser, shot.device, shot.browser_version]
-        .filter(Boolean)
-        .join(' ');
+function describe(entry) {
+    if (isMobile(entry)) {
+        return [entry.deviceName, entry.osVersion, browserNameFor(entry)].filter(Boolean).join(' ');
+    }
+    return [entry.os, entry.osVersion, entry.browserName, entry.browserVersion].filter(Boolean).join(' ');
 }
 
-function fileNameFor(shot, tierLabel) {
-    const base = [shot.os, shot.os_version, shot.browser, shot.device, shot.browser_version]
-        .filter(Boolean)
-        .map(slug)
-        .join('-');
+function fileNameFor(entry, tierLabel) {
+    const parts = isMobile(entry)
+        ? [entry.deviceName, entry.osVersion, browserNameFor(entry)]
+        : [entry.os, entry.osVersion, entry.browserName, entry.browserVersion];
+    const base = parts.filter(Boolean).map(slug).join('-');
     // Desktop tiers get a resolution suffix so widescreen and normal don't collide;
     // mobile is captured once at native resolution, so it needs no suffix.
     const suffix = tierLabel === 'mobile' ? '' : `-${tierLabel}`;
     return `${base}${suffix}.png`;
 }
 
-// Builds the list of Screenshots API jobs. Desktop browsers are submitted once per
-// resolution tier; mobile devices once (native size, portrait).
-function buildJobs({ base, desktop, mobile, isLocal }) {
-    const localFlag = isLocal ? { local: 'true' } : {};
-    const jobs = [];
+// Translates a matrix entry (+ optional desktop tier) into W3C capabilities with the
+// BrowserStack-specific settings under `bstack:options`.
+function buildCapabilities({ entry, tier, page, isLocal, buildName }) {
+    const bstackOptions = {
+        projectName: PROJECT_NAME,
+        buildName,
+        sessionName: `${page.name} · ${describe(entry)}${tier ? ` · ${tier.label}` : ''}`,
+        ...(isLocal ? { local: 'true' } : {}),
+    };
 
+    const capabilities = { browserName: browserNameFor(entry), 'bstack:options': bstackOptions };
+
+    if (isMobile(entry)) {
+        bstackOptions.deviceName = entry.deviceName;
+        bstackOptions.osVersion = String(entry.osVersion);
+        bstackOptions.realMobile = 'true';
+    } else {
+        bstackOptions.os = entry.os;
+        bstackOptions.osVersion = String(entry.osVersion);
+        bstackOptions.resolution = tier.res;
+        capabilities.browserVersion = String(entry.browserVersion);
+    }
+
+    return capabilities;
+}
+
+// Builds the flat list of capture tasks: desktop browsers once per resolution tier,
+// mobile devices once (native size, portrait).
+function buildTasks({ base, desktop, mobile }) {
+    const tasks = [];
     for (const page of PAGES) {
         const url = `${base}${page.path}`;
-
-        if (desktop.length > 0) {
+        for (const entry of desktop) {
             for (const tier of RESOLUTION_TIERS) {
-                jobs.push({
-                    page: page.name,
-                    tierLabel: tier.label,
-                    body: {
-                        url,
-                        browsers: desktop,
-                        win_res: tier.res,
-                        mac_res: tier.res,
-                        wait_time: WAIT_TIME,
-                        quality: 'original',
-                        ...localFlag,
-                    },
-                });
+                tasks.push({ page, url, entry, tier, tierLabel: tier.label });
             }
         }
-
-        if (mobile.length > 0) {
-            jobs.push({
-                page: page.name,
-                tierLabel: 'mobile',
-                body: {
-                    url,
-                    browsers: mobile,
-                    orientation: 'portrait',
-                    wait_time: WAIT_TIME,
-                    quality: 'original',
-                    ...localFlag,
-                },
-            });
+        for (const entry of mobile) {
+            tasks.push({ page, url, entry, tier: null, tierLabel: 'mobile' });
         }
     }
-
-    return jobs;
+    return tasks;
 }
 
-async function submitJob(auth, job) {
-    const res = await fetch(SCREENSHOTS_ENDPOINT, {
-        method: 'POST',
-        headers: {
-            Authorization: auth,
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: JSON.stringify(job.body),
-    });
-    if (!res.ok) {
-        throw new Error(
-            `Screenshot job submit failed (${res.status}) for ${job.page} [${job.tierLabel}]: ${await res.text()}`,
+async function markSessionStatus(driver, status, reason) {
+    try {
+        await driver.executeScript(
+            `browserstack_executor: ${JSON.stringify({
+                action: 'setSessionStatus',
+                arguments: { status, reason },
+            })}`,
         );
-    }
-    const data = await res.json();
-    console.log(`Submitted ${job.page} [${job.tierLabel}] -> job ${data.job_id} (${job.body.browsers.length} browser(s))`);
-    return data;
-}
-
-function isSettled(state) {
-    return state === 'done' || state === 'timed-out' || state === 'error';
-}
-
-async function pollJob(auth, jobId) {
-    const deadline = Date.now() + POLL_TIMEOUT_MS;
-    for (;;) {
-        const res = await fetch(`${SCREENSHOTS_ENDPOINT}/${jobId}.json`, {
-            headers: { Authorization: auth, Accept: 'application/json' },
-        });
-        if (!res.ok) {
-            throw new Error(`Polling job ${jobId} failed (${res.status}): ${await res.text()}`);
-        }
-        const data = await res.json();
-        const shots = data.screenshots ?? [];
-        const allSettled = shots.length > 0 && shots.every((shot) => isSettled(shot.state));
-        if (data.state === 'done' || allSettled) {
-            return data;
-        }
-        if (Date.now() > deadline) {
-            throw new Error(`Timed out waiting for job ${jobId} after ${POLL_TIMEOUT_MS / 1000}s.`);
-        }
-        await sleep(POLL_INTERVAL_MS);
+    } catch {
+        // Best-effort dashboard annotation; never fail a capture over it.
     }
 }
 
-// Downloads every done screenshot in a job and returns one record per screenshot
-// (including undownloaded/failed ones), used both for the console log and the manifest.
-async function downloadJob({ outDir, page, tierLabel, screenshots }) {
-    const pageDir = resolve(outDir, page);
-    await mkdir(pageDir, { recursive: true });
+// Opens one Automate session, captures a viewport screenshot, and returns a manifest
+// record. Always tears the session down; a failure is recorded, not thrown, so one bad
+// browser doesn't abort the whole run.
+async function capture({ task, server, outDir, isLocal, buildName }) {
+    const { page, url, entry, tier, tierLabel } = task;
+    const label = `${page.name} [${describe(entry)}${tier ? ` · ${tier.label}` : ''}]`;
+    const record = {
+        page: page.name,
+        browser: describe(entry),
+        tier: tierLabel,
+        url,
+        ...(isMobile(entry) ? { orientation: 'portrait' } : { resolution: tier.res }),
+        sessionId: null,
+        dashboardUrl: null,
+        file: null,
+        status: 'error',
+        error: null,
+    };
 
-    const records = [];
-    for (const shot of screenshots) {
-        const record = {
-            browser: describe(shot),
-            state: shot.state,
-            image_url: shot.image_url ?? null,
-            thumb_url: shot.thumb_url ?? null,
-            file: null,
-        };
+    let driver;
+    try {
+        driver = await new Builder()
+            .usingServer(server)
+            .withCapabilities(buildCapabilities({ entry, tier, page, isLocal, buildName }))
+            .build();
 
-        if (shot.state === 'done' && shot.image_url) {
-            const filename = fileNameFor(shot, tierLabel);
-            const img = await fetch(shot.image_url);
-            if (img.ok) {
-                await writeFile(resolve(pageDir, filename), Buffer.from(await img.arrayBuffer()));
-                record.file = `${page}/${filename}`;
-                console.log(`  saved ${page}/${filename}`);
-            } else {
-                console.warn(`  failed to download ${filename} (${img.status})`);
+        const sessionId = (await driver.getSession()).getId();
+        record.sessionId = sessionId;
+        record.dashboardUrl = `${DASHBOARD_SESSION_BASE}/${sessionId}`;
+
+        await driver.manage().setTimeouts({ pageLoad: PAGE_LOAD_TIMEOUT_MS });
+        if (!isMobile(entry)) {
+            const [width, height] = tier.res.split('x').map(Number);
+            await driver.manage().window().setRect({ x: 0, y: 0, width, height });
+        }
+
+        await driver.get(url);
+        await sleep(SETTLE_WAIT_MS);
+
+        const base64 = await driver.takeScreenshot();
+        const filename = fileNameFor(entry, tierLabel);
+        const pageDir = resolve(outDir, page.name);
+        await mkdir(pageDir, { recursive: true });
+        await writeFile(resolve(pageDir, filename), Buffer.from(base64, 'base64'));
+
+        record.file = `${page.name}/${filename}`;
+        record.status = 'done';
+        console.log(`  saved ${record.file}`);
+        await markSessionStatus(driver, 'passed', `Captured ${record.file}`);
+    } catch (err) {
+        record.error = err?.message ?? String(err);
+        console.warn(`  failed ${label}: ${record.error}`);
+        if (driver) {
+            await markSessionStatus(driver, 'failed', record.error.slice(0, 255));
+        }
+    } finally {
+        if (driver) {
+            try {
+                await driver.quit();
+            } catch {
+                // Session already gone; nothing to clean up.
             }
-        } else {
-            console.warn(`  skip ${record.browser} [${tierLabel}] — state=${shot.state}`);
         }
-
-        records.push(record);
     }
-    return records;
+
+    return record;
 }
 
-// Writes a self-contained record of the run (job IDs, detail URLs, per-screenshot
-// states and image URLs) so a run can be re-inspected or re-fetched later without
-// scrolling back through console output.
+// Runs `worker` over `items` with at most `limit` concurrent invocations.
+async function runPool(items, limit, worker) {
+    let cursor = 0;
+    const runners = Array.from({ length: Math.min(limit, items.length) }, async () => {
+        while (cursor < items.length) {
+            const item = items[cursor];
+            cursor += 1;
+            await worker(item);
+        }
+    });
+    await Promise.all(runners);
+}
+
+// Writes a self-contained record of the run (per-capture session IDs, Automate
+// dashboard URLs, resolution/orientation, and saved file paths) so a run can be
+// re-inspected later without scrolling back through console output.
 async function writeManifest(outDir, manifest) {
     await mkdir(outDir, { recursive: true });
     const file = resolve(outDir, 'manifest.json');
@@ -336,10 +368,9 @@ async function main() {
         process.exitCode = 1;
         return;
     }
-    const auth = authHeader(username, accessKey);
 
     if (isList) {
-        await listBrowsers(auth);
+        await listBrowsers(authHeader(username, accessKey));
         return;
     }
 
@@ -350,14 +381,19 @@ async function main() {
     const base = isLocal ? LOCAL_BASE : DEPLOYED_BASE;
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     const outDir = resolve(projectRoot, 'screenshots', timestamp);
+    const server = hubUrl(username, accessKey);
+    const tasks = buildTasks({ base, desktop, mobile });
 
     console.log(`Target: ${base} (${isLocal ? 'local build via tunnel' : 'deployed site'})`);
+    console.log(`Capturing ${tasks.length} screenshot(s) across ${matrix.length} browser(s), up to ${CONCURRENCY} in parallel...`);
 
     const manifest = {
         generatedAt: new Date().toISOString(),
         target: base,
         mode: isLocal ? 'local' : 'deployed',
-        jobs: [],
+        driver: 'browserstack-automate',
+        buildName: timestamp,
+        captures: [],
     };
 
     let preview;
@@ -368,27 +404,10 @@ async function main() {
             bsLocal = await startTunnel(accessKey);
         }
 
-        for (const job of buildJobs({ base, desktop, mobile, isLocal })) {
-            const submitted = await submitJob(auth, job);
-            const finished = await pollJob(auth, submitted.job_id);
-            const screenshots = await downloadJob({
-                outDir,
-                page: job.page,
-                tierLabel: job.tierLabel,
-                screenshots: finished.screenshots ?? [],
-            });
-            manifest.jobs.push({
-                page: job.page,
-                tier: job.tierLabel,
-                jobId: submitted.job_id,
-                url: job.body.url,
-                ...(job.tierLabel === 'mobile'
-                    ? { orientation: job.body.orientation }
-                    : { resolution: job.body.win_res }),
-                detailUrl: `${SCREENSHOTS_ENDPOINT}/${submitted.job_id}.json`,
-                screenshots,
-            });
-        }
+        await runPool(tasks, CONCURRENCY, async (task) => {
+            const record = await capture({ task, server, outDir, isLocal, buildName: timestamp });
+            manifest.captures.push(record);
+        });
     } finally {
         if (bsLocal) {
             await stopTunnel(bsLocal);
@@ -397,16 +416,13 @@ async function main() {
             stopPreview(preview);
         }
 
-        // Write the manifest even on partial failure so a crashed run still leaves a record
-        // of the jobs it managed to submit.
-        if (manifest.jobs.length > 0) {
-            const savedCount = manifest.jobs.reduce(
-                (total, job) => total + job.screenshots.filter((shot) => shot.file).length,
-                0,
-            );
+        // Write the manifest even on partial failure so a crashed run still leaves a
+        // record of the captures it managed to run.
+        if (manifest.captures.length > 0) {
+            const savedCount = manifest.captures.filter((item) => item.file).length;
             manifest.screenshotCount = savedCount;
             const manifestPath = await writeManifest(outDir, manifest);
-            console.log(`\nCaptured ${savedCount} screenshot(s).`);
+            console.log(`\nCaptured ${savedCount} of ${manifest.captures.length} screenshot(s).`);
             console.log(`Output: ${outDir}`);
             console.log(`Manifest: ${manifestPath}`);
         }

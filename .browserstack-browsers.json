@@ -1,6 +1,7 @@
 [
-  { "os": "Windows", "os_version": "11", "browser": "chrome", "browser_version": "71.0" },
-  { "os": "Windows", "os_version": "11", "browser": "firefox", "browser_version": "89.0" },
-  { "os": "OS X", "os_version": "Sonoma", "browser": "safari", "browser_version": "17.3" },
-  { "os": "ios", "os_version": "17", "browser": "Mobile Safari", "device": "iPhone 15", "real_mobile": true }
+  { "browserName": "Chrome", "browserVersion": "latest", "os": "Windows", "osVersion": "11" },
+  { "browserName": "Firefox", "browserVersion": "latest", "os": "Windows", "osVersion": "11" },
+  { "browserName": "Edge", "browserVersion": "latest", "os": "Windows", "osVersion": "11" },
+  { "browserName": "Safari", "browserVersion": "latest", "os": "OS X", "osVersion": "Sonoma" },
+  { "deviceName": "iPhone 15", "osVersion": "17", "realMobile": true }
 ]

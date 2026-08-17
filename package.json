@@ -41,6 +41,7 @@
     "pa11y-ci": "^4.1.1",
     "rdfa-streaming-parser": "^3.0.2",
     "rollup": "^4.62.4",
+    "selenium-webdriver": "^4.47.0",
     "sitemap": "^9.0.1",
     "start-server-and-test": "^3.0.12",
     "stylelint": "^17.14.1",
