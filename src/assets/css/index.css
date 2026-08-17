@@ -7,35 +7,35 @@
    OFL-*.txt files there). woff2 includes the latin-ext subset for Balkan
    diacritics (č ć đ š ž). See README "Fonts" for the rationale. */
 @font-face {
-	font-family: Oswald;
-	font-style: normal;
-	font-weight: 300;
-	font-display: swap;
-	src: url('../fonts/oswald-v57-latin_latin-ext-300.woff2') format('woff2');
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/oswald-v57-latin_latin-ext-300.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: Oswald;
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url('../fonts/oswald-v57-latin_latin-ext-regular.woff2') format('woff2');
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/oswald-v57-latin_latin-ext-regular.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: 'EB Garamond';
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url('../fonts/eb-garamond-v33-latin_latin-ext-regular.woff2') format('woff2');
+    font-family: 'EB Garamond';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/eb-garamond-v33-latin_latin-ext-regular.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: 'EB Garamond';
-	font-style: italic;
-	font-weight: 400;
-	font-display: swap;
-	src: url('../fonts/eb-garamond-v33-latin_latin-ext-italic.woff2') format('woff2');
+    font-family: 'EB Garamond';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/eb-garamond-v33-latin_latin-ext-italic.woff2') format('woff2');
 }
 
 html,
@@ -414,18 +414,29 @@ button#maps-download {
     clip-path: polygon(29.3% 0%, 70.7% 0%, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0% 70.7%, 0% 29.3%);
 }
 
+/* Water droplet / teardrop echoing the spring from which the Buna river surges
+   at the Blagaj tekke: a sharp point at the top rounding into a plump bulb below.
+   A fully organic, curvy silhouette that stays clearly distinct from the angular
+   pentagon (bridge) and octagon (fountain) and from the mosque's pointed arch.
+   Same floated/masked/wrapped template -- the clip is on the image (squared via
+   object-fit) so the figcaption stays visible below the drop, while shape-outside
+   wraps the copy around the bulge and margin-right opens a real gap to it. The
+   bulb is deliberately plump (widest ~5%-95%) so it keeps most of the photo
+   visible rather than clipping it down to a narrow drop. */
 #monastery .hero {
-    margin-bottom: 1.5rem;
+    float: left;
+    width: 56%;
+    shape-outside: polygon(50% 0%, 55% 6%, 66% 14%, 78% 25%, 87% 37%, 93% 50%, 95% 62%, 92% 74%, 83% 86%, 68% 95%, 50% 100%, 32% 95%, 17% 86%, 8% 74%, 5% 62%, 7% 50%, 13% 37%, 22% 25%, 34% 14%, 45% 6%);
+    shape-margin: 1.5rem;
+    margin-right: 2rem;
 }
 
-/* Keep the photo large and immersive, but cap its height so the heading and
-   the start of the intro paragraph stay visible on load -- the clearest cue
-   that there's more to read below. */
 #monastery .hero img {
     display: block;
     width: 100%;
-    max-height: min(65vh, 620px);
+    aspect-ratio: 1 / 1;
     object-fit: cover;
+    clip-path: polygon(50% 0%, 55% 6%, 66% 14%, 78% 25%, 87% 37%, 93% 50%, 95% 62%, 92% 74%, 83% 86%, 68% 95%, 50% 100%, 32% 95%, 17% 86%, 8% 74%, 5% 62%, 7% 50%, 13% 37%, 22% 25%, 34% 14%, 45% 6%);
 }
 
 /* Pointed arch / mihrab silhouette: flat bottom, straight sides, curved
@@ -458,7 +469,10 @@ legend {
 }
 
 .attribution {
-    text-align: right;
     display: block;
+    margin-top: 0.75rem;
     margin-right: 2rem;
+    padding-right: 0.5rem;
+    font-size: 0.8rem;
+    text-align: right;
 }
