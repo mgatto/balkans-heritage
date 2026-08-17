@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.3](https://github.com/mgatto/balkans-heritage/compare/v1.2.2...v1.2.3) (2026-08-17)
+
+### Bug Fixes
+
+* remove fixed header and footer ([21cf352](https://github.com/mgatto/balkans-heritage/commit/21cf35227946269360be0f8a312b450b3dd8c0fa))
+
+### Code Refactoring
+
+* use a relevant shape mask for the bridge ([2a28da0](https://github.com/mgatto/balkans-heritage/commit/2a28da072bb90cba18e58d1f661fd75fd977bf19))
+* use a relevant shape mask for the fountain ([6d87eed](https://github.com/mgatto/balkans-heritage/commit/6d87eeddc58982755e74400199ff8d12a7ac383d))
+* use a relevant shape mask for the mosque ([19c0b12](https://github.com/mgatto/balkans-heritage/commit/19c0b12394ca1d043634ecc0b521b04aaa0ac335))
 ## [1.2.2](https://github.com/mgatto/balkans-heritage/compare/v1.2.1...v1.2.2) (2026-08-16)
 
 ### Bug Fixes
