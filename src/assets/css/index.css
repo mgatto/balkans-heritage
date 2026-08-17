@@ -2,7 +2,41 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald:wght@300;400&display=swap');
+
+/* Self-hosted fonts (vendored under ../fonts/, licensed OFL 1.1 — see the
+   OFL-*.txt files there). woff2 includes the latin-ext subset for Balkan
+   diacritics (č ć đ š ž). See README "Fonts" for the rationale. */
+@font-face {
+	font-family: Oswald;
+	font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+	src: url('../fonts/oswald-v57-latin_latin-ext-300.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: Oswald;
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../fonts/oswald-v57-latin_latin-ext-regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'EB Garamond';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../fonts/eb-garamond-v33-latin_latin-ext-regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'EB Garamond';
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../fonts/eb-garamond-v33-latin_latin-ext-italic.woff2') format('woff2');
+}
 
 html,
 body,

@@ -29,6 +29,7 @@ If you enjoy meticulous, standards-first web development — or you care about B
 - **Progressive enhancement** — pages work as plain HTML; Web Components layer on extra behavior.
 - **Structured data** — [Schema.org](https://schema.org/) vocabulary expressed as inline [RDFa](https://www.w3.org/TR/rdfa-primer/) attributes (`vocab`, `typeof`, `property`) on the semantic HTML, rather than a separate JSON-LD block.
 - **Accessibility** — targets [WCAG 2.2](https://www.w3.org/TR/WCAG22/) Level AA; see [`docs/accessibility.md`](docs/accessibility.md) for the standard, automated verification (`npm run a11y`), and manual testing checklist.
+- **Self-hosted fonts** — typefaces are vendored and served same-origin (no third-party font CDN) for privacy, reliability, and reproducible builds. See [Fonts](#fonts).
 - **Minimal dependencies** — no front-end framework; vanilla JS Web Components only.
 
 ## Project structure
@@ -92,6 +93,16 @@ Coordinates use an empty `<span … content="…">` rather than `<meta>` because
 You can inspect the extracted triples for every page with `npm run validate:rdfa`, or paste a page into the [W3C RDFa Play](https://rdfa.info/play/) / [Schema Markup Validator](https://validator.schema.org/).
 
 > **Note:** The RDFa markup is substantially complete and consistent across all four landmark pages. A couple of image-source links remain unverified — see `docs/future/schema-org-structured-data.md` for the remaining follow-ups.
+
+## Fonts
+
+The site's two typefaces — [EB Garamond](https://fonts.google.com/specimen/EB+Garamond) for headings and [Oswald](https://fonts.google.com/specimen/Oswald) for body text — are self-hosted rather than loaded from Google Fonts. The `woff2` files (including the `latin-ext` subset needed for Balkan diacritics such as č, ć, đ, š, and ž, plus a true EB Garamond italic) are vendored under `src/assets/fonts/` and declared with local `@font-face` rules in `src/assets/css/index.css`. Both families are licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/), whose text is committed alongside the files.
+
+We self-host for three reasons:
+
+- **Privacy.** Loading fonts from `fonts.googleapis.com` sends every visitor's IP address to Google on each request. A German court found this practice violated the GDPR when done without consent (LG Munich I, 20 Jan 2022, Az. 3 O 17493/20). Serving fonts from our own origin keeps visitor data on our side and removes one reason to need a consent prompt.
+- **Performance.** Since browsers adopted HTTP cache partitioning (2020), a font fetched from Google's CDN is no longer shared across sites, so the old "it's probably already cached" benefit no longer applies. Self-hosting removes an extra DNS lookup and TLS handshake to a third-party origin, and the two-hop chain where CSS on `fonts.googleapis.com` points to files on `fonts.gstatic.com`, collapsing everything to same-origin requests.
+- **Reliability and reproducibility.** Vendored fonts can't break from a third-party outage or a change to Google's API, and the build works offline and reproducibly with no runtime network dependency.
 
 ## Getting started
 
