@@ -273,6 +273,20 @@ figcaption {
     color: #595959;
 }
 
+/* The floated landmark heroes wrap body text around a shape-outside contour, so
+   near the bottom of the figure the copy can crowd right up against the caption.
+   Shrink the caption a touch and give it real horizontal breathing room (the 2em
+   right padding balances the inherited 2em left; the right margin clears the
+   wrapped text) so it no longer jams against the body copy. */
+#bridge .hero figcaption,
+#fountain .hero figcaption,
+#mosque .hero figcaption,
+#monastery .hero figcaption {
+    margin-right: 1.5rem;
+    padding-right: 2em;
+    font-size: 0.7rem;
+}
+
 ul.checkboxes {
     list-style-type: none;
 }
