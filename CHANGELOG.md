@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/mgatto/balkans-heritage/compare/v1.2.3...v1.3.0) (2026-08-17)
+
+### Features
+
+* host fonts locally ([e6cc141](https://github.com/mgatto/balkans-heritage/commit/e6cc141b5defbb17e188a73c699236c2c156c5ec))
+* make the bridge’s shape resemble the span ([44fc8a5](https://github.com/mgatto/balkans-heritage/commit/44fc8a57811f44ff411ab5689c7a1ec072962a10))
+
+### Bug Fixes
+
+* prevent captions from jamming against main text ([4c0edbe](https://github.com/mgatto/balkans-heritage/commit/4c0edbe63afd9f3208d87ebc5e32f7b5e6430e13))
+
+### Code Refactoring
+
+* monastery conforms to design pattern ([059fac1](https://github.com/mgatto/balkans-heritage/commit/059fac1bdd6519013b5e1e2289a58c6152b4c876))
 ## [1.2.3](https://github.com/mgatto/balkans-heritage/compare/v1.2.2...v1.2.3) (2026-08-17)
 
 ### Bug Fixes
