@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.1](https://github.com/mgatto/balkans-heritage/compare/v1.3.0...v1.3.1) (2026-08-18)
+
+### Bug Fixes
+
+* responsive font sizing and hero stacking for mobile ([c8f8fe0](https://github.com/mgatto/balkans-heritage/commit/c8f8fe07a3fa5aa177f8f30b128343f0df564ec0))
 ## [1.3.0](https://github.com/mgatto/balkans-heritage/compare/v1.2.3...v1.3.0) (2026-08-17)
 
 ### Features
