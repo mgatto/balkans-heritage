@@ -92,7 +92,7 @@ Coordinates use an empty `<span … content="…">` rather than `<meta>` because
 
 You can inspect the extracted triples for every page with `npm run validate:rdfa`, or paste a page into the [W3C RDFa Play](https://rdfa.info/play/) / [Schema Markup Validator](https://validator.schema.org/).
 
-> **Note:** The RDFa markup is substantially complete and consistent across all four landmark pages. A couple of image-source links remain unverified — see `docs/future/schema-org-structured-data.md` for the remaining follow-ups.
+> **Note:** The RDFa markup is substantially complete and consistent across all four landmark pages. A couple of image-source links remain unverified — see `docs/completed/schema-org-structured-data.md` for the remaining follow-ups.
 
 ## Fonts
 
