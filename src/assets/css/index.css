@@ -527,6 +527,25 @@ button#maps-download {
         margin-right: 0;
         margin-bottom: 1.5rem;
     }
+
+    /* kube.css stacks .row to a single column below 768px and zeroes the gutter
+	   margins, but leaves .col-10 at its 83.33% width. The column then pins to
+	   the left with the leftover ~17% dumped on the right, so the hero and copy
+	   jam against the left window edge. Reset the column to full width and give
+	   the row a small symmetric inline gutter so both clear the edges evenly. */
+    #bridge .primary-content,
+    #fountain .primary-content,
+    #mosque .primary-content,
+    #monastery .primary-content {
+        padding-inline: 1rem;
+    }
+
+    #bridge .primary-content > .col,
+    #fountain .primary-content > .col,
+    #mosque .primary-content > .col,
+    #monastery .primary-content > .col {
+        width: 100%;
+    }
 }
 
 legend {
