@@ -1,13 +1,11 @@
 {
   "author": "Michael Gatto <gatto_omar@hotmail.com>",
   "browserslist": [
-    "Chrome >= 67",
-    "Edge >= 79",
-    "Firefox >= 63",
-    "Safari >= 11",
-    "iOS >= 11",
-    "Samsung >= 12",
-    "Opera >= 64",
+    "Chrome >= 104",
+    "Edge >= 104",
+    "Firefox >= 102",
+    "Safari >= 16.4",
+    "iOS >= 16.4",
     "not dead"
   ],
   "bugs": {
