@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/mgatto/balkans-heritage/compare/v1.3.1...v1.4.0) (2026-08-18)
+
+### Features
+
+* sharing the URL now shows a nice card ([ec00f13](https://github.com/mgatto/balkans-heritage/commit/ec00f1379d549a561009d521d6e58186dc7bdbc4))
+
+### Bug Fixes
+
+* give text correct margins at narrow container width ([5266090](https://github.com/mgatto/balkans-heritage/commit/5266090aa1bb29fc49428916b5de6b76c0c8a9fb))
+
+### Documentation
+
+* archive completed plans ([f1abfed](https://github.com/mgatto/balkans-heritage/commit/f1abfed1341da0821e7f47961bd5852d1e6380ee))
+* label all major era blocks ([8ca75bf](https://github.com/mgatto/balkans-heritage/commit/8ca75bf3b26089045b044c48934e020e5f542665))
 ## [1.3.1](https://github.com/mgatto/balkans-heritage/compare/v1.3.0...v1.3.1) (2026-08-18)
 
 ### Bug Fixes
