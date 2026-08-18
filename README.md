@@ -8,10 +8,10 @@ The site is built with [Vite](https://vitejs.dev/) as a multi-page app of static
 
 The tour is structured as a series of parts, each covering a distinct period in the region's history:
 
-- **Part I: The Ottoman Heritage** — the current focus, featuring a bridge in Prizren, a mosque and fountain in Sarajevo, and a monastery near Mostar.
-- **The Byzantine** — planned. Sites and stories from the Byzantine (Eastern Roman) period.
-- **The Habsburg** — planned. Sites and stories from the Austro-Hungarian period.
-- **The Yugoslav** — planned. Sites and stories from the Yugoslav era.
+- **Part I: The Byzantine** — planned. Sites and stories from the Byzantine (Eastern Roman) period.
+- **Part II: The Ottoman Heritage** — the current focus, featuring a bridge in Prizren, a mosque and fountain in Sarajevo, and a monastery near Mostar.
+- **Part III: The Habsburg** — planned. Sites and stories from the Austro-Hungarian period.
+- **Part IV: The Yugoslav** — planned. Sites and stories from the Yugoslav era.
 
 Additional parts and points of interest are welcome — see [How to contribute](#how-to-contribute).
 
