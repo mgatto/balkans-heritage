@@ -1,5 +1,7 @@
+import browserslist from 'browserslist';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { minify } from 'html-minifier-terser';
+import { browserslistToTargets } from 'lightningcss';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,6 +11,11 @@ import { ViteMinifyPlugin } from 'vite-plugin-minify';
 import { generateSeoFiles } from './scripts/generate-seo-files.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Resolve the `browserslist` key in package.json once (the single source of truth for
+// browser support — see docs/completed/lightning-css-adoption.md) and reuse it for both
+// the JS build target and the CSS targets, so the two can never drift.
+const browsers = browserslist();
 
 // The `version` field is the single source of truth for the site's release —
 // see docs/engineering-practices.md for how it's bumped (`npm run release`,
@@ -70,10 +77,20 @@ export default defineConfig({
         // Available to client-side code as a global constant, e.g. for console/debug output.
         __APP_VERSION__: JSON.stringify(APP_VERSION),
     },
+    css: {
+        // Lightning CSS (Vite's native CSS transformer) both lowers modern syntax and
+        // adds browserslist-driven vendor prefixes property-by-property — something
+        // esbuild (the default transformer) only does for a small curated set. Sharing
+        // the resolved browserslist keeps CSS lowering/prefixing consistent with the JS
+        // target. See docs/completed/lightning-css-adoption.md.
+        transformer: 'lightningcss',
+        lightningcss: { targets: browserslistToTargets(browsers) },
+    },
     build: {
         outDir: resolve(__dirname, 'dist'), // Places the build folder back at the project root
         emptyOutDir: true, // Forces Vite to empty the dist folder outside the root before building
-        target: browserslistToEsbuild(), // Derives esbuild's target from the `browserslist` key in package.json
+        target: browserslistToEsbuild(browsers), // Derives esbuild's JS target from the resolved browserslist
+        cssMinify: 'lightningcss', // Minify CSS with the same Lightning CSS targets
 
         /*lib:{
             entry: resolve(__dirname, "components/index.ts"),
