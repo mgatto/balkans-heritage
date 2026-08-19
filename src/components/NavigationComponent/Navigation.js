@@ -92,23 +92,23 @@ class Navigation extends HTMLElement {
             
             <ol>
                 <li id="home_link">
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 
                 <li id="fountain_link">
-                    <a href="fountain.html">Fountain</a>
+                    <a href="fountain">Fountain</a>
                 </li>
                 
                 <li id="mosque_link">
-                    <a href="mosque.html">Mosque</a>
+                    <a href="mosque">Mosque</a>
                 </li>
                 
                 <li id="monastery_link">
-                    <a href="monastery.html">Monastery</a>
+                    <a href="monastery">Monastery</a>
                 </li>
                 
                 <li id="bridge_link">
-                    <a href="bridge.html">Bridge</a>
+                    <a href="bridge">Bridge</a>
                 </li>
             </ol>
         `;

@@ -8,7 +8,7 @@ const SITE_URL = 'https://example.test';
 
 const PAGES = [
     { name: 'main', file: 'index.html', route: '/', title: 'Home', description: 'Home page', datePublished: '2020-01-01' },
-    { name: 'bridge', file: 'bridge.html', route: '/bridge.html', title: 'The Bridge', description: 'A bridge', datePublished: '2020-01-02' },
+    { name: 'bridge', file: 'bridge.html', route: '/bridge', title: 'The Bridge', description: 'A bridge', datePublished: '2020-01-02' },
 ];
 
 // generateSeoFiles() reads real file mtimes for the sitemap's lastmod, so each
@@ -47,7 +47,7 @@ describe('generateSeoFiles', () => {
         const blocks = urlBlocks(sitemapXml);
 
         const home = blocks.find((b) => extractTag(b, 'loc') === `${SITE_URL}/`);
-        const bridge = blocks.find((b) => extractTag(b, 'loc') === `${SITE_URL}/bridge.html`);
+        const bridge = blocks.find((b) => extractTag(b, 'loc') === `${SITE_URL}/bridge`);
 
         expect(extractTag(home, 'priority')).toBe('1.0');
         expect(extractTag(bridge, 'priority')).toBe('0.8');
@@ -58,7 +58,7 @@ describe('generateSeoFiles', () => {
 
         expect(rssXml.match(/<item>/g)).toHaveLength(PAGES.length);
         expect(rssXml).toContain('The Bridge'); // titles are wrapped in <![CDATA[...]]> by the `feed` library
-        expect(rssXml).toContain(`<link>${SITE_URL}/bridge.html</link>`);
+        expect(rssXml).toContain(`<link>${SITE_URL}/bridge</link>`);
         expect(rssXml).toContain('A bridge');
     });
 
