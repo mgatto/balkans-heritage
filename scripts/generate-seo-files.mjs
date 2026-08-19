@@ -9,80 +9,79 @@
 // the HTML, so there's no fragile regex/entity/comment handling. robots.txt is a
 // few lines of plain text, so it's assembled directly from the SITE_URL constant.
 
-import { statSync } from 'node:fs';
-import { resolve } from 'node:path';
-import { Feed } from 'feed';
-import { SitemapStream, streamToPromise } from 'sitemap';
+import { Feed } from "feed";
+import { statSync } from "node:fs";
+import { resolve } from "node:path";
+import { SitemapStream, streamToPromise } from "sitemap";
 
-const CHANNEL_TITLE = 'Poetic Tour of the Balkans';
+const CHANNEL_TITLE = "Poetic Tour of the Balkans";
 const CHANNEL_DESCRIPTION =
-    'A poetic tour of the Balkans\' layered cultural heritage, landmark by landmark.';
+  "A poetic tour of the Balkans' layered cultural heritage, landmark by landmark.";
 
 // Home gets top priority; every other page a notch below.
 function priorityFor(route) {
-    return route === '/' ? 1.0 : 0.8;
+  return route === "/" ? 1.0 : 0.8;
 }
 
 function lastModified(srcDir, file) {
-    return statSync(resolve(srcDir, file)).mtime;
+  return statSync(resolve(srcDir, file)).mtime;
 }
 
 async function renderSitemap(pages, siteUrl, srcDir) {
-    const stream = new SitemapStream({ hostname: siteUrl });
+  const stream = new SitemapStream({ hostname: siteUrl });
 
-    for (const page of pages) {
-        stream.write({
-            url: page.route,
-            changefreq: 'monthly',
-            priority: priorityFor(page.route),
-            lastmod: lastModified(srcDir, page.file).toISOString(),
-        });
-    }
-    stream.end();
+  for (const page of pages) {
+    stream.write({
+      url: page.route,
+      changefreq: "monthly",
+      priority: priorityFor(page.route),
+      lastmod: lastModified(srcDir, page.file).toISOString(),
+    });
+  }
+  stream.end();
 
-    const xml = (await streamToPromise(stream)).toString();
-    return `${xml}\n`;
+  const xml = (await streamToPromise(stream)).toString();
+  return `${xml}\n`;
 }
 
 function renderRss(pages, siteUrl) {
-    const feed = new Feed({
-        title: CHANNEL_TITLE,
-        description: CHANNEL_DESCRIPTION,
-        id: `${siteUrl}/`,
-        link: `${siteUrl}/`,
-        language: 'en',
-        generator: 'balkans-heritage build',
-        copyright: `Copyright ${new Date().getFullYear()} Michael Gatto`,
-    });
+  const feed = new Feed({
+    title: CHANNEL_TITLE,
+    description: CHANNEL_DESCRIPTION,
+    id: `${siteUrl}/`,
+    link: `${siteUrl}/`,
+    language: "en",
+    generator: "balkans-heritage build",
+    copyright: `Copyright ${new Date().getFullYear()} Michael Gatto`,
+  });
 
-    for (const page of pages) {
-        const url = `${siteUrl}${page.route}`;
-        // Explicit publication date from the registry, not the file's mtime, so
-        // editing an existing page doesn't bump it to the top of the feed. Guard
-        // against a missing/invalid value so a forgotten field fails the build
-        // loudly instead of emitting an `Invalid Date` into the feed.
-        const date = new Date(page.datePublished);
-        if (Number.isNaN(date.getTime())) {
-            throw new Error(
-                `Page "${page.name}" has a missing or invalid \`datePublished\` (${JSON.stringify(page.datePublished)}). ` +
-                'Add an ISO date (e.g. "2025-06-06") to its entry in the `pages` registry in vite.config.js.'
-            );
-        }
-        feed.addItem({
-            title: page.title,
-            id: url,
-            link: url,
-            description: page.description,
-            date,
-        });
+  for (const page of pages) {
+    const url = `${siteUrl}${page.route}`;
+    // Explicit publication date from the registry, not the file's mtime, so
+    // editing an existing page doesn't bump it to the top of the feed. Guard
+    // against a missing/invalid value so a forgotten field fails the build
+    // loudly instead of emitting an `Invalid Date` into the feed.
+    const date = new Date(page.datePublished);
+    if (Number.isNaN(date.getTime())) {
+      throw new Error(
+        `Page "${page.name}" has a missing or invalid \`datePublished\` (${JSON.stringify(page.datePublished)}). ` +
+          'Add an ISO date (e.g. "2025-06-06") to its entry in the `pages` registry in vite.config.js.',
+      );
     }
+    feed.addItem({
+      title: page.title,
+      id: url,
+      link: url,
+      description: page.description,
+      date,
+    });
+  }
 
-    return `${feed.rss2()}\n`;
+  return `${feed.rss2()}\n`;
 }
 
 function renderRobots(siteUrl) {
-    return `# Generated during \`npm run build\` — do not edit by hand.
-# Uses a placeholder domain pending the canonical domain decision; see docs/future/seo-modernization.md.
+  return `# Generated during \`npm run build\` — do not edit by hand.
 User-agent: *
 Allow: /
 
@@ -99,9 +98,9 @@ Sitemap: ${siteUrl}/sitemap.xml
  * @returns {Promise<Record<string, string>>} filename -> file contents, ready to write into `dist/`.
  */
 export async function generateSeoFiles({ pages, siteUrl, srcDir }) {
-    return {
-        'sitemap.xml': await renderSitemap(pages, siteUrl, srcDir),
-        'rss.xml': renderRss(pages, siteUrl),
-        'robots.txt': renderRobots(siteUrl),
-    };
+  return {
+    "sitemap.xml": await renderSitemap(pages, siteUrl, srcDir),
+    "rss.xml": renderRss(pages, siteUrl),
+    "robots.txt": renderRobots(siteUrl),
+  };
 }
