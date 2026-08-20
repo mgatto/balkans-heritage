@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0](https://github.com/mgatto/balkans-heritage/compare/v1.4.0...v2.0.0) (2026-08-20)
+
+### Features
+
+* optimize SEO in code ([524f0a0](https://github.com/mgatto/balkans-heritage/commit/524f0a0e88242593515bf6b8ca618d7480d61bab))
+* prepare for more content sections! ([e070658](https://github.com/mgatto/balkans-heritage/commit/e0706581874f0cf257ef3c0c2eb667d47a8f889c))
+
+### Bug Fixes
+
+* duplicate meta tag ([f61b1c1](https://github.com/mgatto/balkans-heritage/commit/f61b1c165c186505f2164d6fcefd3d5b8114f0af))
+* errors from LinkedIn’s post inspection tool ([554f5e3](https://github.com/mgatto/balkans-heritage/commit/554f5e3694785812aac47ead865a1621c8279da0))
+* use correct canonical urls without 307s ([58c0b6f](https://github.com/mgatto/balkans-heritage/commit/58c0b6f29e1e23a4af7d19d5a58736484863b2c5))
 ## [1.4.0](https://github.com/mgatto/balkans-heritage/compare/v1.3.1...v1.4.0) (2026-08-18)
 
 ### Features
