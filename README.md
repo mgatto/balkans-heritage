@@ -9,9 +9,9 @@ The site is built with [Vite](https://vitejs.dev/) as a multi-page app of static
 The tour is structured as a series of parts, each covering a distinct period in the region's history:
 
 - **Part I: The Byzantine** — planned. Sites and stories from the Byzantine (Eastern Roman) period.
-- **Part II: The Ottoman Heritage** — the current focus, featuring a bridge in Prizren, a mosque and fountain in Sarajevo, and a monastery near Mostar.
+- **Part II: The Ottoman Heritage** — the current focus, featuring a bridge in Prizren, a mosque and fountain in Sarajevo, and a monastery near Mostar. Lives under `/ottoman/`, with its own hub page.
 - **Part III: The Habsburg** — planned. Sites and stories from the Austro-Hungarian period.
-- **Part IV: The Yugoslav** — planned. Sites and stories from the Yugoslav era.
+- **Part IV: The Socialist** — planned. Sites and stories from the socialist era, spanning both Tito's Yugoslavia and Hoxha's Albania (an era/political-system label, chosen so it can cover Albania — which was never part of Yugoslavia — alongside the Yugoslav republics).
 
 Additional parts and points of interest are welcome — see [How to contribute](#how-to-contribute).
 
@@ -36,14 +36,18 @@ If you enjoy meticulous, standards-first web development — or you care about B
 
 ```BASH
 src/
-  index.html              # Home / tour entry point
-  bridge.html             # Point-of-interest pages
-  mosque.html
-  fountain.html
-  monastery.html
+  index.html              # Home / Parts index (a grid linking to each Part)
+  ottoman/                # Part II: The Ottoman Heritage (nested, extensionless URLs under /ottoman/)
+    index.html            #   Part hub page
+    bridge.html           #   Point-of-interest pages
+    mosque.html
+    fountain.html
+    monastery.html
   components/             # Framework-free Web Components (mast, navigation, footer, carousel)
   assets/                 # CSS, images, maps
-  public/                 # Files copied verbatim to the site root (manifest.json, humans.txt).
+  public/                 # Files copied verbatim to the site root (manifest.json, humans.txt, _redirects).
+                           # _redirects 301s the old flat landmark URLs (/bridge, …) to their
+                           # new nested /ottoman/ paths for Cloudflare Workers (Static Assets).
                            # manifest-icon.svg is a deliberate duplicate of
                            # src/assets/img/star_and_crescent.svg — manifest.json can't
                            # reference a fingerprinted (hashed) asset path, so this copy
@@ -73,7 +77,7 @@ The main types and properties used are:
 - [`subjectOf`](https://schema.org/subjectOf) → `CreativeWork` — attributes quoted descriptive text to its publisher (e.g. Lonely Planet, UNESCO).
 - Dublin Core terms (`dc:source`, `dc:creator`, `dc:license`) — supplementary image attribution and licensing.
 
-For example, `src/bridge.html` sets the Schema.org vocabulary and Dublin Core prefix on `<body>` and marks up the landmark, its coordinates, and its linked-data identity:
+For example, `src/ottoman/bridge.html` sets the Schema.org vocabulary and Dublin Core prefix on `<body>` and marks up the landmark, its coordinates, and its linked-data identity:
 
 ```html
 <body id="bridge" vocab="http://schema.org/" prefix="dc: http://purl.org/dc/terms/">

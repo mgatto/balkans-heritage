@@ -53,10 +53,11 @@ const LOCAL_BASE = `http://bs-local.com:${PREVIEW_PORT}`;
 // Mirrors the `pages` registry routes in vite.config.js. `index` is the home route `/`.
 const PAGES = [
     { name: 'index', path: '/' },
-    { name: 'bridge', path: '/bridge.html' },
-    { name: 'mosque', path: '/mosque.html' },
-    { name: 'fountain', path: '/fountain.html' },
-    { name: 'monastery', path: '/monastery.html' },
+    { name: 'ottoman', path: '/ottoman/' },
+    { name: 'bridge', path: '/ottoman/bridge.html' },
+    { name: 'mosque', path: '/ottoman/mosque.html' },
+    { name: 'fountain', path: '/ottoman/fountain.html' },
+    { name: 'monastery', path: '/ottoman/monastery.html' },
 ];
 
 // Desktop resolution tiers. Each desktop capture runs in its own session at the tier's

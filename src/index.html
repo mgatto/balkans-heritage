@@ -34,8 +34,8 @@
         content="A poetic tour of the Balkans' layered cultural heritage across the empires and eras that shaped it — its Ottoman-era bridges, mosques, fountains, and monasteries.">
     <meta name="twitter:image" content="https://balkanheritage.info/assets/img/og-home.jpg">
 
-    <link rel="manifest" href="manifest.json">
-    <link rel="author" href="humans.txt">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="author" href="/humans.txt">
 
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -43,14 +43,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="apple-touch-icon" href="/assets/img/star_and_crescent.svg">
-    <link rel="icon" type="image/svg+xml" href="assets/img/star_and_crescent.svg">
-    <link rel="mask-icon" href="assets/img/star_and_crescent.svg" color="#007f00">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/star_and_crescent.svg">
+    <link rel="mask-icon" href="/assets/img/star_and_crescent.svg" color="#007f00">
 
-    <link rel="stylesheet" href="assets/css/normalize.css">
-    <link rel="stylesheet" href="assets/css/kube.css">
-    <link rel="stylesheet" href="assets/css/index.css">
-
-    <link rel="next" href="fountain">
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/kube.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
 
     <script type="module" src="/components/FooterComponent/Footer.js"></script>
     <script type="module" src="/components/MastComponent/MedallionMast.js"></script>
@@ -61,7 +59,7 @@
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <header>
         <balkans-navigation></balkans-navigation>
-        <balkans-mast country="balkans"></balkans-mast>
+        <balkans-mast parts></balkans-mast>
     </header>
 
     <main id="main-content" tabindex="-1">
@@ -71,82 +69,46 @@
             </div>
         </header>
 
-        <div id="the-ottoman" class="row gutters around">
+        <div class="row gutters around">
             <article class="col col-10">
-                <header>
-                    <h2>Part II: The Ottoman Heritage</h2>
-                </header>
-
-                <p>
-                    &quot;When most people think of this region today, images of the most recent wars, devastation, and
-                    chaos of post-communist times come to mind. However, hidden behind these images is a region
-                    rich in history and culture: Viennese cafe culture meets the best of Southern Europe; Adriatic
-                    beaches rival those of Southern France; Western, Byzantine, and Islamic influences come
-                    together; while contemporary art, architecture, literature, film, and music are some of the best the
-                    world has to offer.&quot;
+                <p class="intro">
+                    The region's layered cultural heritage, explored empire by empire and era by era across the places that hold their mark.
                 </p>
-                <small class="attribution">&mdash; <strong property="dc:source">Marina Antić</strong></small>
+                <!-- TODO: verify the exact wording of this Rebecca West line against a print edition of
+                     Black Lamb and Grey Falcon before final publish (see the Nested Ottoman hub URLs plan). -->
+                <blockquote>
+                    <p>Only part of us is sane: only part of us loves pleasure and the longer day of happiness, wants to
+                        live to our nineties and die in peace.</p>
+                    <small class="attribution">&mdash; <strong property="dc:source">Rebecca West</strong> in <cite>Black
+                            Lamb and Grey Falcon</cite></small>
+                </blockquote>
 
                 <ul class="page-grid">
+                    <li class="planned">
+                        <figure>
+                            <img src="/assets/img/gracanica_monastery.jpg" alt="">
+                            <figcaption>Part I: The Byzantine <small>(planned)</small></figcaption>
+                        </figure>
+                    </li>
                     <li>
-                        <a href="fountain">
+                        <a href="/ottoman/">
                             <figure>
-                                <img src="assets/img/fountain2.jpg" width="2000" height="1500" loading="lazy"
-                                    decoding="async" alt="The Sebilj fountain in Sarajevo">
-                                <figcaption>The Fountain</figcaption>
+                                <img src="/assets/img/husrev_beg_mosque.jpg" alt="">
+                                <figcaption>Part II: The Ottoman Heritage</figcaption>
                             </figure>
                         </a>
                     </li>
-                    <li>
-                        <a href="mosque">
-                            <figure>
-                                <img src="assets/img/husrev_beg_mosque.jpg" width="512" height="413" loading="lazy"
-                                    decoding="async" alt="The Gazi Husrev-beg Mosque in Sarajevo">
-                                <figcaption>The Mosque</figcaption>
-                            </figure>
-                        </a>
+                    <li class="planned">
+                        <figure>
+                            <img src="/assets/img/croatian_national_theatre.jpg" alt="">
+                            <figcaption>Part III: The Habsburg <small>(planned)</small></figcaption>
+                        </figure>
                     </li>
-                    <li>
-                        <a href="monastery">
-                            <figure>
-                                <img src="assets/img/blagaj_tekke.jpg" width="1080" height="720" loading="lazy"
-                                    decoding="async" alt="The Blagaj Tekke near Mostar">
-                                <figcaption>The Monastery</figcaption>
-                            </figure>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="bridge">
-                            <figure>
-                                <img src="assets/img/prizren_bridge.jpg" width="2000" height="1326" loading="lazy"
-                                    decoding="async" alt="The Old Stone Bridge in Prizren">
-                                <figcaption>The Bridge</figcaption>
-                            </figure>
-                        </a>
-                    </li>
-                </ul>
-
-                <hr>
-
-                <div>
-                    <form style="display: inline-block"><button type="submit" id="maps-download"
-                            formaction="assets/balkans_ottoman_heritage_maps.zip">Download</button></form> a package of
-                    maps (PDF's in .zip file, 1MB) for the points of interest, including:
-                </div>
-
-                <ul>
-                    <li>
-                        <a href="assets/prizren_map.pdf">The Fountain</a> in Sarajevo, Bosnia
-                    </li>
-                    <li>
-                        <a href="assets/blagaj_map.pdf">The Monastery</a> near Mostar, Bosnia
-                    </li>
-                    <li>
-                        <a href="assets/sarajevo_map.pdf">The Bridge</a> in Prizren, Kosova
-                    </li>
-                    <li>
-                        &hellip;And separately, a <a href="assets/img/raised_relief_map.jpg">wallmap of the entire
-                            region</a>
+                    <li class="planned">
+                        <figure>
+                            <img src="/assets/img/national_library_kosovo.jpg" alt="">
+                            <figcaption>Part IV: The Socialist <small>(planned)</small></figcaption>
+                        </figure>
                     </li>
                 </ul>
             </article>

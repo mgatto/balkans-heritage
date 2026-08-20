@@ -62,7 +62,7 @@ Captured from the site owner; some remain open (see below).
 - **Audience & language:** English-only today, **multilingual planned**. Build URL/canonical/sitemap tooling to be `hreflang`-ready so translations can be added later without rework.
 - **Social sharing image:** **Per-page** — use each landmark's hero photo for its Open Graph / Twitter image; fall back to a site-wide image for pages without a hero (e.g. home).
 - **Scope of ambition:** "Technically correct & honestly discoverable." Not chasing rankings for specific queries — no keyword-driven content depth beyond what the site naturally warrants.
-- **Content cadence / automation:** **Automate now.** Generate `sitemap.xml`, structured data, and the feed from the actual built pages during the Vite build so the planned Habsburg and Yugoslav parts are absorbed automatically.
+- **Content cadence / automation:** **Automate now.** Generate `sitemap.xml`, structured data, and the feed from the actual built pages during the Vite build so the planned Habsburg and Socialist parts are absorbed automatically.
 - **Feeds:** ✅ *Keep `rss.xml`; an "item" is each page in the registry* (home plus each landmark). It's generated at build time by `scripts/generate-seo-files.mjs` from the `pages` registry in `vite.config.js` (one `feed.addItem` per page), so new tour parts are absorbed automatically. Each item's publication date comes from an explicit `datePublished` field on the registry entry (seeded from each file's first commit), **not** the file's `mtime` — so editing an existing landmark no longer re-surfaces it at the top of the feed. The sitemap's `lastmod` still uses `mtime`, which is correct there (it genuinely means "last modified").
 
 ## Still open

@@ -11,13 +11,26 @@ import { pathToFileURL } from 'node:url';
 
 const BASE = 'https://balkans-heritage.example/';
 
+// Recursively collect every .html file under `dir` so the landmark pages nested in
+// src/ottoman/ (and any future per-Part subdirectories) are covered, not just the
+// top-level src/*.html files.
+async function collectHtml(dir) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await collectHtml(full)));
+    } else if (entry.isFile() && entry.name.endsWith('.html')) {
+      files.push(full);
+    }
+  }
+  return files;
+}
+
 export async function resolveFiles(args = process.argv.slice(2)) {
   if (args.length > 0) return args;
-  const entries = await readdir('src', { withFileTypes: true });
-  return entries
-    .filter((e) => e.isFile() && e.name.endsWith('.html'))
-    .map((e) => join('src', e.name))
-    .sort();
+  return (await collectHtml('src')).sort();
 }
 
 export function extract(file) {

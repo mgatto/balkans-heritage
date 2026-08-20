@@ -21,9 +21,10 @@ module.exports = {
   },
   urls: [
     'http://localhost:4173/index.html',
-    'http://localhost:4173/bridge.html',
-    'http://localhost:4173/mosque.html',
-    'http://localhost:4173/fountain.html',
-    'http://localhost:4173/monastery.html',
+    'http://localhost:4173/ottoman/index.html',
+    'http://localhost:4173/ottoman/bridge.html',
+    'http://localhost:4173/ottoman/mosque.html',
+    'http://localhost:4173/ottoman/fountain.html',
+    'http://localhost:4173/ottoman/monastery.html',
   ],
 };

@@ -28,6 +28,7 @@ class MedallionMast extends HTMLElement {
 
     render() {
         this.country = this.getAttribute('country');
+        this.parts = this.hasAttribute('parts');
 
         const shadowRoot = this.attachShadow({mode: 'open'});
         const mast = document.createElement('div');
@@ -36,13 +37,30 @@ class MedallionMast extends HTMLElement {
         shadowRoot.appendChild(mast);
     }
 
+    // One signature color per Part, in chronological (Part I → IV) order — the same order
+    // as the Parts grid on the home page, so the mast reads as a legend for it. Byzantine
+    // is imperial "born in the purple" Tyrian purple; the rest are the era's conventional
+    // colors (Ottoman green, Habsburg gold, socialist red). Used only by the home page's
+    // `parts` mast (<balkans-mast parts>); the per-country flag masts are unaffected.
+    static get partColors() {
+        return [
+            '#66023c', // Part I — Byzantine: Tyrian / imperial purple
+            '#007f00', // Part II — Ottoman: green
+            '#FFDD11', // Part III — Habsburg: gold / yellow
+            '#DE0000', // Part IV — Socialist: red
+        ];
+    }
+
     get template() {
         const config = {
             balkans: {
                 colors: ['#E30A17','#fff','#E30A17'],
                 medallionImage: starAndCrescent
             },
-            albania: {
+            kosovo: {
+                // Prizren (the Bridge) has a large ethnic-Albanian population, so the
+                // medallion deliberately uses the Albanian eagle/tricolor even though the
+                // landmark is in Kosovo — the `country` label is Kosovo, the imagery is not.
                 colors: ['#ed1c24','#cfa550','#1d3c85'], // consider modern rgb or hsl
                 medallionImage: albanianEagle
             },
@@ -52,9 +70,32 @@ class MedallionMast extends HTMLElement {
             }
         };
 
+        // `parts` mode (home page): one band per Part, no single-country medallion.
+        // Otherwise: the selected country's flag palette + emblem.
+        const colors = this.parts ? MedallionMast.partColors : config[this.country].colors;
+        const medallionImage = this.parts ? null : config[this.country].medallionImage;
+
+        // Divide the fixed 30px-tall mast evenly across however many bands there are
+        // (3 for the country flags, 4 for the Parts palette), so adding/removing a Part
+        // needs no layout math here.
+        const bandHeight = 30 / colors.length;
+        const bands = colors
+            .map(
+                (color, i) =>
+                    `<rect x="0" y="${i * bandHeight}" width="100%" height="${bandHeight}" fill="${color}" />`
+            )
+            .join('\n                ');
 
         return `
             <style>
+                /* Position the emblem relative to the mast itself, not the viewport, so it
+                   sits over the color bands regardless of how many nav bars stack above the
+                   mast (e.g. the section sub-bar). */
+                :host {
+                    position: relative;
+                    display: block;
+                }
+                
                 #medallion {
                     width: 100%;
                     display: flex;
@@ -66,33 +107,17 @@ class MedallionMast extends HTMLElement {
                 #medallion img {
                     height: 40px;
                     position: absolute;
-                    top: 3.5rem;
+                    top: 0;
                 }
             </style>
             
-            <svg id="" width="100%" height="30px">
-                <defs>
-                    <lineargradient id="first-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:${config[this.country].colors[0]};stop-opacity:1" />
-                    </lineargradient>
-
-                    <lineargradient id="second-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:${config[this.country].colors[1]};stop-opacity:1" />
-                    </lineargradient>
-                    
-                    <lineargradient id="third-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:${config[this.country].colors[2]};stop-opacity:1" />
-                    </lineargradient>
-                </defs>
-
-                <rect x="0" y="0" width="100%" height="10px" fill="url(#first-gradient)" />
-                <rect x="0" y="10" width="100%" height="10px" fill="url(#second-gradient)" />
-                <rect x="0" y="20" width="100%" height="10px" fill="url(#third-gradient)" />
+            <svg width="100%" height="30px">
+                ${bands}
             </svg>
-
+            ${medallionImage ? `
             <div id="medallion" class="row">
-                <img src="${config[this.country].medallionImage}" alt="">
-            </div>
+                <img src="${medallionImage}" alt="">
+            </div>` : ''}
         `;
     }
 }

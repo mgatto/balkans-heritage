@@ -3,9 +3,8 @@ import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { minify } from 'html-minifier-terser';
 import { browserslistToTargets } from 'lightningcss';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { dirname } from "node:path";
+import { dirname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import { ViteMinifyPlugin } from 'vite-plugin-minify';
 import { generateSeoFiles } from './scripts/generate-seo-files.mjs';
@@ -26,59 +25,140 @@ const { version: APP_VERSION } = JSON.parse(
 );
 
 // Canonical production origin, deployed to Cloudflare Workers (Static Assets) — see the
-// "Deployment" section in README.md and docs/future/seo-modernization.md. Only the apex
+// "Deployment" section in README.md and docs/completed/seo-modernization.md. Only the apex
 // is a custom domain; `www` 301-redirects to it, so this must stay the apex host.
 const SITE_URL = 'https://balkanheritage.info';
 
-// Single source of truth for the site's pages. Drives both `build.rollupOptions.input`
-// (name -> file) and the SEO file generator (sitemap.xml / rss.xml), so neither can
-// drift from the actual set of pages. Routes are extensionless (`/bridge`, not
-// `/bridge.html`) to match the URLs Cloudflare Workers (Static Assets) treats as
-// canonical: its `auto-trailing-slash` html_handling serves `bridge.html` at `/bridge`
-// (200) and 307-redirects `/bridge.html` → `/bridge`. The source `file` keeps its
-// `.html` name (that's the built artifact CF maps to). `title`/`description` feed the RSS
-// items. `datePublished` (ISO date) is the feed item's publication date — kept explicit
+// Controlled vocabulary (docs/future/information-architecture.md, goal 5): a small, fixed,
+// build-enforced set of allowed `part`/`country` values, so a typo fails the build rather
+// than silently drifting into an inconsistent spelling/casing (the "folksonomy" failure
+// mode). This array is the single *enforced* source of the allowed values — docs describe
+// the membership criteria, not the literal list, to avoid a second source that could drift.
+const PARTS = ['byzantine', 'ottoman', 'habsburg', 'socialist'];
+const COUNTRIES = ['balkans', 'kosovo', 'bosnia'];
+
+// Single source of truth for the site's pages. Drives `build.rollupOptions.input`
+// (name -> file), the SEO file generator (sitemap.xml / rss.xml), and the registry-driven
+// nav/pagination/breadcrumb generator (see the `inject-registry-nav` plugin below), so none
+// of them can drift from the actual set of pages.
+//
+// Routes are nested and extensionless (`/ottoman/bridge`, not `/bridge.html`) to match the
+// URLs Cloudflare Workers (Static Assets) treats as canonical: its `auto-trailing-slash`
+// html_handling serves `ottoman/bridge.html` at `/ottoman/bridge` (200) and 307-redirects
+// `/ottoman/bridge.html` → `/ottoman/bridge`. The source `file` keeps its `.html` name and
+// directory (that's the built artifact CF maps to). Old flat URLs 301 to these via
+// src/public/_redirects.
+//
+// Array order is the tour reading order, and is load-bearing: the generator derives each
+// page's prev/next pagination from its position here. `title`/`description` feed the RSS
+// items and the generated breadcrumbs; `navLabel` is the (concise) global-nav label;
+// `part`/`country` are the controlled-vocabulary facts (grouping, breadcrumbs, country
+// facet). `datePublished` (ISO date) is the feed item's publication date — kept explicit
 // here rather than derived from the file's mtime, so editing an existing page doesn't
 // re-surface it at the top of the feed. Seeded from each file's first commit; update when
 // a page is genuinely (re)published.
 const pages = [
-    { name: 'main', file: 'index.html', route: '/', title: 'Poetic Tour of the Balkans', description: 'A poetic tour of the Balkans\' layered cultural heritage across the empires and eras that shaped it.', datePublished: '2020-05-25' },
-    { name: 'bridge', file: 'bridge.html', route: '/bridge', title: 'The Bridge', description: 'In Prizren, spans a bridge…', datePublished: '2020-05-25' },
-    { name: 'mosque', file: 'mosque.html', route: '/mosque', title: 'The Mosque', description: 'From the hills, rises a mosque…', datePublished: '2025-06-06' },
-    { name: 'fountain', file: 'fountain.html', route: '/fountain', title: 'The Fountain', description: 'In Sarajevo, flows a fountain…', datePublished: '2020-05-25' },
-    { name: 'monastery', file: 'monastery.html', route: '/monastery', title: 'The Monastery', description: 'Beside a monastery, springs the Buna river…', datePublished: '2020-05-25' },
+    { name: 'main', file: 'index.html', route: '/', navLabel: 'Home', title: 'Poetic Tour of the Balkans', description: 'A poetic tour of the Balkans\' layered cultural heritage across the empires and eras that shaped it.', datePublished: '2020-05-25' },
+    { name: 'ottoman', file: 'ottoman/index.html', route: '/ottoman/', part: 'ottoman', navLabel: 'Ottoman', title: 'The Ottoman Heritage', description: 'Part II of the Poetic Tour of the Balkans — the region\'s Ottoman-era heritage.', datePublished: '2020-05-25' },
+    { name: 'fountain', file: 'ottoman/fountain.html', route: '/ottoman/fountain', part: 'ottoman', country: 'bosnia', navLabel: 'Fountain', title: 'The Fountain', description: 'In Sarajevo, flows a fountain…', datePublished: '2020-05-25' },
+    { name: 'mosque', file: 'ottoman/mosque.html', route: '/ottoman/mosque', part: 'ottoman', country: 'bosnia', navLabel: 'Mosque', title: 'The Mosque', description: 'From the hills, rises a mosque…', datePublished: '2025-06-06' },
+    { name: 'monastery', file: 'ottoman/monastery.html', route: '/ottoman/monastery', part: 'ottoman', country: 'bosnia', navLabel: 'Monastery', title: 'The Monastery', description: 'Beside a monastery, springs the Buna river…', datePublished: '2020-05-25' },
+    { name: 'bridge', file: 'ottoman/bridge.html', route: '/ottoman/bridge', part: 'ottoman', country: 'kosovo', navLabel: 'Bridge', title: 'The Bridge', description: 'In Prizren, spans a bridge…', datePublished: '2020-05-25' },
 ];
+
+// Fail the build loudly on an out-of-vocabulary `part`/`country` (controlled vocabulary,
+// not folksonomy — see PARTS/COUNTRIES above and information-architecture.md goal 5).
+for (const p of pages) {
+    if (p.part && !PARTS.includes(p.part)) {
+        throw new Error(`vite.config.js: unknown part "${p.part}" on page "${p.name}" (allowed: ${PARTS.join(', ')})`);
+    }
+    if (p.country && !COUNTRIES.includes(p.country)) {
+        throw new Error(`vite.config.js: unknown country "${p.country}" on page "${p.name}" (allowed: ${COUNTRIES.join(', ')})`);
+    }
+}
 
 const pageInput = Object.fromEntries(pages.map((p) => [p.name, p.file]));
 
-// Vite's core HTML plugin resolves the `href` of every <link> tag as a static asset,
-// regardless of its `rel` value. Our pages use <link rel="prev"/"next" href="foo.html">
-// for pagination between sibling entry pages, so Vite was fingerprinting those sibling
-// HTML files and duplicating them into assets/ (in addition to their real root-level
-// entry output). This plugin hides the href on those specific tags before Vite's core
-// HTML resolution runs, then restores it once the final HTML has been generated.
-const NAV_LINK_ATTR = 'data-vite-skip-href';
-const LINK_TAG_RE = /<link\b[^>]*>/gi;
+// --- Registry-driven nav / pagination / breadcrumb / facet generation ------------------
+// One generator, keyed off the `pages` registry, replaces what used to be hand-maintained
+// in three places (Navigation.js's <ol>, each page's <link rel="prev"/"next">, and — new —
+// breadcrumbs + the country facet). See information-architecture.md goals 3, 4, and 6.
 
-function hidePaginationHrefs(html) {
-    return html.replace(LINK_TAG_RE, (tag) => {
-        if (/\brel=["'](?:prev|next)["']/i.test(tag) && /\bhref=/i.test(tag)) {
-            return tag.replace(/\bhref=/i, `${NAV_LINK_ATTR}=`);
-        }
-        return tag;
-    });
+const escapeHtml = (s) =>
+    String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const titleCase = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+// `Home > The Ottoman Heritage > The Bridge` as BreadcrumbList RDFa. The trail is derived
+// purely from the page's `part` (its hub is the registry entry whose `name === part`), so
+// home gets a 1-level trail, the hub a 2-level one, and landmarks a 3-level one, with no
+// per-page configuration.
+function buildBreadcrumb(page) {
+    const home = pages.find((p) => p.route === '/');
+    const hub = page.part ? pages.find((p) => p.name === page.part) : null;
+
+    const crumbs = [];
+    if (page === home) {
+        crumbs.push({ name: 'Home' });
+    } else {
+        crumbs.push({ name: 'Home', href: '/' });
+        if (hub && hub !== page) crumbs.push({ name: hub.title, href: hub.route });
+        crumbs.push({ name: page.title });
+    }
+
+    const items = crumbs
+        .map((c, i) => {
+            const isCurrent = i === crumbs.length - 1;
+            const label = `<span property="name">${escapeHtml(c.name)}</span>`;
+            const inner = isCurrent ? label : `<a property="item" href="${c.href}">${label}</a>`;
+            const current = isCurrent ? ' aria-current="page"' : '';
+            return `<li property="itemListElement" typeof="ListItem"${current}>${inner}<meta property="position" content="${i + 1}"></li>`;
+        })
+        .join('');
+
+    return `<nav aria-label="Breadcrumb" class="breadcrumbs" typeof="BreadcrumbList"><ol>${items}</ol></nav>`;
 }
 
-function restorePaginationHrefs(html) {
-    return html.replaceAll(`${NAV_LINK_ATTR}=`, 'href=');
+// "More in Bosnia" — Location kept as a cross-referencing facet, not a rival hierarchy
+// (information-architecture.md goal 6). Only rendered when at least one *other* page shares
+// the current page's `country`.
+function buildCountryFacet(page) {
+    if (!page.country) return '';
+    const related = pages.filter((p) => p.country === page.country && p !== page);
+    if (related.length === 0) return '';
+
+    const label = titleCase(page.country);
+    const links = related.map((p) => `<li><a href="${p.route}">${escapeHtml(p.title)}</a></li>`).join('');
+    return `<aside class="country-facet" aria-label="More in ${escapeHtml(label)}"><p>More in ${escapeHtml(label)}:</p><ul>${links}</ul></aside>`;
 }
 
 // Vite will automatically copy everything from src/public into the root of your dist folder completely untouched during the build.
 export default defineConfig({
     root: resolve(__dirname, 'src'), // Sets the project root to the src folder
     define: {
-        // Available to client-side code as a global constant, e.g. for console/debug output.
+        // Available to client-side code as global constants.
+        // __APP_VERSION__: release version, e.g. for console/debug output.
         __APP_VERSION__: JSON.stringify(APP_VERSION),
+        // __NAV_PAGES__: the registry, trimmed to what the global nav needs, so
+        // Navigation.js renders its <ol> from the same single source of truth as
+        // pagination/breadcrumbs/SEO instead of a hand-maintained hardcoded list.
+        // The global bar is section-level: only Home and each Part hub appear in it.
+        // `nav` marks those top-level entries (Home has no `part`; a Part hub is the
+        // entry whose `name === part` — the same hub convention the breadcrumb generator
+        // uses), so landmark pages (part set, name !== part) fall out automatically and
+        // are instead reached via the hub grid, breadcrumbs, and prev/next pagination.
+        // `part` is kept so the client can highlight the active *section* while on a
+        // landmark page.
+        __NAV_PAGES__: JSON.stringify(
+            pages.map((p) => ({
+                name: p.name,
+                route: p.route,
+                navLabel: p.navLabel,
+                title: p.title,
+                part: p.part ?? null,
+                nav: !p.part || p.name === p.part,
+            }))
+        ),
     },
     css: {
         // Lightning CSS (Vite's native CSS transformer) both lowers modern syntax and
@@ -95,16 +175,11 @@ export default defineConfig({
         target: browserslistToEsbuild(browsers), // Derives esbuild's JS target from the resolved browserslist
         cssMinify: 'lightningcss', // Minify CSS with the same Lightning CSS targets
 
-        /*lib:{
-            entry: resolve(__dirname, "components/index.ts"),
-            name: 'Footer',
-            // format: 'cjs',
-            filename: 'Footer.js',
-
-        },*/
         rollupOptions: {
             // https://rollupjs.org/configuration-options/
-            // Since root is 'src', paths are specified relative to the src folder directly
+            // Since root is 'src', paths are specified relative to the src folder directly.
+            // Nested entries (e.g. 'ottoman/bridge.html') build to the matching nested path
+            // in dist (dist/ottoman/bridge.html).
             input: pageInput,
             output: {
                 // Safely moves JS files and compiled CSS/image assets into an assets folder
@@ -135,15 +210,31 @@ export default defineConfig({
             },
         },
         {
-            name: 'preserve-pagination-links',
-            enforce: 'pre',
-            transform(code, id) {
-                if (!id.endsWith('.html')) return;
-                return hidePaginationHrefs(code);
-            },
-            transformIndexHtml: {
-                order: 'post',
-                handler: restorePaginationHrefs,
+            // Registry-driven generator: injects each page's prev/next pagination links,
+            // its BreadcrumbList breadcrumbs, and (on landmark pages) the country facet,
+            // all derived from the `pages` array above. Replaces the old hand-maintained
+            // pagination <link>s and the `preserve-pagination-links` workaround they needed.
+            name: 'inject-registry-nav',
+            transformIndexHtml(html, ctx) {
+                const currentFile = relative(resolve(__dirname, 'src'), ctx.filename).split(sep).join('/');
+                const index = pages.findIndex((p) => p.file === currentFile);
+                if (index === -1) return html;
+                const page = pages[index];
+
+                const tags = [];
+                const prev = pages[index - 1];
+                const next = pages[index + 1];
+                if (prev) tags.push({ tag: 'link', attrs: { rel: 'prev', href: prev.route }, injectTo: 'head' });
+                if (next) tags.push({ tag: 'link', attrs: { rel: 'next', href: next.route }, injectTo: 'head' });
+
+                // Breadcrumbs go in as the first child of <main>; the country facet is
+                // appended inside the landmark <article>. Both are string-injected because
+                // the tag-descriptor API can only target <head>/<body>, not arbitrary nodes.
+                let out = html.replace(/(<main\b[^>]*>)/, `$1${buildBreadcrumb(page)}`);
+                const facet = buildCountryFacet(page);
+                if (facet) out = out.replace('</article>', `${facet}</article>`);
+
+                return { html: out, tags };
             },
         },
         // input https://www.npmjs.com/package/html-minifier-terser options

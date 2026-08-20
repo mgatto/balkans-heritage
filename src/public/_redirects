@@ -1,0 +1,13 @@
+# 301 redirects from the old flat landmark URLs to their new nested /ottoman/ paths.
+# Cloudflare Workers (Static Assets) natively supports this Pages-style _redirects file;
+# it's copied verbatim from src/public/ to the site root at build time. Both the
+# extensionless and the .html forms of each old URL are covered, since search engines and
+# external backlinks may reference either.
+/bridge      /ottoman/bridge      301
+/bridge.html /ottoman/bridge      301
+/mosque      /ottoman/mosque      301
+/mosque.html /ottoman/mosque      301
+/fountain      /ottoman/fountain  301
+/fountain.html /ottoman/fountain  301
+/monastery      /ottoman/monastery 301
+/monastery.html /ottoman/monastery 301

@@ -10,7 +10,11 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs}"],
     ignores: ["scripts/**", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs", "**/.pa11yci.cjs"],
     plugins: { compat },
-    languageOptions: { globals: globals.browser },
+    languageOptions: {
+      // __APP_VERSION__ / __NAV_PAGES__ are injected at build/dev time via Vite's
+      // `define` (see vite.config.js), so they're globals to the client code.
+      globals: { ...globals.browser, __APP_VERSION__: "readonly", __NAV_PAGES__: "readonly" },
+    },
     rules: { "compat/compat": "error" },
   },
   {

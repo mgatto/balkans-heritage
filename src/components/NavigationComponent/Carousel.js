@@ -37,7 +37,7 @@ class Carousel extends HTMLElement {
         }, 4000);
     }
 
-    moveSlide(slideIndex) {
+    moveSlide() {
         let n = this.items.length;
 
         // use the modulo operator to wrap around the items array with modular arithmetic

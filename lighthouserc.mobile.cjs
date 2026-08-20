@@ -5,10 +5,11 @@ module.exports = {
       numberOfRuns: 3,
       url: [
         'http://localhost/index.html',
-        'http://localhost/bridge.html',
-        'http://localhost/mosque.html',
-        'http://localhost/fountain.html',
-        'http://localhost/monastery.html',
+        'http://localhost/ottoman/index.html',
+        'http://localhost/ottoman/bridge.html',
+        'http://localhost/ottoman/mosque.html',
+        'http://localhost/ottoman/fountain.html',
+        'http://localhost/ottoman/monastery.html',
       ],
       // Mobile is Lighthouse's default form factor, so no preset is set here.
       // (Valid --preset values are only perf/experimental/desktop.)
