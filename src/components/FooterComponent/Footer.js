@@ -11,11 +11,13 @@ class Footer extends HTMLElement {
     constructor() {
         super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
-        const footer = document.createElement('footer');
-
-        footer.innerHTML = Footer.template;
-        shadowRoot.appendChild(footer);
+        // footer.html already provides the semantic <footer> (contentinfo landmark), so the
+        // template is rendered straight into the shadow root. Wrapping it in a second
+        // document.createElement('footer') previously produced a <footer> nested in a
+        // <footer> — two contentinfo landmarks — which axe flags as duplicate, non-top-level,
+        // and non-unique (see docs/accessibility.md).
+        this.attachShadow({mode: 'open'});
+        this.shadowRoot.innerHTML = Footer.template;
     }
 
     connectedCallback() {
