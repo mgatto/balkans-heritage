@@ -316,6 +316,17 @@ figcaption {
     text-align: center;
 }
 
+/* The "(planned)" status note on not-yet-built Parts. The global reset (top of this file)
+   directly targets `small`, overriding the caption's font-family and forcing font-size back
+   to 100%, so without this the note renders in Oswald at the caption's full size. Re-inherit
+   the caption's EB Garamond, shrink it back to a subordinate size, and mute it so it reads as
+   an annotation rather than part of the title. */
+.page-grid figcaption small {
+    font-family: inherit;
+    font-size: 0.7em;
+    color: #595959;
+}
+
 @media (width <=600px) {
     .page-grid {
         grid-template-columns: 1fr;
