@@ -1,3 +1,9 @@
+// Imported via `?inline` (rather than referenced by filename in the template) so the
+// styles are bundled into the JS and injected into the shadow root, and — unlike a CSS
+// string hardcoded here — go through Stylelint (npm run lint:css) and Vite's Lightning CSS
+// pipeline. Mirrors the FooterComponent pattern.
+import styles from './navigation.css?inline';
+
 class Navigation extends HTMLElement {
     /*
      * all svg sourced from Wikipedia / Wikimedia and is used under the Creative Commons license
@@ -82,12 +88,16 @@ class Navigation extends HTMLElement {
     get template() {
         const listItems = (pages, idSuffix) =>
             pages
-                .map(
-                    (page) => `
-                <li id="${page.name}_${idSuffix}">
+                .map((page) => {
+                    // Part hubs (nav item with a `part`) carry a class so the primary bar
+                    // can chain them into a sequence with → separators; Home (no `part`)
+                    // is deliberately left unclassed so the Home → first-Part gap has none.
+                    const className = page.nav && page.part ? ' class="part-hub"' : "";
+                    return `
+                <li id="${page.name}_${idSuffix}"${className}>
                     <a href="${page.route}">${page.navLabel ?? page.title}</a>
-                </li>`
-                )
+                </li>`;
+                })
                 .join("");
 
         const primaryItems = listItems(
@@ -109,77 +119,7 @@ class Navigation extends HTMLElement {
         }
 
         return `
-            <style>
-                nav {
-                    color: #fff;
-                    background-color: #333;
-                }
-                
-                /* Second tier reads as subordinate: a lighter band and smaller type. */
-                nav.subnav {
-                    background-color: #555;
-                }
-                
-                nav ol {
-                    display: flex;
-                    justify-content: space-evenly;
-                    width: 100%;
-                    margin: 0;
-                    padding: 0;
-                }
-                
-                /* Primary (top-most) bar is left-aligned; the section sub-bar keeps its
-                   evenly-distributed layout. */
-                nav.primary ol {
-                    justify-content: flex-start;
-                    gap: 1.5rem;
-                }
-                
-                nav li {
-                    list-style-type: none;
-                    display: block;
-                    flex: 0 1 auto;
-                    background-color: #333;
-                    padding: 1rem 0;
-                    z-index: 1;
-                }
-                
-                nav.subnav li {
-                    background-color: #555;
-                    padding: 0.6rem 0;
-                    font-size: 0.9rem;
-                }
-                
-                nav li:first-child {
-                    padding-left: 1rem;
-                }
-                
-                nav li:last-child {
-                    padding-right: 1rem;
-                }
-                
-                nav a {
-                    color: #fff;
-                    letter-spacing: 0.08em;
-                    text-underline-offset: 0.25em;
-                }
-                
-                nav li.active {
-                    filter: opacity(0.2);
-                    pointer-events:none;
-                }
-                
-                nav li.active > a {
-                    text-decoration: none;
-                }
-                
-                /* Parent section of the current landmark page: highlighted but still
-                   clickable (a way back up to the Part hub), unlike the dimmed current page.
-                   (Underline offset is shared with all nav links via the nav a rule above.) */
-                nav li.current-section > a {
-                    text-decoration: underline;
-                }
-            </style>
+            <style>${styles}</style>
             
             <nav class="primary" aria-label="Primary">
                 <ol>${primaryItems}
