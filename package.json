@@ -18,6 +18,7 @@
   "private": true,
   "type": "module",
   "devDependencies": {
+    "@axe-core/puppeteer": "^4.11.0",
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
@@ -37,7 +38,7 @@
     "lighthouse": "^12.8.2",
     "lightningcss": "^1.33.0",
     "lint-staged": "^16.4.0",
-    "pa11y-ci": "^4.1.1",
+    "puppeteer": "^24.43.1",
     "rdfa-streaming-parser": "^3.0.2",
     "rollup": "^4.62.4",
     "selenium-webdriver": "^4.47.0",
@@ -60,7 +61,8 @@
     "url": "git+https://mgatto@github.com/mgatto/balkans-heritage.git"
   },
   "scripts": {
-    "a11y": "start-server-and-test preview:test http://localhost:4173 pa11y:run",
+    "a11y": "start-server-and-test preview:test http://localhost:4173 a11y:scan",
+    "a11y:scan": "node scripts/a11y.mjs",
     "bs:browsers": "node --env-file-if-exists=.env scripts/browserstack-screenshots.mjs --list",
     "bs:screenshots": "node --env-file-if-exists=.env scripts/browserstack-screenshots.mjs",
     "bs:screenshots:local": "vite build && node --env-file-if-exists=.env scripts/browserstack-screenshots.mjs --local",
@@ -78,7 +80,6 @@
     "lint:js": "eslint \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\" \"scripts/**/*.{js,mjs,cjs}\" \"vitest.config.mjs\"",
     "lint:js:fix": "eslint --fix \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\" \"scripts/**/*.{js,mjs,cjs}\" \"vitest.config.mjs\"",
     "lint:fix": "npm run lint:js:fix && npm run lint:css:fix",
-    "pa11y:run": "pa11y-ci --config .pa11yci.cjs || true",
     "preview": "vite preview",
     "preview:test": "vite preview --port 4173 --strictPort",
     "release": "commit-and-tag-version",

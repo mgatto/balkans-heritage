@@ -134,7 +134,7 @@ The site is hosted on [Cloudflare Workers (Static Assets)](https://developers.cl
 npm run deploy   # vite build && wrangler deploy
 ```
 
-`npm run deploy` intentionally runs `vite build` directly rather than `npm run build`, skipping the slow Lighthouse/pa11y `postbuild` gate. Run `npm run build` locally first as your pre-release quality check, then `npm run deploy` to ship. Deploy config (asset directory, custom domain route) lives in `wrangler.jsonc`.
+`npm run deploy` intentionally runs `vite build` directly rather than `npm run build`, skipping the slow Lighthouse/accessibility `postbuild` gate. Run `npm run build` locally first as your pre-release quality check, then `npm run deploy` to ship. Deploy config (asset directory, custom domain route) lives in `wrangler.jsonc`.
 
 ### One-time setup checklist
 
@@ -158,7 +158,7 @@ npm run lint:html     # validate HTML
 npm run lint:css      # lint CSS
 npm run lint:js       # lint JS/JSON
 npm run lint:fix      # auto-fix JS and CSS where possible
-npm run a11y          # check accessibility (pa11y-ci/axe-core) against a production build
+npm run a11y          # check accessibility (axe-core via Puppeteer) against a production build
 npm test              # run the Vitest suite (scripts/*.mjs)
 ```
 
