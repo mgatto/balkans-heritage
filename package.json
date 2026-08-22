@@ -34,6 +34,7 @@
     "globals": "^17.11.0",
     "html-minifier-terser": "^7.2.0",
     "html-validate": "^10.9.0",
+    "htmlparser2": "^9.1.0",
     "husky": "^9.1.7",
     "lighthouse": "^12.8.2",
     "lightningcss": "^1.33.0",
