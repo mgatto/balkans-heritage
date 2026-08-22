@@ -23,6 +23,10 @@ Additional parts and points of interest are welcome — see [How to contribute](
 
 If you enjoy meticulous, standards-first web development — or you care about Balkan history and culture — you're very welcome to contribute.
 
+## Built in the open
+
+The craft decisions and dead-ends behind this site are written up as an ongoing developer journal — the *why* behind the RDFa linked-data work, the WCAG 2.2 accessibility tooling, and the dependency-light build. Follow it in the [Balkans Heritage category on mashqandmachine.com](https://mashqandmachine.com/category/balkans-heritage/), and read the [About page](https://balkanheritage.info/about) for the story behind the tour.
+
 ## Design principles
 
 - **Strict HTML5 conformance** — validated markup (see `npm run lint:html`).

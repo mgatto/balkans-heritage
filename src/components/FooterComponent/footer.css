@@ -31,3 +31,14 @@
     margin-top:
         -1px;
 }
+
+/* Utility nav (About, and any future License/Credits). The shadow root isolates
+   the component from the site's global link styles, so the muted secondary color
+   used elsewhere (breadcrumbs, attributions) is restated here to match. */
+.footer-nav {
+    margin-top: 1rem;
+}
+
+.footer-nav a {
+    color: #595959;
+}

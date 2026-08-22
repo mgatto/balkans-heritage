@@ -437,6 +437,30 @@ button#maps-download {
     background-color: #E30A17;
 }
 
+/* The About page's "craft" list reuses the star-bullet idiom from the Ottoman hub
+   (list markers are reset to none globally), and restores the paragraph-rhythm
+   bottom margin the reset strips — otherwise the <ul> runs flush into the
+   paragraph that follows it. Id-scoped to #about so no other page is affected.
+   Placed ahead of the #ottoman list rules to keep selector specificity ascending
+   (Stylelint no-descending-specificity). */
+#about ul {
+    list-style-type: none;
+    margin-bottom: 1.2rem;
+}
+
+#about ul li {
+    /* Match the paragraph weight (`p` is `font-weight: lighter`); list items
+       otherwise inherit the body's `normal` weight and read as bolder than the
+       surrounding prose. */
+    font-weight: lighter;
+    line-height: 1.5rem;
+}
+
+#about ul li::before {
+    content: '\2605';
+    margin: 0 1em;
+}
+
 /* The Ottoman hub's maps list gets star bullets; the page-grid (also a <ul> on the hub)
    cancels them for its figure links. Both are id-scoped so the cancel keeps outranking the
    star on the hub, and so the home Parts index (a page-grid with no plain list) is unaffected. */

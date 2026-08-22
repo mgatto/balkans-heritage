@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>About - Balkan Heritage</title>
+    <meta name="description"
+        content="About Balkan Heritage and its maker — a hand-crafted, framework-free tour of the region's layered Byzantine, Ottoman, Habsburg, and Socialist heritage, built by someone who traveled the Balkans and cares about cross-cultural cosmopolitanism and meticulous web craft.">
+    <meta name="author" content="Michael Gatto">
+
+    <link rel="canonical" href="https://balkanheritage.info/about">
+
+    <!-- Open Graph / social sharing. Absolute URLs use the canonical apex origin
+         (SITE_URL in vite.config.js); og:image is a stable file under src/public/,
+         copied verbatim to the site root so its URL is not fingerprinted. -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Balkan Heritage">
+    <meta property="og:title" content="About Balkan Heritage">
+    <meta property="og:description"
+        content="The cosmopolitan intent behind the Poetic Tour of the Balkans, and the craft behind the code.">
+    <meta property="og:url" content="https://balkanheritage.info/about">
+    <meta property="og:image" content="https://balkanheritage.info/assets/img/og-home.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt"
+        content="Poetic Tour of the Balkans — the Sarajevo fountain and the Gazi Husrev-beg Mosque">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Balkan Heritage">
+    <meta name="twitter:description"
+        content="The cosmopolitan intent behind the Poetic Tour of the Balkans, and the craft behind the code.">
+    <meta name="twitter:image" content="https://balkanheritage.info/assets/img/og-home.jpg">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="author" href="/humans.txt">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="apple-touch-icon" href="/assets/img/star_and_crescent.svg">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/star_and_crescent.svg">
+    <link rel="mask-icon" href="/assets/img/star_and_crescent.svg" color="#007f00">
+
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/kube.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+
+    <script type="module" src="/components/FooterComponent/Footer.js"></script>
+    <script type="module" src="/components/MastComponent/MedallionMast.js"></script>
+    <script type="module" src="/components/NavigationComponent/Navigation.js"></script>
+</head>
+
+<body id="about">
+    <header>
+        <a class="skip-link" href="#main-content">Skip to main content</a>
+        <balkans-navigation></balkans-navigation>
+        <balkans-mast parts></balkans-mast>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <header class="row align-center">
+            <div class="col col-8">
+                <h1 class="title text-center">About</h1>
+            </div>
+        </header>
+
+        <div class="row gutters around">
+            <article class="col col-10">
+                <p class="intro">
+                    A Poetic Tour of the Balkans, hand-made by someone who has walked its streets and who cares as much
+                    about the code as about the places.
+                </p>
+
+                <h2>The region</h2>
+                <p>
+                    I first traveled through the Balkans in the 1990s. This site does not dwell on what was happening
+                    then; its subject is the older, deeper thing those years obscured — the layered coexistence of
+                    Byzantine, Ottoman, Habsburg, and Socialist heritage in the same streets, the same walls, the same
+                    skylines. Cross-cultural cosmopolitanism has always been the point: a bridge in Prizren, a mosque
+                    and a monastery within a few kilometers of each other, a fountain in Sarajevo where several
+                    traditions meet rather than divide.
+                </p>
+                <p>
+                    A partial command of the Bosnian and Turkish languages shapes how the places are described here, and
+                    the Ottoman-era loanwords that survive in both languages such as <i lang="bs">šadrvan</i>, <i
+                        lang="bs">tekija</i>, <i lang="tr">hamam</i> — are treated as living, first-person vocabulary
+                    rather than researched footnotes. I'm working on adding more of these to the site, especially in
+                    Albanian (Shqip). </p>
+
+                <h2>The craft</h2>
+                <p>
+                    The other half of this project is a love of hand-crafting bespoke, performant websites. That is an
+                    unusual pairing, and it is deliberate: the same attention the tour pays to a fountain's carved
+                    canopy, the code pays to markup, structure, and speed. Neither half serves the other. They simply
+                    belong to the same person.
+                </p>
+                <p>In practice that means:</p>
+                <ul>
+                    <li>vanilla HTML with no front-end framework;</li>
+                    <li>a few standards-compliant Web Components;</li>
+                    <li>strict HTML5 conformance;</li>
+                    <li>structured data as inline RDFa;</li>
+                    <li>and accessibility targeting WCAG 2.2 AA.</li>
+                </ul>
+                <p>The result is a codebase kept deliberately dependency-light so it stays legible and lasts.</p>
+
+                <h2>Built in the open</h2>
+                <p>
+                    The decisions and dead-ends behind the build are written up as they happen. You can follow my
+                    developer journal at <a
+                        href="https://mashqandmachine.com/category/balkan-heritage-website/">mashqandmachine.com</a>,
+                    and the full source lives on <a href="https://github.com/mgatto/balkans-heritage">GitHub</a>.
+                </p>
+            </article>
+        </div>
+    </main>
+
+    <balkans-footer></balkans-footer>
+</body>
+
+</html>

@@ -57,6 +57,12 @@ const COUNTRIES = ['balkans', 'kosovo', 'bosnia'];
 // here rather than derived from the file's mtime, so editing an existing page doesn't
 // re-surface it at the top of the feed. Seeded from each file's first commit; update when
 // a page is genuinely (re)published.
+//
+// `nav: false` marks a *utility* page (e.g. About): kept out of the global tour nav bar
+// AND out of the prev/next tour pagination, while still being a real built page in the
+// sitemap/feed/llms.txt. It is distinct from the *derived* nav exclusion of landmark pages
+// (which are in the tour but not in the top-level bar) — see the `__NAV_PAGES__` and
+// `inject-registry-nav` logic below.
 const pages = [
     { name: 'main', file: 'index.html', route: '/', navLabel: 'Home', title: 'Poetic Tour of the Balkans', description: 'A poetic tour of the Balkans\' layered cultural heritage across the empires and eras that shaped it.', datePublished: '2020-05-25' },
     { name: 'ottoman', file: 'ottoman/index.html', route: '/ottoman/', part: 'ottoman', navLabel: 'Ottoman', title: 'The Ottoman Heritage', description: 'Part II of the Poetic Tour of the Balkans — the region\'s Ottoman-era heritage.', datePublished: '2020-05-25' },
@@ -64,6 +70,7 @@ const pages = [
     { name: 'mosque', file: 'ottoman/mosque.html', route: '/ottoman/mosque', part: 'ottoman', country: 'bosnia', navLabel: 'Mosque', title: 'The Mosque', description: 'From the hills, rises a mosque…', datePublished: '2025-06-06' },
     { name: 'monastery', file: 'ottoman/monastery.html', route: '/ottoman/monastery', part: 'ottoman', country: 'bosnia', navLabel: 'Monastery', title: 'The Monastery', description: 'Beside a monastery, springs the Buna river…', datePublished: '2020-05-25' },
     { name: 'bridge', file: 'ottoman/bridge.html', route: '/ottoman/bridge', part: 'ottoman', country: 'kosovo', navLabel: 'Bridge', title: 'The Bridge', description: 'In Prizren, spans a bridge…', datePublished: '2020-05-25' },
+    { name: 'about', file: 'about.html', route: '/about', nav: false, navLabel: 'About', title: 'About', description: 'About Balkan Heritage and its maker — the cosmopolitan intent behind the tour and the craft behind the code.', datePublished: '2026-08-22' },
 ];
 
 // Fail the build loudly on an out-of-vocabulary `part`/`country` (controlled vocabulary,
@@ -156,7 +163,10 @@ export default defineConfig({
                 navLabel: p.navLabel,
                 title: p.title,
                 part: p.part ?? null,
-                nav: !p.part || p.name === p.part,
+                // A page is in the global tour nav bar when it's a top-level/hub page
+                // (no `part`, or it *is* its part's hub), UNLESS it explicitly opts out
+                // with `nav: false` (utility pages like About).
+                nav: p.nav !== false && (!p.part || p.name === p.part),
             }))
         ),
     },
@@ -222,10 +232,18 @@ export default defineConfig({
                 const page = pages[index];
 
                 const tags = [];
-                const prev = pages[index - 1];
-                const next = pages[index + 1];
-                if (prev) tags.push({ tag: 'link', attrs: { rel: 'prev', href: prev.route }, injectTo: 'head' });
-                if (next) tags.push({ tag: 'link', attrs: { rel: 'next', href: next.route }, injectTo: 'head' });
+                // prev/next describe the guided tour sequence, so they walk the tour
+                // pages only — utility pages (`nav: false`, e.g. About) are excluded, so
+                // they neither emit a spurious prev/next nor pull a tour page's `next`
+                // onto themselves (which appending About to the registry otherwise would).
+                const tour = pages.filter((p) => p.nav !== false);
+                const tourIndex = tour.indexOf(page);
+                if (tourIndex !== -1) {
+                    const prev = tour[tourIndex - 1];
+                    const next = tour[tourIndex + 1];
+                    if (prev) tags.push({ tag: 'link', attrs: { rel: 'prev', href: prev.route }, injectTo: 'head' });
+                    if (next) tags.push({ tag: 'link', attrs: { rel: 'next', href: next.route }, injectTo: 'head' });
+                }
 
                 // Breadcrumbs go in as the first child of <main>; the country facet is
                 // appended inside the landmark <article>. Both are string-injected because
