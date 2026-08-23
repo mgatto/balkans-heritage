@@ -8,7 +8,9 @@ export default defineConfig([
   { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"] },
   {
     files: ["**/*.{js,mjs,cjs}"],
-    ignores: ["scripts/**", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs", "**/.pa11yci.cjs"],
+    // Test files are excluded: they run under Vitest (jsdom), not the shipped bundle, so
+    // checking their APIs against the site's browserslist targets would be meaningless.
+    ignores: ["scripts/**", "src/components/**/*.test.js", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs", "**/.pa11yci.cjs"],
     plugins: { compat },
     languageOptions: {
       // __APP_VERSION__ / __NAV_PAGES__ are injected at build/dev time via Vite's
@@ -20,6 +22,13 @@ export default defineConfig([
   {
     files: ["scripts/**/*.{js,mjs,cjs}", "**/*.config.{js,mjs,cjs}", "**/lighthouserc.*.cjs", "**/.pa11yci.cjs"],
     languageOptions: { globals: globals.node },
+  },
+  {
+    // Component unit tests run in Vitest's jsdom env: browser globals (window, document,
+    // customElements, HTMLElement, history…) plus node globals (globalThis, process).
+    // describe/it/expect/vi are imported from 'vitest' explicitly, mirroring scripts/.
+    files: ["src/components/**/*.test.js"],
+    languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
   { files: ["**/*.json"], plugins: { json }, language: "json/json", extends: ["json/recommended"] },
   { files: ["**/*.jsonc"], plugins: { json }, language: "json/jsonc", extends: ["json/recommended"] },
