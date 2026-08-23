@@ -11,6 +11,7 @@ class Navigation extends HTMLElement {
 
     constructor() {
         super();
+        this.attachShadow({ mode: "open" });
     }
 
     connectedCallback() {
@@ -18,11 +19,7 @@ class Navigation extends HTMLElement {
     }
 
     render() {
-        const shadowRoot = this.attachShadow({ mode: "open" });
-        const container = document.createElement("div");
-
-        container.innerHTML = this.template;
-        shadowRoot.appendChild(container);
+        this.shadowRoot.innerHTML = this.template;
 
         const currentPage = this.currentPage;
         if (!currentPage) return;
@@ -30,18 +27,18 @@ class Navigation extends HTMLElement {
         if (currentPage.nav) {
             // The current page is itself a top-level bar item (Home or a Part hub): dim it
             // and take it out of the tab order — you're already here.
-            this.markActive(shadowRoot, `${currentPage.name}_link`, "active", "page");
+            this.markActive(`${currentPage.name}_link`, "active", "page");
         } else if (currentPage.part) {
             // A landmark page isn't in the primary bar, so highlight its parent Part hub as
             // the current section (kept clickable, a way back up)…
-            this.markActive(shadowRoot, `${currentPage.part}_link`, "current-section", "true");
+            this.markActive(`${currentPage.part}_link`, "current-section", "true");
             // …and dim its own entry in the section sub-bar — you're already here.
-            this.markActive(shadowRoot, `${currentPage.name}_sublink`, "active", "page");
+            this.markActive(`${currentPage.name}_sublink`, "active", "page");
         }
     }
 
-    markActive(shadowRoot, id, className, ariaCurrent) {
-        const li = shadowRoot.getElementById(id);
+    markActive(id, className, ariaCurrent) {
+        const li = this.shadowRoot.getElementById(id);
         if (!li) return;
         li.classList.add(className);
         const link = li.querySelector("a");

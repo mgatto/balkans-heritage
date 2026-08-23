@@ -1,0 +1,20 @@
+/* Position the emblem relative to the mast itself, not the viewport, so it
+   sits over the color bands regardless of how many nav bars stack above the
+   mast (e.g. the section sub-bar). */
+:host {
+    position: relative;
+    display: block;
+}
+
+#medallion {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#medallion img {
+    height: 40px;
+    position: absolute;
+    top: 0;
+}

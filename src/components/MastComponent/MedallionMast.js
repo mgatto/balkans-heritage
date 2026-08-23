@@ -4,6 +4,11 @@
 import starAndCrescent from '../../assets/img/star_and_crescent.svg';
 import albanianEagle from '../../assets/img/albanian_eagle.svg';
 import bosnianCoatOfArms from '../../assets/img/bosnian_coat_of_arms.svg';
+// Imported via `?inline` (rather than a hardcoded string in the template) so the styles
+// are bundled into the shadow root and — unlike an inline `<style>` string — go through
+// Stylelint (npm run lint:css) and Vite's Lightning CSS pipeline. Mirrors the Footer and
+// Navigation components.
+import styles from './mast.css?inline';
 
 class MedallionMast extends HTMLElement {
     /*
@@ -12,10 +17,14 @@ class MedallionMast extends HTMLElement {
 
     constructor() {
         super();
+        this.attachShadow({mode: 'open'});
     }
 
     connectedCallback() {
-        this.render();
+        this.country = this.getAttribute('country');
+        this.parts = this.hasAttribute('parts');
+
+        this.shadowRoot.innerHTML = this.template;
     }
 
     set country(name) {
@@ -24,17 +33,6 @@ class MedallionMast extends HTMLElement {
 
     get country() {
         return this._country;
-    }
-
-    render() {
-        this.country = this.getAttribute('country');
-        this.parts = this.hasAttribute('parts');
-
-        const shadowRoot = this.attachShadow({mode: 'open'});
-        const mast = document.createElement('div');
-
-        mast.innerHTML = this.template;
-        shadowRoot.appendChild(mast);
     }
 
     // One signature color per Part, in chronological (Part I → IV) order — the same order
@@ -87,29 +85,7 @@ class MedallionMast extends HTMLElement {
             .join('\n                ');
 
         return `
-            <style>
-                /* Position the emblem relative to the mast itself, not the viewport, so it
-                   sits over the color bands regardless of how many nav bars stack above the
-                   mast (e.g. the section sub-bar). */
-                :host {
-                    position: relative;
-                    display: block;
-                }
-                
-                #medallion {
-                    width: 100%;
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                }
-                
-                #medallion img {
-                    height: 40px;
-                    position: absolute;
-                    top: 0;
-                }
-            </style>
+            <style>${styles}</style>
             
             <svg width="100%" height="30px">
                 ${bands}

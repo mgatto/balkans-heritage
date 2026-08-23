@@ -10,17 +10,17 @@ import humansLogoSrc from '../../assets/img/humanstxt-isolated-blank.gif';
 class Footer extends HTMLElement {
     constructor() {
         super();
+        this.attachShadow({mode: 'open'});
+    }
 
+    connectedCallback() {
         // footer.html already provides the semantic <footer> (contentinfo landmark), so the
         // template is rendered straight into the shadow root. Wrapping it in a second
         // document.createElement('footer') previously produced a <footer> nested in a
         // <footer> — two contentinfo landmarks — which axe flags as duplicate, non-top-level,
         // and non-unique (see docs/accessibility.md).
-        this.attachShadow({mode: 'open'});
         this.shadowRoot.innerHTML = Footer.template;
-    }
 
-    connectedCallback() {
         const yearEl = this.shadowRoot.querySelector('.year');
         if (yearEl) {
             yearEl.textContent = new Intl.DateTimeFormat('en-US', {
