@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.1.0](https://github.com/mgatto/balkans-heritage/compare/v2.0.0...v2.1.0) (2026-08-23)
+
+### Features
+
+* add About page for why the site exists ([f9be4e8](https://github.com/mgatto/balkans-heritage/commit/f9be4e858e6db479fcc568d2f38ddb10b4496fe4))
+* unit test the web components ([d56d2a1](https://github.com/mgatto/balkans-heritage/commit/d56d2a1005420b97b1a54890dcb8840f6fe05404))
+
+### Bug Fixes
+
+* (planned) displayed too large ([c9cbd77](https://github.com/mgatto/balkans-heritage/commit/c9cbd77ba9d19c3ce4b814d189d432f23dd343ad))
+* accessibility errors surfaced by direct a11y axe calls ([bcf10d6](https://github.com/mgatto/balkans-heritage/commit/bcf10d6eb6c76dee8b94399ee690696276a9e602))
+* show main parts as sequence in nav bar ([bbdc80a](https://github.com/mgatto/balkans-heritage/commit/bbdc80a8bee3f49104a224914ade5eab1fd74ec5))
+
+### Code Refactoring
+
+* conform to web component best practices ([825d232](https://github.com/mgatto/balkans-heritage/commit/825d232ae47dff1de2ee45bcb35679784675dbe0))
+
+### Documentation
+
+* build intel system for new browser features ([a38e0d6](https://github.com/mgatto/balkans-heritage/commit/a38e0d65e70f93976a06fe875dd25c51debc658d))
+* clarify which plan owns asset optimization ([8d36400](https://github.com/mgatto/balkans-heritage/commit/8d36400654cbb75368390f608bc661817633d7a8))
 ## [2.0.0](https://github.com/mgatto/balkans-heritage/compare/v1.4.0...v2.0.0) (2026-08-20)
 
 ### Features
