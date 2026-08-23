@@ -47,7 +47,7 @@ src/
     mosque.html
     fountain.html
     monastery.html
-  components/             # Framework-free Web Components (mast, navigation, footer, carousel)
+  components/             # Framework-free Web Components (mast, navigation, footer)
   assets/                 # CSS, images, maps
   public/                 # Files copied verbatim to the site root (manifest.json, humans.txt, _redirects).
                            # _redirects 301s the old flat landmark URLs (/bridge, …) to their
