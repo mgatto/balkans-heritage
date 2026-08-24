@@ -255,6 +255,101 @@ export default defineConfig({
                 return { html: out, tags };
             },
         },
+        {
+            // Injects resource hints (preload) with build-resolved, fingerprinted
+            // URLs. Fonts are hashed via CSS processing and images via asset hashing,
+            // so hand-written hrefs would break on every rehash — this reads the
+            // emitted bundle instead. Runs in the `post` phase so `ctx.bundle` (the
+            // hashed asset list) is populated. See docs/future/asset-loading-optimization.md
+            // item 4. No-op on the dev server (no bundle), where assets are unhashed.
+            name: 'inject-resource-hints',
+            transformIndexHtml: {
+                order: 'post',
+                handler(html, ctx) {
+                    const bundle = ctx.bundle;
+                    if (!bundle) return html;
+
+                    const assets = Object.values(bundle).filter((a) => a.type === 'asset');
+                    // Every original basename an emitted asset was derived from, so we
+                    // can match on the pre-hash filename regardless of Rollup's field.
+                    const basenames = (a) =>
+                        [a.name, a.originalFileName, ...(a.originalFileNames || [])]
+                            .filter(Boolean)
+                            .map((n) => n.split('/').pop());
+
+                    const tags = [];
+
+                    // 1. Above-the-fold woff2 faces: the <h1> (EB Garamond regular) and
+                    //    the nav/mast (Oswald regular). These are discovered only after
+                    //    the CSSOM is built (referenced from CSS), so preloading them
+                    //    starts the fetch earlier. `crossorigin` is mandatory on font
+                    //    preloads even same-origin, or the fetch is discarded and the
+                    //    font double-fetches. Kept to two faces so the hints don't
+                    //    compete with the LCP hero image.
+                    const aboveFoldFonts = [
+                        'eb-garamond-v33-latin_latin-ext-regular.woff2',
+                        'oswald-v57-latin_latin-ext-regular.woff2',
+                    ];
+                    for (const face of aboveFoldFonts) {
+                        const asset = assets.find((a) => basenames(a).includes(face));
+                        if (asset) {
+                            tags.push({
+                                tag: 'link',
+                                attrs: {
+                                    rel: 'preload',
+                                    as: 'font',
+                                    type: 'font/woff2',
+                                    href: '/' + asset.fileName,
+                                    crossorigin: 'anonymous',
+                                },
+                                injectTo: 'head',
+                            });
+                        }
+                    }
+
+                    // 2. LCP hero preload on landmark pages, typed image/avif so browsers
+                    //    without AVIF skip it and fall through the <picture> normally (no
+                    //    double-download); AVIF browsers fetch exactly the file the hero's
+                    //    own <source> would pick. imagesizes mirrors the hero `sizes`.
+                    const heroBaseByPage = {
+                        bridge: 'prizren_bridge',
+                        fountain: 'fountain2',
+                        mosque: 'husrev_beg_mosque',
+                        monastery: 'blagaj_tekke',
+                    };
+                    const currentFile = relative(resolve(__dirname, 'src'), ctx.filename).split(sep).join('/');
+                    const page = pages.find((p) => p.file === currentFile);
+                    const heroBase = page && heroBaseByPage[page.name];
+                    if (heroBase) {
+                        const avifRe = new RegExp(`^${heroBase}-(\\d+)\\.avif$`);
+                        const variants = assets
+                            .map((a) => {
+                                const match = basenames(a).map((n) => n.match(avifRe)).find(Boolean);
+                                return match ? { width: Number(match[1]), fileName: a.fileName } : null;
+                            })
+                            .filter(Boolean)
+                            .sort((a, b) => a.width - b.width);
+                        if (variants.length) {
+                            tags.push({
+                                tag: 'link',
+                                attrs: {
+                                    rel: 'preload',
+                                    as: 'image',
+                                    type: 'image/avif',
+                                    href: '/' + variants[variants.length - 1].fileName,
+                                    imagesrcset: variants.map((v) => `/${v.fileName} ${v.width}w`).join(', '),
+                                    imagesizes: '(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px',
+                                    fetchpriority: 'high',
+                                },
+                                injectTo: 'head',
+                            });
+                        }
+                    }
+
+                    return { html, tags };
+                },
+            },
+        },
         // input https://www.npmjs.com/package/html-minifier-terser options
         ViteMinifyPlugin({
             removeComments: true,

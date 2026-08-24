@@ -73,9 +73,19 @@
                 </header>
 
                 <figure class="hero" property="photo" typeof="ImageObject">
-                    <img property="contentUrl" src="/assets/img/prizren_bridge.jpg" width="2000"
-                        height="1326" fetchpriority="high" decoding="async"
-                        alt="A stone bridge over the low-tide river in Prizren.">
+                    <picture>
+                        <source type="image/avif"
+                            srcset="/assets/img/prizren_bridge-480.avif 480w, /assets/img/prizren_bridge-800.avif 800w, /assets/img/prizren_bridge-1200.avif 1200w"
+                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
+                        <source type="image/webp"
+                            srcset="/assets/img/prizren_bridge-480.webp 480w, /assets/img/prizren_bridge-800.webp 800w, /assets/img/prizren_bridge-1200.webp 1200w"
+                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
+                        <img property="contentUrl" src="/assets/img/prizren_bridge-800.jpg"
+                            srcset="/assets/img/prizren_bridge-480.jpg 480w, /assets/img/prizren_bridge-800.jpg 800w, /assets/img/prizren_bridge-1200.jpg 1200w"
+                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px"
+                            width="800" height="530" fetchpriority="high" decoding="async"
+                            alt="A stone bridge over the low-tide river in Prizren.">
+                    </picture>
                     <figcaption>
                         Image: <a property="dc:source"
                             href="https://commons.wikimedia.org/wiki/File:2013-10-06_Stone_Bridge,_Prizren,_Kosovo_8649.jpg">Wikipedia</a>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -71,9 +71,19 @@
                 </header>
 
                 <figure class="hero" property="photo" typeof="ImageObject">
-                    <img property="contentUrl" src="/assets/img/husrev_beg_mosque.jpg" width="512"
-                        height="413" fetchpriority="high" decoding="async"
-                        alt="The Gazi Husrev-beg Mosque, a grand Ottoman-era mosque with a large central dome and tall minaret">
+                    <picture>
+                        <source type="image/avif"
+                            srcset="/assets/img/husrev_beg_mosque-480.avif 480w, /assets/img/husrev_beg_mosque-512.avif 512w"
+                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
+                        <source type="image/webp"
+                            srcset="/assets/img/husrev_beg_mosque-480.webp 480w, /assets/img/husrev_beg_mosque-512.webp 512w"
+                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
+                        <img property="contentUrl" src="/assets/img/husrev_beg_mosque-512.jpg"
+                            srcset="/assets/img/husrev_beg_mosque-480.jpg 480w, /assets/img/husrev_beg_mosque-512.jpg 512w"
+                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px"
+                            width="512" height="413" fetchpriority="high" decoding="async"
+                            alt="The Gazi Husrev-beg Mosque, a grand Ottoman-era mosque with a large central dome and tall minaret">
+                    </picture>
                     <figcaption>
                         Image: <a href="">Wikipedia</a> /
                         <span property="creator copyrightHolder">Dinozzza</span> /
