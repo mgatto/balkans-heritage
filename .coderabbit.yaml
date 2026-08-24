@@ -1,0 +1,40 @@
+# .coderabbit.yaml
+reviews:
+  profile: chill            # less noisy; good for a solo OSS maintainer
+  high_level_summary: true
+  poem: false
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    # Explicitly look ONLY at a generic folder
+    # - "src/components/public-utils/**"
+    - "src/**"
+    - "!src/assets/css/kube.css"
+    # - "!src/assets/**"
+    # Hard block sensitive directories, docs, data, and config files
+    # - "!**/config/**"
+    - "!**/.vscode/**"
+    - "!**/.idea/**"
+    # Prevent telemetry files or environment scripts from being indexed
+    - "!**/*.env*"
+    - "!**/secrets/**"
+  # Per-path `path_instructions` are intentionally omitted: the house rules they
+  # duplicated live in Markdown guideline files that CodeRabbit reads directly
+  # (see knowledge_base.code_guidelines below), keeping a single source of truth.
+
+# Source coding conventions from Markdown guideline files instead of duplicating
+# them here, so they can't drift. AGENTS.md is auto-detected (built-in default)
+# and, sitting at the repo root, governs the whole tree. The docs below are
+# allowlisted deliberately (not a broad docs/*.md glob) so logs and planning
+# notes never become review criteria; new standards docs are opted in by hand.
+knowledge_base:
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - files: "README.md"
+        applyTo: "src/**"
+      - files: "docs/accessibility.md"
+        applyTo: "src/**"
+      - files: "docs/engineering-practices.md"
+        applyTo: "src/**"
