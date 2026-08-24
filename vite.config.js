@@ -336,6 +336,7 @@ export default defineConfig({
                                     rel: 'preload',
                                     as: 'image',
                                     type: 'image/avif',
+                                    href: '/' + variants[variants.length - 1].fileName,
                                     imagesrcset: variants.map((v) => `/${v.fileName} ${v.width}w`).join(', '),
                                     imagesizes: '(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px',
                                     fetchpriority: 'high',
