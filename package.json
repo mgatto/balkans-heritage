@@ -78,6 +78,8 @@
     "dev": "vite",
     "intel:browser-features": "node scripts/browser-feature-intel.mjs",
     "intel:query": "node scripts/browser-feature-intel.mjs --query",
+    "intel:bugs": "node scripts/browser-bugs.mjs --feature",
+    "intel:bugs:all": "node scripts/browser-bugs.mjs",
     "lighthouse": "npm run lighthouse:desktop && npm run lighthouse:mobile",
     "lighthouse:desktop": "lhci autorun --config=lighthouserc.desktop.cjs",
     "lighthouse:mobile": "lhci autorun --config=lighthouserc.mobile.cjs",

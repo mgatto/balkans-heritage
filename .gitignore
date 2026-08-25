@@ -13,3 +13,6 @@ coverage/
 screenshots/
 local.log
 .env
+
+# Local-only notes never meant to be committed to this public repo
+/private/

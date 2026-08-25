@@ -1,0 +1,162 @@
+{
+  "description": "Platform features this site ships at/near the browserslist floor. Human-authored; update at feature-adoption time. See docs/feature-inventory.md.",
+  "floor": {
+    "chrome": 104,
+    "edge": 104,
+    "firefox": 102,
+    "safari": "16.4",
+    "ios_safari": "16.4"
+  },
+  "features": [
+    {
+      "id": "grid",
+      "name": "CSS Grid",
+      "webFeaturesId": "grid",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css", "src/components/FooterComponent/footer.css"],
+      "notes": "Home Parts index and Ottoman hub figure grids (.page-grid); footer shadow root (:host)."
+    },
+    {
+      "id": "flexbox-gap",
+      "name": "Flexbox gap",
+      "webFeaturesId": "flexbox-gap",
+      "status": "at-floor",
+      "usedIn": ["src/components/NavigationComponent/navigation.css"],
+      "notes": "gap between primary-nav items (nav.primary ol)."
+    },
+    {
+      "id": "shape-outside",
+      "name": "shape-outside",
+      "webFeaturesId": "shape-outside",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css"],
+      "notes": "Body copy wraps around the floated, shaped landmark heroes (+ shape-margin)."
+    },
+    {
+      "id": "clip-path",
+      "name": "clip-path",
+      "webFeaturesId": "clip-path",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css"],
+      "notes": "Polygon silhouettes for the four landmark hero images (arch, pentagon, octagon, teardrop)."
+    },
+    {
+      "id": "aspect-ratio",
+      "name": "aspect-ratio",
+      "webFeaturesId": "aspect-ratio",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css"],
+      "notes": "16/10 grid thumbnails and 1/1 landmark hero images."
+    },
+    {
+      "id": "object-fit",
+      "name": "object-fit",
+      "webFeaturesId": "object-fit",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css"],
+      "notes": "cover-fitting grid thumbnails and squared hero images before clipping."
+    },
+    {
+      "id": "min-max-clamp",
+      "name": "min(), max(), and clamp()",
+      "webFeaturesId": "min-max-clamp",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css"],
+      "notes": "Fluid body font sizing on the landmark pages (clamp())."
+    },
+    {
+      "id": "media-query-range-syntax",
+      "name": "Media query range syntax",
+      "webFeaturesId": "media-query-range-syntax",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css"],
+      "notes": "Responsive breakpoints written as @media (width <= 600px) / (width <= 768px). Chrome 104 and Safari 16.4 land exactly on the floor."
+    },
+    {
+      "id": "logical-properties",
+      "name": "Logical properties",
+      "webFeaturesId": "logical-properties",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css"],
+      "notes": "padding-inline on the narrow-screen landmark layout."
+    },
+    {
+      "id": "filter",
+      "name": "CSS filter",
+      "webFeaturesId": "filter",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css", "src/components/NavigationComponent/navigation.css"],
+      "notes": "sepia/drop-shadow/grayscale on thumbnails; opacity() to dim the active nav item."
+    },
+    {
+      "id": "prefers-reduced-motion",
+      "name": "prefers-reduced-motion media query",
+      "webFeaturesId": "prefers-reduced-motion",
+      "status": "at-floor",
+      "usedIn": ["src/assets/css/index.css"],
+      "notes": "Gates the skip-link slide-in transition."
+    },
+    {
+      "id": "autonomous-custom-elements",
+      "name": "Autonomous custom elements",
+      "webFeaturesId": "autonomous-custom-elements",
+      "status": "at-floor",
+      "usedIn": [
+        "src/components/NavigationComponent/Navigation.js",
+        "src/components/MastComponent/MedallionMast.js",
+        "src/components/FooterComponent/Footer.js"
+      ],
+      "notes": "<balkans-navigation>, <balkans-mast>, <balkans-footer> with Shadow DOM (:host)."
+    },
+    {
+      "id": "srcset",
+      "name": "srcset and sizes",
+      "webFeaturesId": "srcset",
+      "status": "at-floor",
+      "usedIn": [
+        "src/index.html",
+        "src/ottoman/bridge.html",
+        "src/ottoman/mosque.html",
+        "src/ottoman/fountain.html",
+        "src/ottoman/monastery.html"
+      ],
+      "notes": "Responsive <picture>/<source> with width-descriptor srcset and sizes on every hero and grid image."
+    },
+    {
+      "id": "avif",
+      "name": "AVIF",
+      "webFeaturesId": "avif",
+      "status": "at-floor",
+      "usedIn": [
+        "src/index.html",
+        "src/ottoman/bridge.html",
+        "src/ottoman/mosque.html",
+        "src/ottoman/fountain.html",
+        "src/ottoman/monastery.html"
+      ],
+      "notes": "First <source type=\"image/avif\"> in each responsive picture. Safari 16.4 lands exactly on the floor."
+    },
+    {
+      "id": "webp",
+      "name": "WebP",
+      "webFeaturesId": "webp",
+      "status": "at-floor",
+      "usedIn": [
+        "src/index.html",
+        "src/ottoman/bridge.html",
+        "src/ottoman/mosque.html",
+        "src/ottoman/fountain.html",
+        "src/ottoman/monastery.html"
+      ],
+      "notes": "Second <source type=\"image/webp\"> fallback below AVIF, above the JPEG <img>."
+    },
+    {
+      "id": "alt-text-generated-content",
+      "name": "Alt text for generated content",
+      "webFeaturesId": "alt-text-generated-content",
+      "status": "above-floor",
+      "usedIn": ["src/components/NavigationComponent/navigation.css"],
+      "notes": "The content: '\u2192' / '' alt-text syntax between adjacent Part hubs. Safari support is 17.4, above the 16.4 floor; on older Safari the arrow still renders and the empty-alt intent is simply not applied, so it degrades acceptably. Ships without feature detection for that reason."
+    }
+  ]
+}
