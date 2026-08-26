@@ -479,7 +479,26 @@ ul.checkboxes button[type="submit"] {
     padding: 0;
 }
 
+/* The maps area sits under an <h2> and splits into two boxed groups: the whole
+   .zip package (with its download button) and the individual per-site map links.
+   Boxing them keeps the two clearly distinct. These are <section>s rather than
+   <fieldset>s on purpose — the individual maps are links, not form controls. */
+.map-group {
+    margin: 1.5rem 0;
+    padding: 0.5rem 1.5rem 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+/* The download is a single call-to-action; the box padding carries its spacing,
+   so zero its own margins. Pico forces `button[type=submit]` to width:100% (see
+   its form rules), so the button itself is capped to its content width below. */
+.map-package {
+    margin: 0;
+}
+
 button#maps-download {
+    width: auto;
     background-color: #E30A17;
 }
 
