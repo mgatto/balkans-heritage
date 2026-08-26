@@ -1,0 +1,118 @@
+# Response headers for Cloudflare Workers (Static Assets).
+# This file is copied verbatim from src/public/ to the site root at build time.
+# See docs/admin/web-infrastructure-principles.md for rationale.
+#
+# Syntax: a path pattern on its own line, then indented header: value pairs below.
+# When multiple patterns match a request, headers are merged; later rules win
+# for the same header name. Cloudflare evaluates patterns top-to-bottom.
+
+/*
+  # ------------------------------------------------------------------
+  # HSTS: instruct browsers to only contact this origin over HTTPS.
+  # max-age=63072000 is two years (the recommended minimum for preload).
+  # `includeSubDomains` covers www. and any future subdomains.
+  # `preload` is intentionally absent — it submits the domain to the
+  # browser preload list baked into Chrome/Firefox, which is essentially
+  # irreversible. Add it only once the domain and HTTPS setup are confirmed
+  # permanent.
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+
+  # ------------------------------------------------------------------
+  # Prevent MIME-type sniffing. Stops browsers from second-guessing the
+  # Content-Type header (e.g. executing a .txt file as JavaScript if it
+  # looks like code). Low risk here, but costs nothing.
+  X-Content-Type-Options: nosniff
+
+  # ------------------------------------------------------------------
+  # Forbid this site from being loaded inside a <frame>, <iframe>, or
+  # <object> on any other origin. Defends against clickjacking.
+  # Redundant with CSP frame-ancestors below, but kept for older browsers
+  # that don't support CSP level 2.
+  X-Frame-Options: DENY
+
+  # ------------------------------------------------------------------
+  # Control the Referer header sent to other origins. `strict-origin-when-
+  # cross-origin` sends the full URL within the same origin (useful for
+  # analytics), only the bare origin to cross-origin destinations (hides
+  # paths/query strings), and nothing when downgrading from HTTPS to HTTP.
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # ------------------------------------------------------------------
+  # Opt out of browser features this site doesn't use. An empty () means
+  # no origin — including this page itself — may access the feature.
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=()
+
+  # ------------------------------------------------------------------
+  # Content Security Policy.
+  # Each directive is explained inline; see the block comment at the
+  # bottom of this file for the reasoning behind 'unsafe-inline' on styles.
+  #
+  # default-src 'self'       Fallback for any directive not listed: only
+  #                          same-origin resources are allowed.
+  # script-src 'self'        Only same-origin module scripts (the Vite-
+  #                          fingerprinted bundles in /assets/). No inline
+  #                          scripts, no eval, no external CDN scripts.
+  # style-src 'self'         Same-origin stylesheets (the Vite-bundled
+  #  + 'unsafe-inline'       index.css). 'unsafe-inline' is required because
+  #                          all three Web Components inject <style>...</style>
+  #                          blocks into their shadow roots via innerHTML — see
+  #                          the bottom-of-file note.
+  # img-src 'self' data:     Same-origin images plus data: URIs. Vite inlines
+  #                          small SVGs (flag emblems) as data: URIs at build
+  #                          time; footer placeholder images also use data:,.
+  # font-src 'self'          Self-hosted .woff2 files under /assets/fonts/.
+  #                          No Google Fonts, no external font CDN.
+  # connect-src 'self'       No external XHR, fetch, WebSocket, or EventSource.
+  # object-src 'none'        No Flash, no <object> or <embed> plugins.
+  # base-uri 'self'          Prevent a rogue <base href="..."> from redirecting
+  #                          all relative URLs to an attacker's origin.
+  # form-action 'self'       Any form submission must stay on this origin.
+  # frame-ancestors 'none'   This page may not be embedded in a frame anywhere.
+  # manifest-src 'self'      The Web App Manifest (manifest.json) is same-origin.
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; manifest-src 'self'
+
+  # ------------------------------------------------------------------
+  # HTML pages must revalidate on every request so a deployment reaches
+  # users immediately. Fingerprinted assets below override this with
+  # `immutable` — they have content-addressed URLs and never need checking.
+  Cache-Control: no-cache, must-revalidate
+
+/assets/*
+  # Vite appends a content hash to every filename in /assets/ (e.g.
+  # index-a3f9b2.css, prizren_bridge-d81f3c.avif). Because the URL changes
+  # whenever the content changes, it is safe — and correct — to tell browsers
+  # and CDN edges to cache these files forever. `immutable` is an additional
+  # hint that the resource will never be updated at this URL, so browsers
+  # skip the conditional revalidation request entirely on revisits.
+  Cache-Control: public, max-age=31536000, immutable
+
+
+# ------------------------------------------------------------------
+# Note on style-src 'unsafe-inline'
+#
+# The three Web Components (Navigation, MedallionMast, Footer) each inject
+# a `<style>` block into their shadow root via:
+#
+#   this.shadowRoot.innerHTML = `<style>${styles}</style> ...`;
+#
+# where `styles` is the component's CSS bundled by Vite (via the `?inline`
+# import). This is an inline stylesheet inside a shadow root. Browsers do
+# enforce CSP for inline styles in shadow DOMs, so without 'unsafe-inline'
+# the components render unstyled.
+#
+# The alternatives — nonces and hashes — both require either server-side
+# rendering (to stamp each response with a fresh nonce) or stable, known
+# CSS content at header-authoring time (hashes). Neither is available on a
+# fully static site where CSS content is fingerprinted and minified per
+# build.
+#
+# The risk from 'unsafe-inline' on style-src is narrower than on script-src:
+# a CSS injection can exfiltrate data via attribute selectors or cause
+# visual deception, but it cannot execute arbitrary code. The site has no
+# user-generated content and no external stylesheets, which further limits
+# the attack surface.
+#
+# The long-term fix is to migrate the shadow-root styling to Constructable
+# Stylesheets (CSSStyleSheet / adoptedStyleSheets), which are same-origin
+# module imports and exempt from the 'unsafe-inline' requirement. That's a
+# Web Components refactor, tracked separately.
