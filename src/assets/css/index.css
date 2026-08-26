@@ -535,6 +535,19 @@ button#maps-download {
     margin-bottom: 0;
 }
 
+/* Pico's card module dresses `article > header` as a sectioning band — a tinted
+   background, full-bleed negative margins, and a bottom divider — which reads as a
+   heavy rule between a landmark page's intro heading and the figure beneath it. Flatten
+   it to a plain block — drop the band and divider, keep only some breathing room below
+   the heading so it separates from the figure without a rule. The box around the
+   <article> itself (also from the card module) is kept. */
+article > header {
+    margin: 0 0 var(--pico-block-spacing-vertical);
+    padding: 0;
+    background: none;
+    border-bottom: none;
+}
+
 /* The opening pull-quote is long; the site's default 1.4rem body leading packs
    it tight, so open it up a little for readability. */
 #ottoman article > p {
