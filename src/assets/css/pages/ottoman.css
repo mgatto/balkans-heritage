@@ -1,0 +1,125 @@
+/* Ottoman hub — loaded after base.css. Holds the maps download UI and the hub's
+   star-bullet list overrides. The .page-grid figure grid is shared with the home
+   Parts index; it is duplicated into both page files (rather than promoted to
+   base.css) so the five pages that never use it don't carry it. Keep the two
+   copies in sync. */
+
+/* Shared figure-link grid, used by both the home Parts index and the Ottoman hub.
+   Declared here (ahead of the id-scoped hub rules) so its lower-specificity
+   selectors don't "descend" past them. */
+.page-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.page-grid a {
+    display: block;
+    text-decoration: none;
+}
+
+.page-grid figure {
+    margin: 0;
+}
+
+.page-grid img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    filter: sepia(50%) drop-shadow(6px 6px 8px gray);
+}
+
+.page-grid li.planned img {
+    filter: grayscale(100%);
+}
+
+.page-grid figcaption {
+    margin-top: 0.75rem;
+    padding-left: 0;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.3rem;
+    font-style: normal;
+    text-align: center;
+}
+
+.page-grid figcaption small {
+    font-family: inherit;
+    font-size: 0.7em;
+    color: #595959;
+}
+
+@media (width <=600px) {
+    .page-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+ul.checkboxes {
+    list-style-type: none;
+}
+
+ul.checkboxes button[type="submit"] {
+    padding: 0;
+}
+
+/* The maps area sits under an <h2> and splits into two boxed groups: the whole
+   .zip package (with its download button) and the individual per-site map links.
+   Boxing them keeps the two clearly distinct. These are <section>s rather than
+   <fieldset>s on purpose — the individual maps are links, not form controls. */
+.map-group {
+    margin: 1.5rem 0;
+    padding: 0.5rem 1.5rem 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+/* The download is a single call-to-action; the box padding carries its spacing,
+   so zero its own margins. Pico forces `button[type=submit]` to width:100% (see
+   its form rules), so the button itself is capped to its content width below. */
+.map-package {
+    margin: 0;
+}
+
+button#maps-download {
+    width: auto;
+    background-color: #E30A17;
+}
+
+/* Breadcrumbs are injected as the first child of <main>, so on the hub they sit
+   between Pico's <main> top padding and the hero. The shared `.breadcrumbs`
+   top margin stacked on that padding reads as too much air above them, and the
+   hero title's top margin opens a second gap below; zero the breadcrumb's own
+   vertical margins here and let the padding/hero margins carry the rhythm. */
+#ottoman .breadcrumbs {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* The opening pull-quote is long; the site's default 1.4rem body leading packs
+   it tight, so open it up a little for readability. */
+#ottoman article > p {
+    line-height: 1.7rem;
+}
+
+/* The Ottoman hub's maps list gets star bullets; the page-grid (also a <ul> on the hub)
+   cancels them for its figure links. Both are id-scoped so the cancel keeps outranking the
+   star on the hub, and so the home Parts index (a page-grid with no plain list) is unaffected. */
+#ottoman ul {
+    list-style-type: none;
+}
+
+#ottoman ul li {
+    line-height: 1.5rem;
+}
+
+#ottoman ul li::before {
+    content: '\2605';
+    margin: 0 1em;
+}
+
+#ottoman .page-grid li::before {
+    content: none;
+    margin: 0;
+}

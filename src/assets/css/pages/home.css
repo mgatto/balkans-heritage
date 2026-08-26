@@ -1,0 +1,75 @@
+/* Home (Parts index) — loaded after base.css. The .page-grid figure grid is
+   shared with the Ottoman hub; it is duplicated into both page files (rather
+   than promoted to base.css) so the five pages that never use it don't carry
+   it. Keep the two copies in sync. */
+
+/* Shared figure-link grid, used by both the home Parts index and the Ottoman hub.
+   Declared here (ahead of the id-scoped landmark rules) so its lower-specificity
+   selectors don't "descend" past them. */
+.page-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.page-grid a {
+    display: block;
+    text-decoration: none;
+}
+
+.page-grid figure {
+    margin: 0;
+}
+
+.page-grid img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    filter: sepia(50%) drop-shadow(6px 6px 8px gray);
+}
+
+/* Not-yet-built Parts on the home index read as muted/inactive: desaturate the thumbnail
+   entirely in CSS (no pre-processed greyscale image needed), matching the existing #home
+   .hero sepia-filter precedent. */
+.page-grid li.planned img {
+    filter: grayscale(100%);
+}
+
+.page-grid figcaption {
+    margin-top: 0.75rem;
+    padding-left: 0;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.3rem;
+    font-style: normal;
+    text-align: center;
+}
+
+/* The "(planned)" status note on not-yet-built Parts. The global reset (in base.css)
+   directly targets `small`, overriding the caption's font-family and forcing font-size back
+   to 100%, so without this the note renders in Oswald at the caption's full size. Re-inherit
+   the caption's EB Garamond, shrink it back to a subordinate size, and mute it so it reads as
+   an annotation rather than part of the title. */
+.page-grid figcaption small {
+    font-family: inherit;
+    font-size: 0.7em;
+    color: #595959;
+}
+
+@media (width <=600px) {
+    .page-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* On the home Parts index the attribution sits inside a <blockquote>, so kube.css
+   composites its rgba(49,52,57,0.65) muted color with `cite { opacity: .6 }` — together
+   dropping the citation below WCAG 2.2 AA's 4.5:1 for normal text. Cancel the opacity and
+   set a solid, still-muted gray (~7:1 on white), the same tactic as the figcaption fix
+   rather than relying on opacity/alpha stacking. */
+#home blockquote .attribution,
+#home blockquote cite {
+    color: #595959;
+    opacity: 1;
+}

@@ -1,0 +1,28 @@
+/* Monastery landmark — loaded after base.css and BEFORE pages/landmark.css, so
+   the shared responsive media query in landmark.css can override the floated
+   hero below on narrow screens. */
+
+/* Water droplet / teardrop echoing the spring from which the Buna river surges
+   at the Blagaj tekke: a sharp point at the top rounding into a plump bulb below.
+   A fully organic, curvy silhouette that stays clearly distinct from the angular
+   pentagon (bridge) and octagon (fountain) and from the mosque's pointed arch.
+   Same floated/masked/wrapped template -- the clip is on the image (squared via
+   object-fit) so the figcaption stays visible below the drop, while shape-outside
+   wraps the copy around the bulge and margin-right opens a real gap to it. The
+   bulb is deliberately plump (widest ~5%-95%) so it keeps most of the photo
+   visible rather than clipping it down to a narrow drop. */
+#monastery .hero {
+    float: left;
+    width: 56%;
+    shape-outside: polygon(50% 0%, 55% 6%, 66% 14%, 78% 25%, 87% 37%, 93% 50%, 95% 62%, 92% 74%, 83% 86%, 68% 95%, 50% 100%, 32% 95%, 17% 86%, 8% 74%, 5% 62%, 7% 50%, 13% 37%, 22% 25%, 34% 14%, 45% 6%);
+    shape-margin: 1.5rem;
+    margin-right: 2rem;
+}
+
+#monastery .hero img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    clip-path: polygon(50% 0%, 55% 6%, 66% 14%, 78% 25%, 87% 37%, 93% 50%, 95% 62%, 92% 74%, 83% 86%, 68% 95%, 50% 100%, 32% 95%, 17% 86%, 8% 74%, 5% 62%, 7% 50%, 13% 37%, 22% 25%, 34% 14%, 45% 6%);
+}
