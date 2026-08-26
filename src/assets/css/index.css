@@ -1,4 +1,4 @@
-@import url('@picocss/pico/css/pico.classless.min.css');
+@import '@picocss/pico/css/pico.classless.min.css';
 
 /* Self-hosted fonts (vendored under ../fonts/, licensed OFL 1.1 — see the
    OFL-*.txt files there). woff2 includes the latin-ext subset for Balkan
