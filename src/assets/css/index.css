@@ -389,11 +389,18 @@ figcaption {
     color: #595959;
 }
 
-/* Undo Pico's `nav li a` negative-margin + padding (its enlarged click target),
-   which would otherwise reintroduce asymmetric spacing around the separator. */
+/* Undo only the *horizontal* half of Pico's `nav li a` padding + negative margin
+   (which offset the `›` separator), while keeping the block axis tall enough that
+   these small 0.8rem crumbs remain a ≥24px target — WCAG 2.2 SC 2.5.8 Target Size
+   (Minimum). Growing only the block axis leaves the separator's symmetric margins
+   untouched; min-height guarantees the 24px even where a crumb's text is shorter. */
 .breadcrumbs li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
     margin: 0;
-    padding: 0;
+    padding-block: 2px;
+    padding-inline: 0;
 }
 
 .breadcrumbs [aria-current="page"] {
@@ -426,17 +433,20 @@ figcaption {
 
 /* Pico's classless build treats every <aside> as a sidebar nav: it sets
    `aside li a { display: block }` (which would stack these facet links) and pads
-   each `aside li`. Restore inline flow and zero that padding — otherwise the li
-   padding lands only on the right of the separator (first li's padding-right +
-   next li's padding-left), shoving the dot toward the left link instead of
-   sitting midway. With padding gone, the dot's symmetric 0.5em margins center it. */
+   each `aside li`. Keep the links inline (a flowing, wrapping cross-reference row)
+   and zero Pico's asymmetric li padding so the `·` separators stay centered.
+   inline-flex (rather than plain inline) lets each link carry a ≥24px block target
+   for WCAG 2.2 SC 2.5.8 while the row still wraps naturally. */
 .country-facet li {
-    display: inline;
+    display: inline-flex;
+    align-items: center;
     padding: 0;
 }
 
 .country-facet li a {
-    display: inline;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
 }
 
 .country-facet li:not(:last-child)::after {
