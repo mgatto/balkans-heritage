@@ -227,6 +227,19 @@ p {
     line-height: 1.067;
 }
 
+/* The Ottoman hub pairs its title with a subtitle in an <hgroup>. Pico zeroes
+   the margins of every hgroup child (`hgroup > *`), so without this the subtitle
+   butts right up against the title's descenders (the "g" in "Heritage"); restore
+   a small gap below the title. Tightening the leading to 1 also keeps the hero
+   from gapping open when it wraps to two lines on narrow viewports. The reduced
+   top margin (the base `.title` uses 0.5em ≈ 30px) pulls the hero up under the
+   breadcrumbs, which already sit below Pico's <main> top padding. */
+hgroup .title {
+    margin-top: 0.5rem;
+    margin-bottom: 0.2em;
+    line-height: 1;
+}
+
 main p {
     line-height: 1.4rem;
 }
@@ -342,9 +355,25 @@ figcaption {
     list-style: none;
 }
 
+/* Pico treats every <nav> as a menu bar and offsets its `nav li` padding with
+   negative inline margins on the first/last list (`nav ol:first/last-of-type`).
+   We zero that li padding below, so cancel these negative margins too — otherwise
+   the first/last crumb would hang outside the row's left/right edge. */
+.breadcrumbs ol:first-of-type {
+    margin-left: 0;
+}
+
+.breadcrumbs ol:last-of-type {
+    margin-right: 0;
+}
+
+/* Zero Pico's `nav li` padding so the only spacing around the separator is its
+   own symmetric margins (below); otherwise the li padding lands solely to the
+   right of the `›` and shoves it toward the preceding crumb. */
 .breadcrumbs li {
     display: inline-flex;
     align-items: center;
+    padding: 0;
 }
 
 .breadcrumbs li::before {
@@ -358,6 +387,13 @@ figcaption {
 
 .breadcrumbs a {
     color: #595959;
+}
+
+/* Undo Pico's `nav li a` negative-margin + padding (its enlarged click target),
+   which would otherwise reintroduce asymmetric spacing around the separator. */
+.breadcrumbs li a {
+    margin: 0;
+    padding: 0;
 }
 
 .breadcrumbs [aria-current="page"] {
@@ -379,6 +415,7 @@ figcaption {
 
 .country-facet p {
     margin-bottom: 0.5rem;
+    font-size: 0.8rem;
 }
 
 .country-facet ul {
@@ -387,7 +424,18 @@ figcaption {
     padding: 0;
 }
 
+/* Pico's classless build treats every <aside> as a sidebar nav: it sets
+   `aside li a { display: block }` (which would stack these facet links) and pads
+   each `aside li`. Restore inline flow and zero that padding — otherwise the li
+   padding lands only on the right of the separator (first li's padding-right +
+   next li's padding-left), shoving the dot toward the left link instead of
+   sitting midway. With padding gone, the dot's symmetric 0.5em margins center it. */
 .country-facet li {
+    display: inline;
+    padding: 0;
+}
+
+.country-facet li a {
     display: inline;
 }
 
@@ -445,6 +493,22 @@ button#maps-download {
 #about ul li::before {
     content: '\2605';
     margin: 0 1em;
+}
+
+/* Breadcrumbs are injected as the first child of <main>, so on the hub they sit
+   between Pico's <main> top padding and the hero. The shared `.breadcrumbs`
+   top margin stacked on that padding reads as too much air above them, and the
+   hero title's top margin opens a second gap below; zero the breadcrumb's own
+   vertical margins here and let the padding/hero margins carry the rhythm. */
+#ottoman .breadcrumbs {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* The opening pull-quote is long; the site's default 1.4rem body leading packs
+   it tight, so open it up a little for readability. */
+#ottoman article > p {
+    line-height: 1.7rem;
 }
 
 /* The Ottoman hub's maps list gets star bullets; the page-grid (also a <ul> on the hub)

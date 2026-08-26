@@ -13,9 +13,9 @@ Name: Wikidata, DBpedia & Wikimedia Commons contributors
 
 
 /* SITE */
-Last update: 2026/08/14
+Last update: 2026/08/25
 Language: English
 Doctype: HTML5
 Standards: HTML5, CSS3, WebComponents v1, ES6, RDFa Lite, Shadow DOM, Schema.org, WCAG 2.2 AA.
-Components: Normalize.css, Kube.css, Google Fonts.
+Components: Pico.css, self-hosted webfonts (Oswald, EB Garamond).
 Software: Vite, WebStorm.
