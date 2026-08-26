@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.2.0](https://github.com/mgatto/balkans-heritage/compare/v2.1.0...v2.2.0) (2026-08-26)
+
+### Features
+
+* adopt pico.css instead of kube ([90fb36d](https://github.com/mgatto/balkans-heritage/commit/90fb36d6ffb9ad27efe182ed52406790d5fa32a0))
+* optimize images to score near perfect perf ([31eb564](https://github.com/mgatto/balkans-heritage/commit/31eb5642dbe6171043439f275e23f53958b26cee))
+* redesign UX for downloading maps ([6a4e8ff](https://github.com/mgatto/balkans-heritage/commit/6a4e8ffdd329e6dff4ca4f7b3f719798f96c589e))
+* tracks browser bugs impacting site features ([ed10b9c](https://github.com/mgatto/balkans-heritage/commit/ed10b9c9b2f4446e4a08d08137286101d6bf3481))
+
+### Bug Fixes
+
+* apply CodeRabbit auto-fixes ([a62e739](https://github.com/mgatto/balkans-heritage/commit/a62e7397aacbe95d670f9f3719156f3138ece757))
+* breadcrumbs violated WCAG 24px clickable rule ([b5f6642](https://github.com/mgatto/balkans-heritage/commit/b5f6642f8f0372feae3f92676b9d1cf120fc942e))
+* header wa weirdly separated from body ([ae0c4ae](https://github.com/mgatto/balkans-heritage/commit/ae0c4ae79ff5c835a95e66278188d5771c2eb4ed))
+* path reference to a doc ([d1fb304](https://github.com/mgatto/balkans-heritage/commit/d1fb3047dab0db009d0e8ff5a128638b3d492dfe))
+* tweak whitespace especially ([dcae47e](https://github.com/mgatto/balkans-heritage/commit/dcae47e3e6cef250c69008909877ee32128878fd))
+
+### Documentation
+
+* include more completed items for historical purposes ([c4837d2](https://github.com/mgatto/balkans-heritage/commit/c4837d2faac7519ac3e0f9dad1db99b09023a467))
 ## [2.1.0](https://github.com/mgatto/balkans-heritage/compare/v2.0.0...v2.1.0) (2026-08-23)
 
 ### Features

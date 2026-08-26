@@ -99,7 +99,7 @@
     "validate:rdfa": "node scripts/validate-rdfa.mjs",
     "prepare": "husky"
   },
-  "version": "2.1.0",
+  "version": "2.2.0",
   "dependencies": {
     "@picocss/pico": "^2.1.1"
   }
