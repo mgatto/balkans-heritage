@@ -62,14 +62,3 @@
         grid-template-columns: 1fr;
     }
 }
-
-/* On the home Parts index the attribution sits inside a <blockquote>, so kube.css
-   composites its rgba(49,52,57,0.65) muted color with `cite { opacity: .6 }` — together
-   dropping the citation below WCAG 2.2 AA's 4.5:1 for normal text. Cancel the opacity and
-   set a solid, still-muted gray (~7:1 on white), the same tactic as the figcaption fix
-   rather than relying on opacity/alpha stacking. */
-#home blockquote .attribution,
-#home blockquote cite {
-    color: #595959;
-    opacity: 1;
-}
