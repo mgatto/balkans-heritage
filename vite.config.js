@@ -183,7 +183,16 @@ export default defineConfig({
         // `exports`/`sass` entry, so resolve its source via a node_modules load path
         // rather than a `pkg:` specifier. Sass runs before Lightning CSS transforms.
         preprocessorOptions: {
-            scss: { loadPaths: ['node_modules'] },
+            scss: {
+                loadPaths: ['node_modules'],
+                // Pico 2.1.1's source still uses Sass's now-deprecated `if()` function
+                // (e.g. components/_modal.scss). We can't sidestep it — Pico's index
+                // `@use`s every module unconditionally and our `$modules` map only gates
+                // *emission*, not loading — and vendored source shouldn't be hand-edited.
+                // `quietDeps` mutes deprecation warnings from dependencies (resolved via
+                // `loadPaths`) while still surfacing any from our own stylesheets.
+                quietDeps: true,
+            },
         },
     },
     build: {
