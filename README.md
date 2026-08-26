@@ -104,7 +104,7 @@ You can inspect the extracted triples for every page with `npm run validate:rdfa
 
 ## Fonts
 
-The site's two typefaces — [EB Garamond](https://fonts.google.com/specimen/EB+Garamond) for headings and [Oswald](https://fonts.google.com/specimen/Oswald) for body text — are self-hosted rather than loaded from Google Fonts. The `woff2` files (including the `latin-ext` subset needed for Balkan diacritics such as č, ć, đ, š, and ž, plus a true EB Garamond italic) are vendored under `src/assets/fonts/` and declared with local `@font-face` rules in `src/assets/css/index.css`. Both families are licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/), whose text is committed alongside the files.
+The site's two typefaces — [EB Garamond](https://fonts.google.com/specimen/EB+Garamond) for headings and [Oswald](https://fonts.google.com/specimen/Oswald) for body text — are self-hosted rather than loaded from Google Fonts. The `woff2` files (including the `latin-ext` subset needed for Balkan diacritics such as č, ć, đ, š, and ž, plus a true EB Garamond italic) are vendored under `src/assets/fonts/` and declared with local `@font-face` rules in `src/assets/css/base.css`. Both families are licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/), whose text is committed alongside the files.
 
 We self-host for three reasons:
 

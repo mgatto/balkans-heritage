@@ -13,7 +13,7 @@
       "name": "CSS Grid",
       "webFeaturesId": "grid",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css", "src/components/FooterComponent/footer.css"],
+      "usedIn": ["src/assets/css/pages/home.css", "src/assets/css/pages/ottoman.css", "src/components/FooterComponent/footer.css"],
       "notes": "Home Parts index and Ottoman hub figure grids (.page-grid); footer shadow root (:host)."
     },
     {
@@ -29,7 +29,7 @@
       "name": "shape-outside",
       "webFeaturesId": "shape-outside",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css"],
+      "usedIn": ["src/assets/css/pages/bridge.css", "src/assets/css/pages/fountain.css", "src/assets/css/pages/monastery.css", "src/assets/css/pages/mosque.css", "src/assets/css/pages/landmark.css"],
       "notes": "Body copy wraps around the floated, shaped landmark heroes (+ shape-margin)."
     },
     {
@@ -37,7 +37,7 @@
       "name": "clip-path",
       "webFeaturesId": "clip-path",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css"],
+      "usedIn": ["src/assets/css/pages/bridge.css", "src/assets/css/pages/fountain.css", "src/assets/css/pages/monastery.css", "src/assets/css/pages/mosque.css"],
       "notes": "Polygon silhouettes for the four landmark hero images (arch, pentagon, octagon, teardrop)."
     },
     {
@@ -45,7 +45,7 @@
       "name": "aspect-ratio",
       "webFeaturesId": "aspect-ratio",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css"],
+      "usedIn": ["src/assets/css/pages/home.css", "src/assets/css/pages/ottoman.css", "src/assets/css/pages/bridge.css", "src/assets/css/pages/fountain.css", "src/assets/css/pages/monastery.css"],
       "notes": "16/10 grid thumbnails and 1/1 landmark hero images."
     },
     {
@@ -53,7 +53,7 @@
       "name": "object-fit",
       "webFeaturesId": "object-fit",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css"],
+      "usedIn": ["src/assets/css/pages/home.css", "src/assets/css/pages/ottoman.css", "src/assets/css/pages/bridge.css", "src/assets/css/pages/fountain.css", "src/assets/css/pages/monastery.css"],
       "notes": "cover-fitting grid thumbnails and squared hero images before clipping."
     },
     {
@@ -61,7 +61,7 @@
       "name": "min(), max(), and clamp()",
       "webFeaturesId": "min-max-clamp",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css"],
+      "usedIn": ["src/assets/css/pages/landmark.css"],
       "notes": "Fluid body font sizing on the landmark pages (clamp())."
     },
     {
@@ -69,7 +69,7 @@
       "name": "Media query range syntax",
       "webFeaturesId": "media-query-range-syntax",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css"],
+      "usedIn": ["src/assets/css/base.css", "src/assets/css/pages/home.css", "src/assets/css/pages/ottoman.css", "src/assets/css/pages/landmark.css"],
       "notes": "Responsive breakpoints written as @media (width <= 600px) / (width <= 768px). Chrome 104 and Safari 16.4 land exactly on the floor."
     },
     {
@@ -77,15 +77,15 @@
       "name": "Logical properties",
       "webFeaturesId": "logical-properties",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css"],
-      "notes": "padding-inline on the narrow-screen landmark layout."
+      "usedIn": ["src/assets/css/base.css", "src/assets/css/pages/landmark.css"],
+      "notes": "padding-inline on the narrow-screen landmark layout; padding-inline / padding-inline-start in the base list reset and breadcrumbs."
     },
     {
       "id": "filter",
       "name": "CSS filter",
       "webFeaturesId": "filter",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css", "src/components/NavigationComponent/navigation.css"],
+      "usedIn": ["src/assets/css/pages/home.css", "src/assets/css/pages/ottoman.css", "src/components/NavigationComponent/navigation.css"],
       "notes": "sepia/drop-shadow/grayscale on thumbnails; opacity() to dim the active nav item."
     },
     {
@@ -93,7 +93,7 @@
       "name": "prefers-reduced-motion media query",
       "webFeaturesId": "prefers-reduced-motion",
       "status": "at-floor",
-      "usedIn": ["src/assets/css/index.css"],
+      "usedIn": ["src/assets/css/base.css"],
       "notes": "Gates the skip-link slide-in transition."
     },
     {

@@ -1,0 +1,383 @@
+/* Site base — loaded on every page, after pico.scss and before any per-page
+   sheet (see each page's <link> order). Holds the site-wide rules that every
+   page needs: self-hosted fonts, the Pico-variable identity overrides, the
+   row/col grid, global typography, the skip link, breadcrumbs, and shared
+   attribution/legend styling. Per-page and per-landmark rules live in
+   assets/css/pages/*.
+
+   Pico is loaded separately via the compiled, module-trimmed
+   src/assets/css/pico.scss, linked before this file so these authored
+   overrides win the cascade. */
+
+/* Self-hosted fonts (vendored under ../fonts/, licensed OFL 1.1 — see the
+   OFL-*.txt files there). woff2 includes the latin-ext subset for Balkan
+   diacritics (č ć đ š ž). See README "Fonts" for the rationale. */
+@font-face {
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/oswald-v57-latin_latin-ext-300.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/oswald-v57-latin_latin-ext-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'EB Garamond';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/eb-garamond-v33-latin_latin-ext-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'EB Garamond';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/eb-garamond-v33-latin_latin-ext-italic.woff2') format('woff2');
+}
+
+/* --- Site base, re-homed onto Pico -----------------------------------------
+   Pico owns the reset/normalize, box-sizing, default spacing, and form/button
+   styling (it supersedes normalize.css and the old Meyer reset that used to sit
+   here). What remains is the handful of site-wide declarations that reset block
+   carried, expressed as Pico variables so Pico's own components (fields, buttons,
+   links) inherit the site's identity too. These overrides use
+   :root:not([data-theme="dark"]) to match the specificity of Pico's own
+   light-scheme token block, which they must out-order to win. */
+:root:not([data-theme="dark"]) {
+    /* Type identity: body, forms, and buttons render in Oswald with #333 ink. */
+    --pico-font-family-sans-serif: 'Oswald', sans-serif;
+    --pico-font-family: 'Oswald', sans-serif;
+    --pico-color: #333;
+
+    /* Uniform thin body weight. Replaces the old happy-accident where only <p>
+       was `font-weight: lighter`; now every body element is Oswald 300. */
+    --pico-font-weight: 300;
+
+    /* Understated accent: links, buttons, and focus rings stay a muted near-black
+       instead of Pico's default azure, preserving the site's restrained look. */
+    --pico-primary: #333;
+    --pico-primary-background: #333;
+    --pico-primary-hover: #000;
+    --pico-primary-hover-background: #000;
+    --pico-primary-underline: rgb(51 51 51 / 50%);
+    --pico-primary-focus: rgb(51 51 51 / 35%);
+
+    /* Squared-off control corners, echoing the old Kube button feel. */
+    --pico-border-radius: 3px;
+}
+
+body {
+    /* Belt-and-braces alongside --pico-font-weight: guarantees 300 on all body
+       copy (li, td, dd, blockquote…), not just the elements Pico weights. */
+    font-weight: 300;
+
+    /* Oswald here is a static subset (the width axis is inert), but re-declare it
+       to preserve the original intent carried by the removed Meyer block. */
+    font-variation-settings: 'wdth' 115;
+}
+
+/* Lists: the site uses custom ::before markers (star bullets) and figure grids,
+   never default markers, so cancel Pico's square markers and the default indent.
+   Pico still owns list-item spacing. Narrow, intentional replacement for the
+   removed Meyer `list-style: none`. */
+ul,
+ol {
+    padding-inline-start: 0;
+}
+
+ul li,
+ol li {
+    list-style: none;
+}
+
+/* --- Layout: row / col grid (Kube replacement; Pico has no 12-col grid) ------ */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row.align-center {
+    justify-content: center;
+}
+
+.row.around {
+    justify-content: space-around;
+}
+
+/* Gutters via gap instead of Kube's negative margins. */
+.row.gutters {
+    gap: 16px 2%;
+}
+
+.col {
+    flex: 0 1 auto;
+}
+
+.col-8 {
+    flex-basis: 66.6667%;
+}
+
+.col-10 {
+    flex-basis: 83.3333%;
+}
+
+/* Kube subtracted the 2% gutter from the column width (only .col-10 ever sits in
+   a gutters row; the header .col-8 lives in a plain .row.align-center). */
+.row.gutters > .col-10 {
+    flex-basis: calc(83.3333% - 2%);
+}
+
+@media (width <=768px) {
+    .row {
+        flex-flow: column nowrap;
+    }
+
+    .row > .col,
+    .row > .col-8,
+    .row > .col-10 {
+        flex-basis: 100%;
+    }
+}
+
+/* Typography helper. */
+.text-center {
+    text-align: center;
+}
+
+/* Keep the top chrome (skip link, nav, mast) full-bleed. Pico's classless build
+   centers body > header/main/footer into a max-width container; that container is
+   welcome on the content <main>, but it would shrink the full-width dark nav/mast
+   bars, so opt the chrome header back out. */
+body > header {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'EB Garamond', serif !important;
+}
+
+html {
+    background-color: white;
+}
+
+/* Skip link: visually offset off-screen until it receives keyboard focus,
+   then slides into view. Kept in the DOM/accessibility tree (not
+   display:none) so it stays reachable for keyboard and screen-reader users. */
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 0.75rem 1rem;
+    background-color: #333;
+    color: #fff;
+    font-family: Oswald, sans-serif;
+    text-decoration: none;
+    transform: translateY(-150%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .skip-link {
+        transition: transform 0.2s ease-in-out;
+    }
+}
+
+/* pages */
+p {
+    font-family: Oswald, sans-serif;
+
+    /* Body weight is now set uniformly (Oswald 300) via --pico-font-weight and
+       `body { font-weight: 300 }` above, so the old p-only `font-weight: lighter`
+       quirk is retired. */
+    margin-bottom: 1rem;
+}
+
+.title {
+    margin-top: 0.5em;
+
+    /* Kube's `h1.title` supplied the 60px/64px hero size; re-declare it here now
+       that Kube is gone (Pico only sizes a plain h1). */
+    font-size: 3.75rem;
+    line-height: 1.067;
+}
+
+/* The Ottoman hub pairs its title with a subtitle in an <hgroup>. Pico zeroes
+   the margins of every hgroup child (`hgroup > *`), so without this the subtitle
+   butts right up against the title's descenders (the "g" in "Heritage"); restore
+   a small gap below the title. Tightening the leading to 1 also keeps the hero
+   from gapping open when it wraps to two lines on narrow viewports. The reduced
+   top margin (the base `.title` uses 0.5em ≈ 30px) pulls the hero up under the
+   breadcrumbs, which already sit below Pico's <main> top padding. */
+hgroup .title {
+    margin-top: 0.5rem;
+    margin-bottom: 0.2em;
+    line-height: 1;
+}
+
+main p {
+    line-height: 1.4rem;
+}
+
+main p.intro {
+    font-size: 1.3rem;
+    line-height: 1.65rem;
+    margin-bottom: 1.2rem;
+}
+
+h2 {
+    font-size: 2rem;
+    line-height: 3rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+    text-align: center;
+}
+
+figcaption {
+    text-align: center;
+    padding-left: 2em;
+    font-style: italic;
+    font-size: smaller;
+    margin-bottom: 1rem;
+
+    /* kube.css dims captions via `opacity: .6`, which composites the whole
+	   caption (including its attribution/license links) down to a
+	   3.69:1 contrast ratio on white -- below WCAG 2.2 AA's 4.5:1 minimum
+	   for normal text. Cancel that and use a solid, still-muted gray that
+	   clears the threshold (roughly 7:1) instead of relying on opacity. */
+    opacity: 1;
+    color: #595959;
+}
+
+/* Epigraph attribution. The home page and the Ottoman hub set their opening quote
+   in the spec's `figure > blockquote + figcaption` pattern, with the credit in a
+   <figcaption class="attribution"> outside the quote. That figcaption inherits the
+   generic caption rule above (its muted #595959 color and opacity:1), but it must
+   not read as an image caption — so cancel the italic and the 2em left padding.
+   The right-align and small size come from .attribution; the <cite> work title
+   keeps its UA/Pico italic. Generalized from the former #home-scoped rule so both
+   epigraphs render identically. */
+blockquote + figcaption {
+    padding-left: 0;
+    font-style: normal;
+}
+
+/* Tighten Pico's roomy blockquote for these short epigraphs. Pico pads the quote
+   by a full --pico-spacing (~1rem) on every side, and the inner <p> adds its own
+   bottom margin on top of the bottom padding — so the text sits with ~1rem of air
+   above it and ~2rem below, which reads as lopsided and loose. Pull the block
+   padding in to 0.5rem and drop the last child's bottom margin so the quote sits
+   snug and symmetric (~0.5rem top and bottom); the inline padding (the indent from
+   the accent bar) is left untouched. */
+figure blockquote {
+    padding-block: 0.5rem;
+}
+
+figure blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+/* Breadcrumbs (generated by the inject-registry-nav plugin in vite.config.js) — small,
+   muted inline text reusing the #595959 caption tone, deliberately NOT a colored bar so it
+   doesn't stack a third chrome layer above the dark global nav + mast. */
+.breadcrumbs {
+    max-width: 70rem;
+    margin: 0.75rem auto 0;
+    padding: 0 1rem;
+    font-family: Oswald, sans-serif;
+    font-size: 0.8rem;
+    color: #595959;
+}
+
+.breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Pico treats every <nav> as a menu bar and offsets its `nav li` padding with
+   negative inline margins on the first/last list (`nav ol:first/last-of-type`).
+   We zero that li padding below, so cancel these negative margins too — otherwise
+   the first/last crumb would hang outside the row's left/right edge. */
+.breadcrumbs ol:first-of-type {
+    margin-left: 0;
+}
+
+.breadcrumbs ol:last-of-type {
+    margin-right: 0;
+}
+
+/* Zero Pico's `nav li` padding so the only spacing around the separator is its
+   own symmetric margins (below); otherwise the li padding lands solely to the
+   right of the `›` and shoves it toward the preceding crumb. */
+.breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+}
+
+.breadcrumbs li::before {
+    content: none;
+}
+
+.breadcrumbs li:not(:last-child)::after {
+    content: '\203A'; /* › */
+    margin: 0 0.5em;
+}
+
+.breadcrumbs a {
+    color: #595959;
+}
+
+/* Undo only the *horizontal* half of Pico's `nav li a` padding + negative margin
+   (which offset the `›` separator), while keeping the block axis tall enough that
+   these small 0.8rem crumbs remain a ≥24px target — WCAG 2.2 SC 2.5.8 Target Size
+   (Minimum). Growing only the block axis leaves the separator's symmetric margins
+   untouched; min-height guarantees the 24px even where a crumb's text is shorter. */
+.breadcrumbs li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    margin: 0;
+    padding-block: 2px;
+    padding-inline: 0;
+}
+
+.breadcrumbs [aria-current="page"] {
+    color: #333;
+}
+
+.breadcrumbs meta {
+    display: none;
+}
+
+.attribution {
+    display: block;
+    margin-top: 0.75rem;
+    margin-right: 2rem;
+    padding-right: 0.5rem;
+    font-size: 0.8rem;
+    text-align: right;
+}

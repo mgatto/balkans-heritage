@@ -1,0 +1,22 @@
+/* About page — loaded after base.css. Only the "craft" list needs page-specific
+   styling. */
+
+/* The About page's "craft" list reuses the star-bullet idiom from the Ottoman hub
+   (list markers are reset to none globally), and restores the paragraph-rhythm
+   bottom margin the reset strips — otherwise the <ul> runs flush into the
+   paragraph that follows it. Id-scoped to #about so no other page is affected. */
+#about ul {
+    list-style-type: none;
+    margin-bottom: 1.2rem;
+}
+
+#about ul li {
+    /* Body weight is now uniform (Oswald 300) site-wide, so no per-element weight
+       patch is needed here anymore; keep only the list line-height. */
+    line-height: 1.5rem;
+}
+
+#about ul li::before {
+    content: '\2605';
+    margin: 0 1em;
+}

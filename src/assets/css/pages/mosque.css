@@ -1,0 +1,28 @@
+/* Mosque landmark — loaded after base.css and BEFORE pages/landmark.css, so the
+   shared responsive media query in landmark.css can override the floated hero
+   below on narrow screens. */
+
+/* Pointed arch / mihrab silhouette: flat bottom, straight sides, curved
+   shoulders rising to a central peak. The same polygon drives both the
+   visual clip and the text-wrap contour so the copy hugs the arch. */
+#mosque .hero {
+    clip-path: polygon(0% 100%, 0% 40%, 10% 20%, 25% 6%, 50% 0%, 75% 6%, 90% 20%, 100% 40%, 100% 100%);
+    float: left;
+    width: 55%;
+    shape-outside: polygon(0% 100%, 0% 40%, 10% 20%, 25% 6%, 50% 0%, 75% 6%, 90% 20%, 100% 40%, 100% 100%);
+    shape-margin: 2.5rem;
+
+    /* clip-path uses the border box while shape-outside uses the margin box, so
+	   this right margin opens a real gap between the image edge and the wrapped
+	   text -- something shape-margin alone can't do once the arch's straight
+	   side already reaches the float's box edge. */
+    margin-right: 2rem;
+}
+
+/* The source image is small (512px wide); let it scale up to always fill the
+   arch box so the shape reads consistently instead of leaving slack on wide
+   screens. */
+#mosque .hero img {
+    display: block;
+    width: 100%;
+}
