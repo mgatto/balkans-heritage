@@ -10,7 +10,6 @@ reviews:
     # Explicitly look ONLY at a generic folder
     # - "src/components/public-utils/**"
     - "src/**"
-    - "!src/assets/css/kube.css"
     # - "!src/assets/**"
     # Hard block sensitive directories, docs, data, and config files
     # - "!**/config/**"
