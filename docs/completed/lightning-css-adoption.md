@@ -2,7 +2,7 @@
 
 **Status:** Done — landed 2026-08-18. `lightningcss` added as a devDependency and wired as Vite's `css.transformer` (with `build.cssMinify: 'lightningcss'`), both fed the resolved `browserslist` query that also drives the JS `build.target`. Validated per the checklist below: clean `npm run build` + `npm run preview`, `npm run lint:css` green, and the emitted `dist/` CSS is near-identical at the current floor (only `translate(0,0)` → `translate(0)`, no new prefixing — as predicted). Kept for historical rationale.
 **Scope:** `vite.config.js`, `package.json` (devDependencies)
-**Related:** [`docs/engineering-practices.md`](../engineering-practices.md), [`docs/future/css-mastery-checklist.md`](../future/css-mastery-checklist.md), [`docs/future/retire-kube-css.md`](../future/retire-kube-css.md); `README.md` ("Minimal dependencies")
+**Related:** [`docs/engineering-practices.md`](../engineering-practices.md), [`docs/future/css-mastery-checklist.md`](../future/css-mastery-checklist.md), [`docs/completed/retire-kube-css.md`](./retire-kube-css.md); `README.md` ("Minimal dependencies")
 
 ## Background
 
@@ -59,7 +59,7 @@ Everything else (`rollupOptions`, the SEO / pagination / HTML-minify plugins) is
 
 The CSS-mastery "Native CSS nesting" item ([`docs/future/css-mastery-checklist.md`](../future/css-mastery-checklist.md), Tier 1) is relevant here: native CSS nesting is supported only from Chrome 112 / Safari 16.5 / Firefox 117, which sits *above* the current browserslist floor (104 / 16.4 / 102). That means whichever CSS transformer is in place — esbuild today, Lightning CSS after this change — is what actually makes authored nesting shippable at the declared floor, rather than the nesting being safe on its own. This is a natural reason to sequence this adoption near the nesting item.
 
-This change is independent of the Kube → Pico migration ([`docs/future/retire-kube-css.md`](../future/retire-kube-css.md)): Pico ships plain CSS, so it neither blocks nor is blocked by adopting Lightning CSS, and the two can land in either order.
+This change is independent of the Kube → Pico migration ([`docs/completed/retire-kube-css.md`](./retire-kube-css.md)): Pico ships plain CSS, so it neither blocks nor is blocked by adopting Lightning CSS, and the two can land in either order.
 
 ## Validation
 
