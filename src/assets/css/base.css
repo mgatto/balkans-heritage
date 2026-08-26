@@ -130,11 +130,8 @@ ol li {
     flex-basis: 83.3333%;
 }
 
-/* Kube subtracted the 2% gutter from each column's width. */
-.row.gutters > .col-8 {
-    flex-basis: calc(66.6667% - 2%);
-}
-
+/* Kube subtracted the 2% gutter from the column width (only .col-10 ever sits in
+   a gutters row; the header .col-8 lives in a plain .row.align-center). */
 .row.gutters > .col-10 {
     flex-basis: calc(83.3333% - 2%);
 }
@@ -346,10 +343,6 @@ figcaption {
 
 .breadcrumbs meta {
     display: none;
-}
-
-legend {
-    margin-bottom: 1rem;
 }
 
 .attribution {

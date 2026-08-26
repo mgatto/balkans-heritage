@@ -56,14 +56,6 @@
     }
 }
 
-ul.checkboxes {
-    list-style-type: none;
-}
-
-ul.checkboxes button[type="submit"] {
-    padding: 0;
-}
-
 /* The maps area sits under an <h2> and splits into two boxed groups: the whole
    .zip package (with its download button) and the individual per-site map links.
    Boxing them keeps the two clearly distinct. These are <section>s rather than
