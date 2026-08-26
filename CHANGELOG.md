@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.3.0](https://github.com/mgatto/balkans-heritage/compare/v2.2.1...v2.3.0) (2026-08-26)
+
+### Features
+
+* split css per page to improve performance ([3b8c5e1](https://github.com/mgatto/balkans-heritage/commit/3b8c5e187be91832583e84b7fc768795a3090f88))
+
+### Bug Fixes
+
+* make quotes consistent across site, and better ([24f9241](https://github.com/mgatto/balkans-heritage/commit/24f924156a843ee69d791855b7caa31b8fdc41e9))
 ## [2.2.1](https://github.com/mgatto/balkans-heritage/compare/v2.2.0...v2.2.1) (2026-08-26)
 
 ### Performance Improvements
