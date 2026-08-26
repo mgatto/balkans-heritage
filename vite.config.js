@@ -267,7 +267,7 @@ export default defineConfig({
             // URLs. Fonts are hashed via CSS processing and images via asset hashing,
             // so hand-written hrefs would break on every rehash — this reads the
             // emitted bundle instead. Runs in the `post` phase so `ctx.bundle` (the
-            // hashed asset list) is populated. See docs/future/asset-loading-optimization.md
+            // hashed asset list) is populated. See docs/completed/asset-loading-optimization.md
             // item 4. No-op on the dev server (no bundle), where assets are unhashed.
             name: 'inject-resource-hints',
             transformIndexHtml: {
