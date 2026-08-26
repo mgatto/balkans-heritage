@@ -1,0 +1,41 @@
+// Modular Pico build — compiled from Pico's vendored SCSS instead of the prebuilt
+// pico.classless.min.css, so we ship only the modules this site actually uses.
+//
+// This is framework configuration, not hand-authored styling: it recreates Pico's
+// classless build ($enable-classes: false, semantic container on) and disables the
+// modules no page renders. The $modules map is merged over Pico's all-true defaults,
+// so we only list the ones to turn off. Disabling a module suppresses its emitted CSS
+// only — every module is still loaded, so there is no missing-dependency risk.
+//
+// Authored overrides live in index.css, which is linked *after* this file so it wins
+// the cascade. See docs/future/design-system-tokens.md ("Pico's weight").
+
+@use "@picocss/pico/scss/index" with (
+  $enable-semantic-container: true,
+  $enable-classes: false,
+  $modules: (
+    // Forms — no <input>/<select>/<textarea> anywhere; the only control is a submit
+    // button, styled by content/button (kept), not by these.
+    "forms/basics": false,
+    "forms/checkbox-radio-switch": false,
+    "forms/input-color": false,
+    "forms/input-date": false,
+    "forms/input-file": false,
+    "forms/input-range": false,
+    "forms/input-search": false,
+
+    // Components never rendered by any page. (Note: components/card is KEPT — it
+    // styles <article>, which every landmark/hub page uses as its content box.)
+    "components/accordion": false,
+    "components/dropdown": false,
+    "components/group": false,
+    "components/loading": false,
+    "components/modal": false,
+    "components/progress": false,
+    "components/tooltip": false,
+
+    // Content types not used: no tables, no code/kbd/pre/samp.
+    "content/table": false,
+    "content/code": false,
+  )
+);

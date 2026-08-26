@@ -1,4 +1,5 @@
-@import '@picocss/pico/css/pico.classless.min.css';
+/* Pico is loaded separately via the compiled, module-trimmed src/assets/css/pico.scss,
+   linked before this file so these authored overrides win the cascade. */
 
 /* Self-hosted fonts (vendored under ../fonts/, licensed OFL 1.1 — see the
    OFL-*.txt files there). woff2 includes the latin-ext subset for Balkan

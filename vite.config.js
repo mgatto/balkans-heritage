@@ -178,6 +178,13 @@ export default defineConfig({
         // target. See docs/completed/lightning-css-adoption.md.
         transformer: 'lightningcss',
         lightningcss: { targets: browserslistToTargets(browsers) },
+        // Pico is compiled from its vendored SCSS (src/assets/css/pico.scss) so we can
+        // trim it to the modules this site uses. Pico's package.json declares no
+        // `exports`/`sass` entry, so resolve its source via a node_modules load path
+        // rather than a `pkg:` specifier. Sass runs before Lightning CSS transforms.
+        preprocessorOptions: {
+            scss: { loadPaths: ['node_modules'] },
+        },
     },
     build: {
         outDir: resolve(__dirname, 'dist'), // Places the build folder back at the project root
