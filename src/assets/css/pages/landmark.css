@@ -231,6 +231,19 @@ article > header {
     color: #767676;
 }
 
+/* Visible language label before each form (both in the <details> list and the
+   popover forms line) so readers who don't speak the languages can tell Bosnian
+   from Albanian — the lang="" attributes alone are machine-only. Lighter than
+   the bold term it introduces; a muted micro-caps tag. */
+.glossary-lang {
+    margin-right: 0.15em;
+    font-size: 0.75em;
+    font-weight: 400;
+    color: #595959;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
 /* Inline prose invoker. Reset Pico's button chrome so it reads as dotted-
    underlined body text, visually distinct from the site's (dark) links.
    Kept `display: inline` so it flows and wraps inside a sentence; per WCAG 2.2
