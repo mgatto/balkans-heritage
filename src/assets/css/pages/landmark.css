@@ -165,3 +165,141 @@ article > header {
         width: 100%;
     }
 }
+
+/* --- Ottoman-era vocabulary glossary ----------------------------------------
+   Per-landmark loanword glossary (docs/future/ottoman-vocabulary-glossary.md).
+   Two surfaces: a bottom-of-article <details> disclosure (the authoritative,
+   no-JS list) and inline Popover API definitions invoked from the prose. The
+   <details> and the native popover both work without JS; glossary.js only adds
+   the older-browser fallback and the details-open-on-hash behavior. Class names
+   are kebab-case to match the project's Stylelint selector-class-pattern (the
+   plan sketched BEM __/-- names, disallowed by that rule). */
+
+/* Disclosure block: separate it from the attribution above the same way the
+   country-facet separates from the article body. */
+.glossary {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+    font-family: Oswald, sans-serif;
+}
+
+.glossary > summary {
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+}
+
+.glossary-list {
+    margin: 1rem 0 0;
+}
+
+/* Each RDFa DefinedTerm wrapper (the <div> grouping a dt/dd pair). */
+.glossary-list > div {
+    margin-bottom: 1rem;
+}
+
+.glossary-list > div:last-child {
+    margin-bottom: 0;
+}
+
+.glossary-list dt {
+    font-weight: 600;
+}
+
+.glossary-list dd {
+    max-width: 60ch;
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.glossary-sep {
+    margin: 0 0.35em;
+    color: #595959;
+}
+
+/* IPA + English approximation: subordinate to the spelling, not competing. */
+.glossary-ipa {
+    font-size: 0.8em;
+    font-style: normal;
+    color: #595959;
+    white-space: nowrap;
+}
+
+.glossary-ipa-approx {
+    color: #767676;
+}
+
+/* Inline prose invoker. Reset Pico's button chrome so it reads as dotted-
+   underlined body text, visually distinct from the site's (dark) links.
+   Kept `display: inline` so it flows and wraps inside a sentence; per WCAG 2.2
+   SC 2.5.8 the target-size minimum is waived for targets inline in text.
+   `appearance: none` is unprefixed — within the Safari 16.4 browserslist floor. */
+.glossary-term {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    line-height: inherit;
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 0.15em;
+    cursor: pointer;
+    appearance: none;
+}
+
+/* Secondary "(local name)" invoker attached to an English proper noun rather
+   than a loanword — smaller and muted so it doesn't rival the linked name. */
+.glossary-term-local {
+    font-size: 0.85em;
+    color: #595959;
+}
+
+/* Popover definition panel. The UA auto-positions it; we only style the box.
+   Spacing is set on the direct children (not a `p` descendant selector) to keep
+   specificity below the earlier `#<id> main p` rules — Stylelint's
+   no-descending-specificity holds and Pico's paragraph margins are neutralized. */
+.glossary-popover {
+    max-width: 22rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Oswald, sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.glossary-popover > * {
+    margin: 0 0 0.5rem;
+}
+
+.glossary-popover > :last-child {
+    margin-bottom: 0;
+}
+
+.glossary-popover-ipa {
+    font-size: 0.85em;
+    font-style: normal;
+    color: #595959;
+    white-space: nowrap;
+}
+
+.glossary-popover-ipa-approx {
+    color: #767676;
+}
+
+/* Without the Popover API, `<div popover>` is an unknown attribute and renders
+   as a visible block (the UA rule that hides it ships only with the API).
+   Browsers lacking the API also lack :popover-open, so this negation hides the
+   panels only there; supporting browsers skip the block and let their UA
+   stylesheet manage show/hide. Light-dismiss workaround lives in glossary.js
+   (WebKit bug 267688). */
+@supports not selector(:popover-open) {
+    [popover] {
+        display: none;
+    }
+}
