@@ -231,12 +231,24 @@ article > header {
     color: #767676;
 }
 
-/* Pronunciation audio: a sibling <dd property="audio" typeof="AudioObject"> after
-   each term's description <dd> — kept as its own dl entry (not nested inside the
-   description text) so the RDFa parser doesn't fold the language label into the
-   `description` literal. Reuses .glossary-lang for the per-clip language label. */
-.glossary-pronunciation audio {
-    max-width: 100%;
+/* Per-language form line inside <dt>: each wraps label + spelling + IPA + optional
+   audio as its own flex row. display:flex with align-items:baseline keeps the IPA
+   and audio control optically aligned to the term text; flex-wrap lets long IPA
+   strings reflow on narrow viewports rather than overflow. */
+.glossary-form {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.15em 0.4em;
+}
+
+/* Pronunciation audio: an <audio> inside .glossary-audio, which sits in the
+   Albanian .glossary-form line immediately after the IPA — keeping sound adjacent
+   to the spelling it voices. The AudioObject RDFa triple is produced by the
+   property/typeof on the wrapper span; placement in <dt> is valid (phrasing
+   content) and RDFa-safe (the label never bleeds into the description literal). */
+.glossary-audio audio {
+    max-width: 16rem;
     height: 2rem;
     vertical-align: middle;
 }
