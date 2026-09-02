@@ -231,6 +231,16 @@ article > header {
     color: #767676;
 }
 
+/* Pronunciation audio: a sibling <dd property="audio" typeof="AudioObject"> after
+   each term's description <dd> — kept as its own dl entry (not nested inside the
+   description text) so the RDFa parser doesn't fold the language label into the
+   `description` literal. Reuses .glossary-lang for the per-clip language label. */
+.glossary-pronunciation audio {
+    max-width: 100%;
+    height: 2rem;
+    vertical-align: middle;
+}
+
 /* Visible language label before each form (both in the <details> list and the
    popover forms line) so readers who don't speak the languages can tell Bosnian
    from Albanian — the lang="" attributes alone are machine-only. Lighter than
