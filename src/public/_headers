@@ -86,6 +86,10 @@
   # skip the conditional revalidation request entirely on revisits.
   Cache-Control: public, max-age=31536000, immutable
 
+/assets/*.mp3
+  # prevent browsers from displaying 0:00 timestamps in audio controls.
+  Accept-Ranges: bytes
+  Cache-Control: public, max-age=31536000, no-transform
 
 # ------------------------------------------------------------------
 # Note on style-src 'unsafe-inline'
