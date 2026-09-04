@@ -34,7 +34,7 @@ The craft decisions and dead-ends behind this site are written up as an ongoing 
 - **Structured data** — [Schema.org](https://schema.org/) vocabulary expressed as inline [RDFa](https://www.w3.org/TR/rdfa-primer/) attributes (`vocab`, `typeof`, `property`) on the semantic HTML, rather than a separate JSON-LD block.
 - **Accessibility** — targets [WCAG 2.2](https://www.w3.org/TR/WCAG22/) Level AA; see [`docs/accessibility.md`](docs/accessibility.md) for the standard, automated verification (`npm run a11y`), and manual testing checklist.
 - **Self-hosted fonts** — typefaces are vendored and served same-origin (no third-party font CDN) for privacy, reliability, and reproducible builds. See [Fonts](#fonts).
-- **Minimal dependencies** — no front-end JavaScript framework; vanilla JS Web Components, layered on [Pico.css](https://picocss.com/) as a tiny, classless CSS baseline (no JS, styles semantic HTML).
+- **Minimal dependencies** — no front-end JavaScript framework; vanilla JS Web Components, layered on [Pico.css](https://picocss.com/) as a tiny, classless CSS baseline (no JS, styles semantic HTML). The ban is on *frameworks*, not libraries: a small, focused JS library is fine when it earns its keep and doesn't break progressive enhancement.
 
 ## Project structure
 

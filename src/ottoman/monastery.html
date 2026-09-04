@@ -1,111 +1,176 @@
 <!doctype html>
 <html lang="en" data-theme="light">
-    <head>
-        <meta charset="utf-8">
-        <title>The Monastery - Balkan Heritage</title>
-        <meta name="description"
-            content="The Blagaj Tekke near Mostar — a centuries-old dervish lodge set beneath a cliff at the source of the blue-green Buna river.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="canonical" href="https://balkanheritage.info/ottoman/monastery">
+<head>
+    <meta charset="utf-8">
+    <title>The Monastery - Balkan Heritage</title>
+    <meta name="description"
+        content="The Blagaj Tekke near Mostar — a centuries-old dervish lodge set beneath a cliff at the source of the blue-green Buna river.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Open Graph / social sharing. Absolute URLs use the canonical apex origin
+    <link rel="canonical" href="https://balkanheritage.info/ottoman/monastery">
+
+    <!-- Open Graph / social sharing. Absolute URLs use the canonical apex origin
              (SITE_URL in vite.config.js); og:image is a stable file under src/public/,
              copied verbatim to the site root so its URL is not fingerprinted. -->
-        <meta property="og:type" content="article">
-        <meta property="og:site_name" content="Balkan Heritage">
-        <meta property="og:title" content="The Monastery">
-        <meta property="og:description"
-            content="The Blagaj Tekke near Mostar — a centuries-old dervish lodge set beneath a cliff at the source of the blue-green Buna river.">
-        <meta property="og:url" content="https://balkanheritage.info/ottoman/monastery">
-        <meta property="og:image" content="https://balkanheritage.info/assets/img/og-monastery.jpg">
-        <meta property="og:image:type" content="image/jpeg">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-        <meta property="og:image:alt" content="The Blagaj Tekke beneath a cliff at the source of the Buna river">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="The Monastery">
-        <meta name="twitter:description"
-            content="The Blagaj Tekke near Mostar — a centuries-old dervish lodge set beneath a cliff at the source of the blue-green Buna river.">
-        <meta name="twitter:image" content="https://balkanheritage.info/assets/img/og-monastery.jpg">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Balkan Heritage">
+    <meta property="og:title" content="The Monastery">
+    <meta property="og:description"
+        content="The Blagaj Tekke near Mostar — a centuries-old dervish lodge set beneath a cliff at the source of the blue-green Buna river.">
+    <meta property="og:url" content="https://balkanheritage.info/ottoman/monastery">
+    <meta property="og:image" content="https://balkanheritage.info/assets/img/og-monastery.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The Blagaj Tekke beneath a cliff at the source of the Buna river">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Monastery">
+    <meta name="twitter:description"
+        content="The Blagaj Tekke near Mostar — a centuries-old dervish lodge set beneath a cliff at the source of the blue-green Buna river.">
+    <meta name="twitter:image" content="https://balkanheritage.info/assets/img/og-monastery.jpg">
 
-        <link rel="apple-touch-icon" href="/assets/img/bosnian_coat_of_arms.svg">
-        <link rel="icon" type="image/svg+xml" href="/assets/img/bosnian_coat_of_arms.svg">
-        <link rel="mask-icon" href="/assets/img/bosnian_coat_of_arms.svg" color="#000000">
+    <link rel="apple-touch-icon" href="/assets/img/bosnian_coat_of_arms.svg">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/bosnian_coat_of_arms.svg">
+    <link rel="mask-icon" href="/assets/img/bosnian_coat_of_arms.svg" color="#000000">
 
-        <link rel="stylesheet" href="/assets/css/pico.scss">
-        <link rel="stylesheet" href="/assets/css/base.css">
-        <link rel="stylesheet" href="/assets/css/pages/monastery.css">
-        <link rel="stylesheet" href="/assets/css/pages/landmark.css">
+    <link rel="stylesheet" href="/assets/css/pico.scss">
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/pages/monastery.css">
+    <link rel="stylesheet" href="/assets/css/pages/landmark.css">
 
-        <script type="module" src="/components/FooterComponent/Footer.js"></script>
-        <script type="module" src="/components/MastComponent/MedallionMast.js"></script>
-        <script type="module" src="/components/NavigationComponent/Navigation.js"></script>
-    </head>
+    <script type="module" src="/components/FooterComponent/Footer.js"></script>
+    <script type="module" src="/components/MastComponent/MedallionMast.js"></script>
+    <script type="module" src="/components/NavigationComponent/Navigation.js"></script>
+    <script type="module" src="/assets/js/glossary.js"></script>
+</head>
 
-    <body id="monastery" vocab="http://schema.org/" prefix="dc: http://purl.org/dc/terms/">
-        <header>
-            <a class="skip-link" href="#main-content">Skip to main content</a>
-            <balkans-navigation></balkans-navigation>
+<body id="monastery" vocab="http://schema.org/" prefix="dc: http://purl.org/dc/terms/">
+    <header>
+        <a class="skip-link" href="#main-content">Skip to main content</a>
+        <balkans-navigation></balkans-navigation>
 
-            <balkans-mast country="bosnia"></balkans-mast>
+        <balkans-mast country="bosnia"></balkans-mast>
+    </header>
+
+    <main id="main-content" tabindex="-1" typeof="TouristAttraction LandmarksOrHistoricalBuildings">
+        <div property="geo" typeof="GeoCoordinates">
+            <!-- 43° 15′ 25.15″ N, 17° 54′ 10.87″ E -->
+            <span property="latitude" content="43.25698"></span>
+            <span property="longitude" content="17.90302"></span>
+        </div>
+        <span property="sameAs" resource="http://www.wikidata.org/entity/Q43951226"></span>
+
+        <header class="row align-center">
+            <div class="col col-8">
+                <h1 class="title text-center">The Monastery</h1>
+            </div>
         </header>
 
-        <main id="main-content" tabindex="-1" typeof="TouristAttraction LandmarksOrHistoricalBuildings">
-            <div property="geo" typeof="GeoCoordinates">
-                <!-- 43° 15′ 25.15″ N, 17° 54′ 10.87″ E -->
-                <span property="latitude" content="43.25698"></span>
-                <span property="longitude" content="17.90302"></span>
-            </div>
-            <span property="sameAs" resource="http://www.wikidata.org/entity/Q43951226"></span>
+        <div class="row gutters around primary-content">
+            <article class="col col-10">
+                <header>
+                    <h2>Beside a monastery, springs the Buna river…</h2>
+                </header>
 
-            <header class="row align-center">
-                <div class="col col-8">
-                    <h1 class="title text-center">The Monastery</h1>
+                <figure class="hero" property="photo" typeof="ImageObject">
+                    <picture>
+                        <source type="image/avif"
+                            srcset="/assets/img/blagaj_tekke-480.avif 480w, /assets/img/blagaj_tekke-800.avif 800w, /assets/img/blagaj_tekke-1080.avif 1080w"
+                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
+                        <source type="image/webp"
+                            srcset="/assets/img/blagaj_tekke-480.webp 480w, /assets/img/blagaj_tekke-800.webp 800w, /assets/img/blagaj_tekke-1080.webp 1080w"
+                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
+                        <img property="contentUrl" src="/assets/img/blagaj_tekke-800.jpg"
+                            srcset="/assets/img/blagaj_tekke-480.jpg 480w, /assets/img/blagaj_tekke-800.jpg 800w, /assets/img/blagaj_tekke-1080.jpg 1080w"
+                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px" width="800" height="533"
+                            fetchpriority="high" decoding="async"
+                            alt="a rock facade nestles a white building next to a sprouting river">
+                    </picture>
+                    <figcaption>
+                        Image: <a href="">Wikipedia</a> / <span property="creator copyrightHolder">Talha Şamil
+                            Çakır</span> / <a property="license"
+                            href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA 3.0</a>
+                    </figcaption>
+                </figure>
+
+                <p class="intro">
+                    Forming Blagaj's signature attraction, the centrepiece of this complex of traditional stone-roofed
+                    buildings is a very pretty half-timbered dervish house with wobbly rug-covered floors, carved
+                    doorways, curious niches and a bathroom with star-shaped coloured glass set into the ceiling.
+                </p>
+                <p>
+                    The <dfn id="term-tekke"><button type="button" class="glossary-term" popovertarget="popover-tekke"
+                            aria-label="Definition: tekke (tekija / teqe)">tekke's</button></dfn> last sheikh died
+                    in 1923 and dervish spirituality was suppressed following WWII.
+                    The Blagaj Tekke is now once again a venue for Zikr praise-chanting three nights a week.
+                </p>
+                <p>
+                    The dervishes follow a mystical strand of Islam in which the peaceful contemplation of nature plays
+                    a part, hence the tekke's idyllic positioning above the cave mouth from which the Buna River's
+                    surreally blue-green waters flow forth.
+                </p>
+                <small class="attribution" property="subjectOf" typeof="CreativeWork">— <span
+                        property="publisher">Lonely Planet</span></small>
+
+                <details class="glossary" typeof="DefinedTermSet">
+                    <summary>Ottoman-era vocabulary</summary>
+                    <dl class="glossary-list">
+                        <div id="glossary-tekke" property="hasDefinedTerm" typeof="DefinedTerm">
+                            <dt>
+                                <span class="glossary-form">
+                                    <span class="glossary-lang">Bosnian:</span>
+                                    <span property="name" lang="bs">tekija</span>
+                                    <span class="glossary-ipa">/tɛˈkija/ <span
+                                            class="glossary-ipa-approx">("teh-KEE-ya")</span></span>
+                                    <span class="glossary-audio" property="audio" typeof="AudioObject">
+                                        <audio controls preload="none" property="contentUrl"
+                                            src="/assets/audio/bs/tekija.mp3"
+                                            aria-label="Pronunciation: Bosnian tekija"></audio>
+                                    </span>
+                                </span>
+                                <span class="glossary-form">
+                                    <span class="glossary-lang">Albanian:</span>
+                                    <span property="name" lang="sq">teqe</span>
+                                    <span class="glossary-ipa">/ˈtɛcɛ/ <span
+                                            class="glossary-ipa-approx">("TEH-cheh")</span></span>
+                                    <span class="glossary-audio" property="audio" typeof="AudioObject">
+                                        <audio controls preload="none" property="contentUrl"
+                                            src="/assets/audio/al/teqe.mp3"
+                                            aria-label="Pronunciation: Albanian teqe"></audio>
+                                    </span>
+                                </span>
+                            </dt>
+                            <dd property="description">
+                                From Ottoman Turkish <em lang="tr">tekke</em> — a dervish lodge.
+                                The Blagaj <a href="#term-tekke">tekke</a>, described above, is one such lodge.
+                            </dd>
+                        </div>
+                    </dl>
+                </details>
+
+                <!-- Popover definition panel (invoker sits inline in the prose above). -->
+                <div id="popover-tekke" popover class="glossary-popover" lang="en">
+                    <p class="glossary-popover-forms">
+                        <span class="glossary-lang">Bosnian:</span>
+                        <span lang="bs">tekija</span>
+                        <span class="glossary-popover-ipa">/tɛˈkija/ <span
+                                class="glossary-popover-ipa-approx">("teh-KEE-ya")</span></span>
+                        <span class="glossary-sep" aria-hidden="true">·</span>
+                        <span class="glossary-lang">Albanian:</span>
+                        <span lang="sq">teqe</span>
+                        <span class="glossary-popover-ipa">/ˈtɛcɛ/ <span
+                                class="glossary-popover-ipa-approx">("TEH-cheh")</span></span>
+                    </p>
+                    <p>From Ottoman Turkish <em lang="tr">tekke</em> — a dervish lodge.</p>
+                    <p><a href="#glossary-tekke" class="glossary-popover-more">Full entry in glossary ↓</a></p>
                 </div>
-            </header>
 
-            <div class="row gutters around primary-content">
-                <article class="col col-10">
-                    <header>
-                        <h2>Beside a monastery, springs the Buna river…</h2>
-                    </header>
+            </article>
+        </div>
+    </main>
 
-                    <figure class="hero" property="photo" typeof="ImageObject">
-                        <picture>
-                            <source type="image/avif"
-                                srcset="/assets/img/blagaj_tekke-480.avif 480w, /assets/img/blagaj_tekke-800.avif 800w, /assets/img/blagaj_tekke-1080.avif 1080w"
-                                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
-                            <source type="image/webp"
-                                srcset="/assets/img/blagaj_tekke-480.webp 480w, /assets/img/blagaj_tekke-800.webp 800w, /assets/img/blagaj_tekke-1080.webp 1080w"
-                                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
-                            <img property="contentUrl" src="/assets/img/blagaj_tekke-800.jpg"
-                                srcset="/assets/img/blagaj_tekke-480.jpg 480w, /assets/img/blagaj_tekke-800.jpg 800w, /assets/img/blagaj_tekke-1080.jpg 1080w"
-                                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px"
-                                width="800" height="533" fetchpriority="high" decoding="async"
-                                alt="a rock facade nestles a white building next to a sprouting river">
-                        </picture>
-                        <figcaption>
-                            Image: <a href="">Wikipedia</a> / <span property="creator copyrightHolder">Talha Şamil Çakır</span> / <a property="license" href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA 3.0</a>
-                        </figcaption>
-                    </figure>
+    <balkans-footer></balkans-footer>
+</body>
 
-                    <p class="intro">
-                        Forming Blagaj's signature attraction, the centrepiece of this complex of traditional stone-roofed buildings is a very pretty half-timbered dervish house with wobbly rug-covered floors, carved doorways, curious niches and a bathroom with star-shaped coloured glass set into the ceiling.
-                    </p>
-                    <p>
-                        The tekke's last sheikh died in 1923 and dervish spirituality was suppressed following WWII.
-                        The Blagaj Tekke is now once again a venue for Zikr praise-chanting three nights a week.
-                    </p>
-                    <p>
-                        The dervishes follow a mystical strand of Islam in which the peaceful contemplation of nature plays a part, hence the tekke's idyllic positioning above the cave mouth from which the Buna River's surreally blue-green waters flow forth.
-                    </p>
-                    <small class="attribution" property="subjectOf" typeof="CreativeWork">— <span property="publisher">Lonely Planet</span></small>
-
-                </article>
-            </div>
-        </main>
-
-        <balkans-footer></balkans-footer>
-    </body>
 </html>
