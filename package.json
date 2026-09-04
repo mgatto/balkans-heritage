@@ -11,12 +11,10 @@
   "bugs": {
     "url": "https://github.com/mgatto/balkans-heritage/issues"
   },
-  "description": "",
-  "engines": {
-    "node": "22.14.0"
+  "dependencies": {
+    "@picocss/pico": "^2.1.1"
   },
-  "private": true,
-  "type": "module",
+  "description": "",
   "devDependencies": {
     "@axe-core/puppeteer": "^4.11.0",
     "@commitlint/cli": "^21.2.2",
@@ -59,10 +57,14 @@
     "web-features": "^3.35.1",
     "wrangler": "^4.123.0"
   },
+  "engines": {
+    "node": "24.20.0"
+  },
   "homepage": "https://github.com/mgatto/balkans-heritage#readme",
   "license": "MIT",
   "main": "index.html",
   "name": "balkans-heritage",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://mgatto@github.com/mgatto/balkans-heritage.git"
@@ -74,33 +76,32 @@
     "bs:screenshots": "node --env-file-if-exists=.env scripts/browserstack-screenshots.mjs",
     "bs:screenshots:local": "vite build && node --env-file-if-exists=.env scripts/browserstack-screenshots.mjs --local",
     "build": "vite build",
-    "postbuild": "npm run lighthouse && npm run a11y",
+    "build:preview": "vite build && vite preview",
     "deploy": "vite build && wrangler deploy",
     "dev": "vite",
     "intel:browser-features": "node scripts/browser-feature-intel.mjs",
-    "intel:query": "node scripts/browser-feature-intel.mjs --query",
     "intel:bugs": "node scripts/browser-bugs.mjs --feature",
     "intel:bugs:all": "node scripts/browser-bugs.mjs",
+    "intel:query": "node scripts/browser-feature-intel.mjs --query",
     "lighthouse": "npm run lighthouse:desktop && npm run lighthouse:mobile",
     "lighthouse:desktop": "lhci autorun --config=lighthouserc.desktop.cjs",
     "lighthouse:mobile": "lhci autorun --config=lighthouserc.mobile.cjs",
     "lint": "npx lint-staged",
-    "lint:html": "html-validate \"src/**/*.html\"",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:css:fix": "stylelint --fix \"src/**/*.css\"",
+    "lint:fix": "npm run lint:js:fix && npm run lint:css:fix",
+    "lint:html": "html-validate \"src/**/*.html\"",
     "lint:js": "eslint \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\" \"scripts/**/*.{js,mjs,cjs}\" \"vitest.config.mjs\"",
     "lint:js:fix": "eslint --fix \"src/**/*.{js,mjs,cjs,json,jsonc,json5}\" \"scripts/**/*.{js,mjs,cjs}\" \"vitest.config.mjs\"",
-    "lint:fix": "npm run lint:js:fix && npm run lint:css:fix",
+    "postbuild": "npm run lighthouse && npm run a11y",
+    "prepare": "husky",
     "preview": "vite preview",
     "preview:test": "vite preview --port 4173 --strictPort",
     "release": "commit-and-tag-version",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate:rdfa": "node scripts/validate-rdfa.mjs",
-    "prepare": "husky"
+    "validate:rdfa": "node scripts/validate-rdfa.mjs"
   },
-  "version": "2.3.0",
-  "dependencies": {
-    "@picocss/pico": "^2.1.1"
-  }
+  "type": "module",
+  "version": "2.3.0"
 }

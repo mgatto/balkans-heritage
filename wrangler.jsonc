@@ -1,12 +1,15 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "balkans-heritage",
-  "compatibility_date": "2026-08-15",
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page"
   },
+  "compatibility_date": "2026-09-03",
+  "name": "balkans-heritage",
   "routes": [
-    { "pattern": "balkanheritage.info", "custom_domain": true }
+    {
+      "custom_domain": true,
+      "pattern": "balkanheritage.info"
+    }
   ]
 }
