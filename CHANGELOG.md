@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.4.0](https://github.com/mgatto/balkans-heritage/compare/v2.3.0...v2.4.0) (2026-09-04)
+
+### Features
+
+* add audio for Bosnian ([f32a355](https://github.com/mgatto/balkans-heritage/commit/f32a3555ad111400f4e0c71a2a7e80f23be377e0))
+* experiment with audio pronunciations ([ceded3e](https://github.com/mgatto/balkans-heritage/commit/ceded3e39024417e18679b788a533fcfaef1fa59))
+* provide users with local vocbulary for the landmarks ([24d8732](https://github.com/mgatto/balkans-heritage/commit/24d8732c499c188643b5d5acfbe60ebbca483d81))
+
+### Bug Fixes
+
+* help browsers display proper play time length ([203a7cd](https://github.com/mgatto/balkans-heritage/commit/203a7cdcda3983cbbb473dc83deb4442c39da44d))
+* label term’s language ([2f6add0](https://github.com/mgatto/balkans-heritage/commit/2f6add071e9139e4881d5033ec3228b6cfb9b62d))
+* refactor previous audio attempt ([524acb0](https://github.com/mgatto/balkans-heritage/commit/524acb00ecea734dc33c59a5e48460287731b45f))
+* unicode normalization and url decoding errors for audio files ([4aa4b70](https://github.com/mgatto/balkans-heritage/commit/4aa4b7054bcb50d5e5491b14653efaf70d582b91))
 ## [2.3.0](https://github.com/mgatto/balkans-heritage/compare/v2.2.1...v2.3.0) (2026-08-26)
 
 ### Features
