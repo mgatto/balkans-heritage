@@ -1,0 +1,29 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.4.13/schema.json",
+    "assist": {
+        "enabled": false
+    },
+    "css": {
+        "formatter": {
+            "enabled": true
+        }
+    },
+    "formatter": {
+        "enabled": true,
+        "includes": [
+            "src/**",
+            "!dist/**"
+        ],
+        "indentStyle": "space",
+        "indentWidth": 4
+    },
+    "html": {
+        // "experimentalFullSupportEnabled": true,
+        "formatter": {
+            "enabled": true
+        }
+    },
+    "linter": {
+        "enabled": true
+    }
+}
