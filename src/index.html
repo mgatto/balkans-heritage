@@ -1,168 +1,297 @@
 <!doctype html>
 <html lang="en" data-theme="light">
+    <!--
+class="no-js"
+Matuzo: "Even if you don't believe that websites should work without JavaScript in 2026, this class can still be useful for optimizing the rendering of web components before they're defined."
 
-<head>
-    <meta charset="utf-8">
-    <title>Balkan Heritage - A Poetic Tour of the Balkans</title>
-    <meta name="description"
-        content="A poetic tour of the Balkans' layered cultural heritage across the empires and eras that shaped it — its Ottoman-era bridges, mosques, fountains, and monasteries.">
-    <meta name="author" content="Michael Gatto">
+Oh, how would someone do that?
+-->
 
-    <link rel="canonical" href="https://balkanheritage.info/">
+    <head>
+        <!-- Order is important -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Balkan Heritage - A Poetic Tour of the Balkans</title>
 
-    <!-- Open Graph / social sharing.
+        <!-- only if i use class="no-js"
+    <script>
+        document.documentElement.classList.replace('no-js', 'js');
+    </script>
+    -->
+
+        <meta
+            name="description"
+            content="A poetic tour of the Balkans' layered cultural heritage across the empires and eras that shaped it — its Ottoman-era bridges, mosques, fountains, and monasteries."
+        >
+        <meta name="author" content="Michael Gatto">
+
+        <!-- <link rel="icon" href="/favicon.ico"> 32x32 ico or modern is svg
+     or
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    -->
+        <link rel="canonical" href="https://balkanheritage.info/">
+
+        <!-- Open Graph / social sharing.
          Absolute URLs are required by crawlers; they use the canonical apex origin
          (SITE_URL in vite.config.js). og:image is a stable file under src/public/,
          which is copied verbatim to the site root (so its URL is not fingerprinted). -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Balkan Heritage">
-    <meta property="og:title" content="Poetic Tour of the Balkans">
-    <meta property="og:description"
-        content="A poetic tour of the Balkans' layered cultural heritage across the empires and eras that shaped it — its Ottoman-era bridges, mosques, fountains, and monasteries.">
-    <meta property="og:url" content="https://balkanheritage.info/">
-    <meta property="article:author" content="Michael Gatto">
-    <meta property="article:published_time" content="2026-08-15T00:00:00Z">
-    <meta property="og:image" content="https://balkanheritage.info/assets/img/og-home.jpg">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt"
-        content="Poetic Tour of the Balkans — the Sarajevo fountain and the Gazi Husrev-beg Mosque">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Poetic Tour of the Balkans">
-    <meta name="twitter:description"
-        content="A poetic tour of the Balkans' layered cultural heritage across the empires and eras that shaped it — its Ottoman-era bridges, mosques, fountains, and monasteries.">
-    <meta name="twitter:image" content="https://balkanheritage.info/assets/img/og-home.jpg">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Balkan Heritage">
+        <meta property="og:title" content="Poetic Tour of the Balkans">
+        <meta
+            property="og:description"
+            content="A poetic tour of the Balkans' layered cultural heritage across the empires and eras that shaped it — its Ottoman-era bridges, mosques, fountains, and monasteries."
+        >
+        <meta property="og:url" content="https://balkanheritage.info/">
+        <meta property="article:author" content="Michael Gatto">
+        <meta property="article:published_time" content="2026-08-15T00:00:00Z">
+        <meta property="og:image" content="https://balkanheritage.info/assets/img/og-home.jpg">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta
+            property="og:image:alt"
+            content="Poetic Tour of the Balkans — the Sarajevo fountain and the Gazi Husrev-beg Mosque"
+        >
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Poetic Tour of the Balkans">
+        <meta
+            name="twitter:description"
+            content="A poetic tour of the Balkans' layered cultural heritage across the empires and eras that shaped it — its Ottoman-era bridges, mosques, fountains, and monasteries."
+        >
+        <meta name="twitter:image" content="https://balkanheritage.info/assets/img/og-home.jpg">
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="author" href="/humans.txt">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="author" href="/humans.txt">
+        <!--
+    <link rel="manifest" href="/site.webmanifest">
+    For Android devices we need a .webmanifest file, which provides browsers with the information where the icons needed for the home screen, dialogs, and the splash screen for PWAs or regular sites added to the home screen are located.
+    -->
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="msapplication-starturl" content="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Wow!
+    <link rel="alternate" type="text/markdown" href="https://web.site/page.md">
+    Link to a Markdown version of your page. LLMs work better with Markdown than with HTML, and serving content as Markdown significantly reduces token usage.
+    -->
 
-    <link rel="apple-touch-icon" href="/assets/img/star_and_crescent.svg">
-    <link rel="icon" type="image/svg+xml" href="/assets/img/star_and_crescent.svg">
-    <link rel="mask-icon" href="/assets/img/star_and_crescent.svg" color="#007f00">
+        <meta name="mobile-web-app-capable" content="yes">
+        <!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
 
-    <link rel="stylesheet" href="/assets/css/pico.scss">
-    <link rel="stylesheet" href="/assets/css/base.css">
-    <link rel="stylesheet" href="/assets/css/pages/home.css">
+        <link rel="apple-touch-icon" href="/assets/img/star_and_crescent.svg">
+        <link rel="icon" type="image/svg+xml" href="/assets/img/star_and_crescent.svg">
+        <link rel="mask-icon" href="/assets/img/star_and_crescent.svg" color="#007f00">
 
-    <script type="module" src="/components/FooterComponent/Footer.js"></script>
-    <script type="module" src="/components/MastComponent/MedallionMast.js"></script>
-    <script type="module" src="/components/NavigationComponent/Navigation.js"></script>
-</head>
+        <link rel="stylesheet" href="/assets/css/pico.scss">
+        <link rel="stylesheet" href="/assets/css/base.css">
+        <link rel="stylesheet" href="/assets/css/pages/home.css">
 
-<body id="home">
-    <header>
-        <a class="skip-link" href="#main-content">Skip to main content</a>
-        <balkans-navigation></balkans-navigation>
-        <balkans-mast parts></balkans-mast>
-    </header>
+        <script type="module" src="/components/FooterComponent/Footer.js"></script>
+        <script type="module" src="/components/MastComponent/MedallionMast.js"></script>
+        <script type="module" src="/components/NavigationComponent/Navigation.js"></script>
+    </head>
 
-    <main id="main-content" tabindex="-1">
-        <header class="row align-center">
-            <div class="col col-8">
-                <h1 class="title text-center">Poetic Tour of the Balkans</h1>
-            </div>
+    <body id="home">
+        <header>
+            <a class="skip-link" href="#main-content">Skip to main content</a>
+            <balkans-navigation></balkans-navigation>
+            <balkans-mast parts></balkans-mast>
         </header>
 
-        <div class="row gutters around">
-            <article class="col col-10">
-                <p class="intro">
-                    The region's layered cultural heritage, explored empire by empire and era by era across the places
-                    that hold their mark.
-                </p>
-                <!-- TODO: verify the exact wording of this Rebecca West line against a print edition of
-                     Black Lamb and Grey Falcon before final publish (see the Nested Ottoman hub URLs plan). -->
-                <figure>
-                    <blockquote>
-                        <p>Only part of us is sane: only part of us loves pleasure and the longer day of happiness, wants
-                            to live to our nineties and die in peace.</p>
-                    </blockquote>
-                    <figcaption class="attribution">— <strong property="dc:source">Rebecca West</strong> in
-                        <cite>&nbsp;Black Lamb and Grey Falcon</cite></figcaption>
-                </figure>
+        <main id="main-content" tabindex="-1">
+            <header class="row align-center">
+                <div class="col col-8">
+                    <h1 class="title text-center">Poetic Tour of the Balkans</h1>
+                </div>
+            </header>
 
-                <ul class="page-grid">
-                    <li class="planned">
-                        <figure>
-                            <picture>
-                                <source type="image/avif"
-                                    srcset="/assets/img/gracanica_monastery-480.avif 480w, /assets/img/gracanica_monastery-800.avif 800w, /assets/img/gracanica_monastery-1200.avif 1200w"
-                                    sizes="(max-width: 600px) 90vw, 45vw">
-                                <source type="image/webp"
-                                    srcset="/assets/img/gracanica_monastery-480.webp 480w, /assets/img/gracanica_monastery-800.webp 800w, /assets/img/gracanica_monastery-1200.webp 1200w"
-                                    sizes="(max-width: 600px) 90vw, 45vw">
-                                <img src="/assets/img/gracanica_monastery-800.jpg"
-                                    srcset="/assets/img/gracanica_monastery-480.jpg 480w, /assets/img/gracanica_monastery-800.jpg 800w, /assets/img/gracanica_monastery-1200.jpg 1200w"
-                                    sizes="(max-width: 600px) 90vw, 45vw" width="800" height="536" loading="lazy"
-                                    decoding="async" alt="">
-                            </picture>
-                            <figcaption>Part I: The Byzantine <small>(planned)</small></figcaption>
-                        </figure>
-                    </li>
-                    <li>
-                        <a href="/ottoman/">
+            <div class="row gutters around">
+                <article class="col col-10">
+                    <p class="intro">
+                        The region's layered cultural heritage, explored empire by empire and era by
+                        era across the places that hold their mark.
+                    </p>
+                    <!-- TODO: verify the exact wording of this Rebecca West line against a print edition of
+                     Black Lamb and Grey Falcon before final publish (see the Nested Ottoman hub URLs plan). -->
+                    <figure>
+                        <blockquote>
+                            <p>
+                                Only part of us is sane: only part of us loves pleasure and the
+                                longer day of happiness, wants to live to our nineties and die in
+                                peace.
+                            </p>
+                        </blockquote>
+                        <figcaption class="attribution">
+                            — <strong property="dc:source">Rebecca West</strong> in
+                            <cite>&nbsp;Black Lamb and Grey Falcon</cite>
+                        </figcaption>
+                    </figure>
+
+                    <ul class="page-grid">
+                        <li class="planned">
                             <figure>
                                 <picture>
-                                    <source type="image/avif"
-                                        srcset="/assets/img/husrev_beg_mosque-480.avif 480w, /assets/img/husrev_beg_mosque-512.avif 512w"
-                                        sizes="(max-width: 600px) 90vw, 45vw">
-                                    <source type="image/webp"
-                                        srcset="/assets/img/husrev_beg_mosque-480.webp 480w, /assets/img/husrev_beg_mosque-512.webp 512w"
-                                        sizes="(max-width: 600px) 90vw, 45vw">
-                                    <img src="/assets/img/husrev_beg_mosque-512.jpg"
-                                        srcset="/assets/img/husrev_beg_mosque-480.jpg 480w, /assets/img/husrev_beg_mosque-512.jpg 512w"
-                                        sizes="(max-width: 600px) 90vw, 45vw" width="512" height="413" loading="lazy"
-                                        decoding="async" alt="">
+                                    <source
+                                        type="image/avif"
+                                        srcset="
+                                            /assets/img/gracanica_monastery-480.avif   480w,
+                                            /assets/img/gracanica_monastery-800.avif   800w,
+                                            /assets/img/gracanica_monastery-1200.avif 1200w
+                                        "
+                                        sizes="(max-width: 600px) 90vw, 45vw"
+                                    >
+                                    <source
+                                        type="image/webp"
+                                        srcset="
+                                            /assets/img/gracanica_monastery-480.webp   480w,
+                                            /assets/img/gracanica_monastery-800.webp   800w,
+                                            /assets/img/gracanica_monastery-1200.webp 1200w
+                                        "
+                                        sizes="(max-width: 600px) 90vw, 45vw"
+                                    >
+                                    <img
+                                        src="/assets/img/gracanica_monastery-800.jpg"
+                                        srcset="
+                                            /assets/img/gracanica_monastery-480.jpg   480w,
+                                            /assets/img/gracanica_monastery-800.jpg   800w,
+                                            /assets/img/gracanica_monastery-1200.jpg 1200w
+                                        "
+                                        sizes="(max-width: 600px) 90vw, 45vw"
+                                        width="800"
+                                        height="536"
+                                        loading="lazy"
+                                        decoding="async"
+                                        alt=""
+                                    >
                                 </picture>
-                                <figcaption>Part II: The Ottoman Heritage</figcaption>
+                                <figcaption>
+                                    Part I: The Byzantine <small>(planned)</small>
+                                </figcaption>
                             </figure>
-                        </a>
-                    </li>
-                    <li class="planned">
-                        <figure>
-                            <picture>
-                                <source type="image/avif"
-                                    srcset="/assets/img/croatian_national_theatre-480.avif 480w, /assets/img/croatian_national_theatre-800.avif 800w, /assets/img/croatian_national_theatre-1200.avif 1200w"
-                                    sizes="(max-width: 600px) 90vw, 45vw">
-                                <source type="image/webp"
-                                    srcset="/assets/img/croatian_national_theatre-480.webp 480w, /assets/img/croatian_national_theatre-800.webp 800w, /assets/img/croatian_national_theatre-1200.webp 1200w"
-                                    sizes="(max-width: 600px) 90vw, 45vw">
-                                <img src="/assets/img/croatian_national_theatre-800.jpg"
-                                    srcset="/assets/img/croatian_national_theatre-480.jpg 480w, /assets/img/croatian_national_theatre-800.jpg 800w, /assets/img/croatian_national_theatre-1200.jpg 1200w"
-                                    sizes="(max-width: 600px) 90vw, 45vw" width="800" height="600" loading="lazy"
-                                    decoding="async" alt="">
-                            </picture>
-                            <figcaption>Part III: The Habsburg <small>(planned)</small></figcaption>
-                        </figure>
-                    </li>
-                    <li class="planned">
-                        <figure>
-                            <picture>
-                                <source type="image/avif"
-                                    srcset="/assets/img/national_library_kosovo-480.avif 480w, /assets/img/national_library_kosovo-800.avif 800w, /assets/img/national_library_kosovo-1200.avif 1200w"
-                                    sizes="(max-width: 600px) 90vw, 45vw">
-                                <source type="image/webp"
-                                    srcset="/assets/img/national_library_kosovo-480.webp 480w, /assets/img/national_library_kosovo-800.webp 800w, /assets/img/national_library_kosovo-1200.webp 1200w"
-                                    sizes="(max-width: 600px) 90vw, 45vw">
-                                <img src="/assets/img/national_library_kosovo-800.jpg"
-                                    srcset="/assets/img/national_library_kosovo-480.jpg 480w, /assets/img/national_library_kosovo-800.jpg 800w, /assets/img/national_library_kosovo-1200.jpg 1200w"
-                                    sizes="(max-width: 600px) 90vw, 45vw" width="800" height="600" loading="lazy"
-                                    decoding="async" alt="">
-                            </picture>
-                            <figcaption>Part IV: The Socialist <small>(planned)</small></figcaption>
-                        </figure>
-                    </li>
-                </ul>
-            </article>
-        </div>
-    </main>
+                        </li>
+                        <li>
+                            <a href="/ottoman/">
+                                <figure>
+                                    <picture>
+                                        <source
+                                            type="image/avif"
+                                            srcset="
+                                                /assets/img/husrev_beg_mosque-480.avif 480w,
+                                                /assets/img/husrev_beg_mosque-512.avif 512w
+                                            "
+                                            sizes="(max-width: 600px) 90vw, 45vw"
+                                        >
+                                        <source
+                                            type="image/webp"
+                                            srcset="
+                                                /assets/img/husrev_beg_mosque-480.webp 480w,
+                                                /assets/img/husrev_beg_mosque-512.webp 512w
+                                            "
+                                            sizes="(max-width: 600px) 90vw, 45vw"
+                                        >
+                                        <img
+                                            src="/assets/img/husrev_beg_mosque-512.jpg"
+                                            srcset="
+                                                /assets/img/husrev_beg_mosque-480.jpg 480w,
+                                                /assets/img/husrev_beg_mosque-512.jpg 512w
+                                            "
+                                            sizes="(max-width: 600px) 90vw, 45vw"
+                                            width="512"
+                                            height="413"
+                                            loading="lazy"
+                                            decoding="async"
+                                            alt=""
+                                        >
+                                    </picture>
+                                    <figcaption>Part II: The Ottoman Heritage</figcaption>
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="planned">
+                            <figure>
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcset="
+                                            /assets/img/croatian_national_theatre-480.avif   480w,
+                                            /assets/img/croatian_national_theatre-800.avif   800w,
+                                            /assets/img/croatian_national_theatre-1200.avif 1200w
+                                        "
+                                        sizes="(max-width: 600px) 90vw, 45vw"
+                                    >
+                                    <source
+                                        type="image/webp"
+                                        srcset="
+                                            /assets/img/croatian_national_theatre-480.webp   480w,
+                                            /assets/img/croatian_national_theatre-800.webp   800w,
+                                            /assets/img/croatian_national_theatre-1200.webp 1200w
+                                        "
+                                        sizes="(max-width: 600px) 90vw, 45vw"
+                                    >
+                                    <img
+                                        src="/assets/img/croatian_national_theatre-800.jpg"
+                                        srcset="
+                                            /assets/img/croatian_national_theatre-480.jpg   480w,
+                                            /assets/img/croatian_national_theatre-800.jpg   800w,
+                                            /assets/img/croatian_national_theatre-1200.jpg 1200w
+                                        "
+                                        sizes="(max-width: 600px) 90vw, 45vw"
+                                        width="800"
+                                        height="600"
+                                        loading="lazy"
+                                        decoding="async"
+                                        alt=""
+                                    >
+                                </picture>
+                                <figcaption>
+                                    Part III: The Habsburg <small>(planned)</small>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li class="planned">
+                            <figure>
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcset="
+                                            /assets/img/national_library_kosovo-480.avif   480w,
+                                            /assets/img/national_library_kosovo-800.avif   800w,
+                                            /assets/img/national_library_kosovo-1200.avif 1200w
+                                        "
+                                        sizes="(max-width: 600px) 90vw, 45vw"
+                                    >
+                                    <source
+                                        type="image/webp"
+                                        srcset="
+                                            /assets/img/national_library_kosovo-480.webp   480w,
+                                            /assets/img/national_library_kosovo-800.webp   800w,
+                                            /assets/img/national_library_kosovo-1200.webp 1200w
+                                        "
+                                        sizes="(max-width: 600px) 90vw, 45vw"
+                                    >
+                                    <img
+                                        src="/assets/img/national_library_kosovo-800.jpg"
+                                        srcset="
+                                            /assets/img/national_library_kosovo-480.jpg   480w,
+                                            /assets/img/national_library_kosovo-800.jpg   800w,
+                                            /assets/img/national_library_kosovo-1200.jpg 1200w
+                                        "
+                                        sizes="(max-width: 600px) 90vw, 45vw"
+                                        width="800"
+                                        height="600"
+                                        loading="lazy"
+                                        decoding="async"
+                                        alt=""
+                                    >
+                                </picture>
+                                <figcaption>
+                                    Part IV: The Socialist <small>(planned)</small>
+                                </figcaption>
+                            </figure>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+        </main>
 
-    <balkans-footer></balkans-footer>
-</body>
-
+        <balkans-footer></balkans-footer>
+    </body>
 </html>

@@ -1,165 +1,235 @@
 <!doctype html>
 <html lang="en" data-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <title>The Mosque - Balkan Heritage</title>
+        <meta
+            name="description"
+            content="The Gazi Husrev-beg Mosque in Sarajevo — built in 1531, the foremost Ottoman architectural monument in Bosnia and Herzegovina, at the heart of Baščaršija."
+        >
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-    <meta charset="utf-8">
-    <title>The Mosque - Balkan Heritage</title>
-    <meta name="description"
-        content="The Gazi Husrev-beg Mosque in Sarajevo — built in 1531, the foremost Ottoman architectural monument in Bosnia and Herzegovina, at the heart of Baščaršija.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="canonical" href="https://balkanheritage.info/ottoman/mosque">
 
-    <link rel="canonical" href="https://balkanheritage.info/ottoman/mosque">
-
-    <!-- Open Graph / social sharing. Absolute URLs use the canonical apex origin
+        <!-- Open Graph / social sharing. Absolute URLs use the canonical apex origin
          (SITE_URL in vite.config.js); og:image is a stable file under src/public/,
          copied verbatim to the site root so its URL is not fingerprinted. -->
-    <meta property="og:type" content="article">
-    <meta property="og:site_name" content="Balkan Heritage">
-    <meta property="og:title" content="The Mosque">
-    <meta property="og:description"
-        content="The Gazi Husrev-beg Mosque in Sarajevo — built in 1531, the foremost Ottoman architectural monument in Bosnia and Herzegovina, at the heart of Baščaršija.">
-    <meta property="og:url" content="https://balkanheritage.info/ottoman/mosque">
-    <meta property="og:image" content="https://balkanheritage.info/assets/img/og-mosque.jpg">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="The Gazi Husrev-beg Mosque in Sarajevo, with its central dome and minaret">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Mosque">
-    <meta name="twitter:description"
-        content="The Gazi Husrev-beg Mosque in Sarajevo — built in 1531, the foremost Ottoman architectural monument in Bosnia and Herzegovina, at the heart of Baščaršija.">
-    <meta name="twitter:image" content="https://balkanheritage.info/assets/img/og-mosque.jpg">
+        <meta property="og:type" content="article">
+        <meta property="og:site_name" content="Balkan Heritage">
+        <meta property="og:title" content="The Mosque">
+        <meta
+            property="og:description"
+            content="The Gazi Husrev-beg Mosque in Sarajevo — built in 1531, the foremost Ottoman architectural monument in Bosnia and Herzegovina, at the heart of Baščaršija."
+        >
+        <meta property="og:url" content="https://balkanheritage.info/ottoman/mosque">
+        <meta property="og:image" content="https://balkanheritage.info/assets/img/og-mosque.jpg">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta
+            property="og:image:alt"
+            content="The Gazi Husrev-beg Mosque in Sarajevo, with its central dome and minaret"
+        >
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="The Mosque">
+        <meta
+            name="twitter:description"
+            content="The Gazi Husrev-beg Mosque in Sarajevo — built in 1531, the foremost Ottoman architectural monument in Bosnia and Herzegovina, at the heart of Baščaršija."
+        >
+        <meta name="twitter:image" content="https://balkanheritage.info/assets/img/og-mosque.jpg">
 
-    <link rel="apple-touch-icon" href="/assets/img/bosnian_coat_of_arms.svg">
-    <link rel="icon" type="image/svg+xml" href="/assets/img/bosnian_coat_of_arms.svg">
-    <link rel="mask-icon" href="/assets/img/bosnian_coat_of_arms.svg" color="#000000">
+        <link rel="apple-touch-icon" href="/assets/img/bosnian_coat_of_arms.svg">
+        <link rel="icon" type="image/svg+xml" href="/assets/img/bosnian_coat_of_arms.svg">
+        <link rel="mask-icon" href="/assets/img/bosnian_coat_of_arms.svg" color="#000000">
 
-    <link rel="stylesheet" href="/assets/css/pico.scss">
-    <link rel="stylesheet" href="/assets/css/base.css">
-    <link rel="stylesheet" href="/assets/css/pages/mosque.css">
-    <link rel="stylesheet" href="/assets/css/pages/landmark.css">
+        <link rel="stylesheet" href="/assets/css/pico.scss">
+        <link rel="stylesheet" href="/assets/css/base.css">
+        <link rel="stylesheet" href="/assets/css/pages/mosque.css">
+        <link rel="stylesheet" href="/assets/css/pages/landmark.css">
 
-    <script type="module" src="/components/FooterComponent/Footer.js"></script>
-    <script type="module" src="/components/MastComponent/MedallionMast.js"></script>
-    <script type="module" src="/components/NavigationComponent/Navigation.js"></script>
-    <script type="module" src="/assets/js/glossary.js"></script>
-</head>
+        <script type="module" src="/components/FooterComponent/Footer.js"></script>
+        <script type="module" src="/components/MastComponent/MedallionMast.js"></script>
+        <script type="module" src="/components/NavigationComponent/Navigation.js"></script>
+        <script type="module" src="/assets/js/glossary.js"></script>
+    </head>
 
-<body id="mosque" vocab="http://schema.org/" prefix="dc: http://purl.org/dc/terms/">
-    <header>
-        <a class="skip-link" href="#main-content">Skip to main content</a>
-        <balkans-navigation></balkans-navigation>
-        <balkans-mast country="bosnia"></balkans-mast>
-    </header>
-
-    <main id="main-content" tabindex="-1" typeof="TouristAttraction LandmarksOrHistoricalBuildings">
-        <div property="geo" typeof="GeoCoordinates">
-            <span property="latitude" content="43.859167"></span>
-            <span property="longitude" content="18.429028"></span>
-        </div>
-        <span property="sameAs" resource="http://www.wikidata.org/entity/Q1255835"></span>
-        <span property="sameAs" resource="http://dbpedia.org/resource/Gazi_Husrev-beg_Mosque"></span>
-
-        <header class="row align-center">
-            <div class="col col-8">
-                <h1 class="title text-center">The Mosque</h1>
-            </div>
+    <body id="mosque" vocab="http://schema.org/" prefix="dc: http://purl.org/dc/terms/">
+        <header>
+            <a class="skip-link" href="#main-content">Skip to main content</a>
+            <balkans-navigation></balkans-navigation>
+            <balkans-mast country="bosnia"></balkans-mast>
         </header>
 
-        <div class="row gutters around primary-content">
-            <article class="col col-10">
-                <header>
-                    <h2>From the hills, rises a mosque…</h2>
-                </header>
+        <main
+            id="main-content"
+            tabindex="-1"
+            typeof="TouristAttraction LandmarksOrHistoricalBuildings"
+        >
+            <div property="geo" typeof="GeoCoordinates">
+                <span property="latitude" content="43.859167"></span>
+                <span property="longitude" content="18.429028"></span>
+            </div>
+            <span property="sameAs" resource="http://www.wikidata.org/entity/Q1255835"></span>
+            <span
+                property="sameAs"
+                resource="http://dbpedia.org/resource/Gazi_Husrev-beg_Mosque"
+            ></span>
 
-                <figure class="hero" property="photo" typeof="ImageObject">
-                    <picture>
-                        <source type="image/avif"
-                            srcset="/assets/img/husrev_beg_mosque-480.avif 480w, /assets/img/husrev_beg_mosque-512.avif 512w"
-                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
-                        <source type="image/webp"
-                            srcset="/assets/img/husrev_beg_mosque-480.webp 480w, /assets/img/husrev_beg_mosque-512.webp 512w"
-                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px">
-                        <img property="contentUrl" src="/assets/img/husrev_beg_mosque-512.jpg"
-                            srcset="/assets/img/husrev_beg_mosque-480.jpg 480w, /assets/img/husrev_beg_mosque-512.jpg 512w"
-                            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px"
-                            width="512" height="413" fetchpriority="high" decoding="async"
-                            alt="The Gazi Husrev-beg Mosque, a grand Ottoman-era mosque with a large central dome and tall minaret">
-                    </picture>
-                    <figcaption>
-                        Image: <a href="">Wikipedia</a> /
-                        <span property="creator copyrightHolder">Dinozzza</span> /
-                        <a property="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a>
-                    </figcaption>
-                </figure>
+            <header class="row align-center">
+                <div class="col col-8">
+                    <h1 class="title text-center">The Mosque</h1>
+                </div>
+            </header>
 
-                <p class="intro">
-                    Built in 1531, the Gazi Husrev-beg Mosque stands as the most
-                    important Islamic architectural monument in Bosnia and Herzegovina.
-                    This magnificent structure represents the pinnacle of Ottoman
-                    architecture in the Balkans.
-                </p>
-                <p>
-                    Located in the heart of Baščaršija, Sarajevo's old bazaar quarter,
-                    the mosque was commissioned by Gazi Husrev-beg, the Ottoman governor
-                    of Bosnia from 1521 to 1541. The mosque complex includes a madrasa
-                    (Islamic school), a library, a clock tower, and a hammam (public
-                    bath), making it a complete Islamic cultural center.
-                </p>
+            <div class="row gutters around primary-content">
+                <article class="col col-10">
+                    <header>
+                        <h2>From the hills, rises a mosque…</h2>
+                    </header>
 
-                <p>
-                    The mosque's architectural significance lies in its perfect
-                    proportions and the innovative use of space. Its central dome,
-                    supported by four massive pillars, creates an impressive interior
-                    space that can accommodate up to 1,000 worshippers. The mosque's
-                    courtyard, with its elegant fountain and surrounding arcades,
-                    provides a peaceful retreat from the bustling streets of
-                    Baščaršija. Despite suffering damage during the 1992-1995 siege of
-                    Sarajevo, the mosque has been meticulously restored to its former
-                    glory, standing as a testament to Bosnia's rich Islamic heritage
-                    and architectural prowess.
-                </p>
-                <small class="attribution" property="subjectOf" typeof="CreativeWork">—
-                    <span property="publisher">UNESCO World Heritage</span>
-                </small>
+                    <figure class="hero" property="photo" typeof="ImageObject">
+                        <picture>
+                            <source
+                                type="image/avif"
+                                srcset="
+                                    /assets/img/husrev_beg_mosque-480.avif 480w,
+                                    /assets/img/husrev_beg_mosque-512.avif 512w
+                                "
+                                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px"
+                            >
+                            <source
+                                type="image/webp"
+                                srcset="
+                                    /assets/img/husrev_beg_mosque-480.webp 480w,
+                                    /assets/img/husrev_beg_mosque-512.webp 512w
+                                "
+                                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px"
+                            >
+                            <img
+                                property="contentUrl"
+                                src="/assets/img/husrev_beg_mosque-512.jpg"
+                                srcset="
+                                    /assets/img/husrev_beg_mosque-480.jpg 480w,
+                                    /assets/img/husrev_beg_mosque-512.jpg 512w
+                                "
+                                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 48vw, 560px"
+                                width="512"
+                                height="413"
+                                fetchpriority="high"
+                                decoding="async"
+                                alt="The Gazi Husrev-beg Mosque, a grand Ottoman-era mosque with a large central dome and tall minaret"
+                            >
+                        </picture>
+                        <figcaption>
+                            Image: <a href="">Wikipedia</a> /
+                            <span property="creator copyrightHolder">Dinozzza</span>
+                            /
+                            <a
+                                property="license"
+                                href="https://creativecommons.org/licenses/by-sa/4.0/"
+                                >CC-BY-SA 4.0</a
+                            >
+                        </figcaption>
+                    </figure>
 
-                <details class="glossary" typeof="DefinedTermSet">
-                    <summary>Ottoman-era vocabulary</summary>
-                    <dl class="glossary-list">
-                        <div id="glossary-cami" property="hasDefinedTerm" typeof="DefinedTerm">
-                            <dt>
-                                <span class="glossary-form">
-                                    <span class="glossary-lang">Bosnian:</span>
-                                    <span property="name" lang="bs">džamija</span>
-                                    <span class="glossary-ipa">/dʒaˈmija/ <span class="glossary-ipa-approx">("jah-MEE-ya")</span></span>
-                                    <span class="glossary-audio" property="audio" typeof="AudioObject">
-                                        <audio controls preload="none" property="contentUrl"
-                                            src="/assets/audio/bs/dzamija.mp3"
-                                            aria-label="Pronunciation: Bosnian džamija"></audio>
+                    <p class="intro">
+                        Built in 1531, the Gazi Husrev-beg Mosque stands as the most important
+                        Islamic architectural monument in Bosnia and Herzegovina. This magnificent
+                        structure represents the pinnacle of Ottoman architecture in the Balkans.
+                    </p>
+                    <p>
+                        Located in the heart of Baščaršija, Sarajevo's old bazaar quarter, the
+                        mosque was commissioned by Gazi Husrev-beg, the Ottoman governor of Bosnia
+                        from 1521 to 1541. The mosque complex includes a madrasa (Islamic school), a
+                        library, a clock tower, and a hammam (public bath), making it a complete
+                        Islamic cultural center.
+                    </p>
+
+                    <p>
+                        The mosque's architectural significance lies in its perfect proportions and
+                        the innovative use of space. Its central dome, supported by four massive
+                        pillars, creates an impressive interior space that can accommodate up to
+                        1,000 worshippers. The mosque's courtyard, with its elegant fountain and
+                        surrounding arcades, provides a peaceful retreat from the bustling streets
+                        of Baščaršija. Despite suffering damage during the 1992-1995 siege of
+                        Sarajevo, the mosque has been meticulously restored to its former glory,
+                        standing as a testament to Bosnia's rich Islamic heritage and architectural
+                        prowess.
+                    </p>
+                    <small class="attribution" property="subjectOf" typeof="CreativeWork"
+                        >—
+                        <span property="publisher">UNESCO World Heritage</span>
+                    </small>
+
+                    <details class="glossary" typeof="DefinedTermSet">
+                        <summary>Ottoman-era vocabulary</summary>
+                        <dl class="glossary-list">
+                            <div id="glossary-cami" property="hasDefinedTerm" typeof="DefinedTerm">
+                                <dt>
+                                    <span class="glossary-form">
+                                        <span class="glossary-lang">Bosnian:</span>
+                                        <span property="name" lang="bs">džamija</span>
+                                        <span class="glossary-ipa"
+                                            >/dʒaˈmija/
+                                            <span class="glossary-ipa-approx"
+                                                >("jah-MEE-ya")</span
+                                            ></span
+                                        >
+                                        <span
+                                            class="glossary-audio"
+                                            property="audio"
+                                            typeof="AudioObject"
+                                        >
+                                            <!-- biome-ignore lint/a11y/useMediaCaption: single-word pronunciation clip;
+                                            the spoken word, IPA, and respelling are already provided as adjacent text,
+                                            which is the WCAG 1.2.1 audio-only accessible equivalent -->
+                                            <audio
+                                                controls
+                                                preload="none"
+                                                property="contentUrl"
+                                                src="/assets/audio/bs/dzamija.mp3"
+                                                aria-label="Pronunciation: Bosnian džamija"
+                                            ></audio>
+                                        </span>
                                     </span>
-                                </span>
-                                <span class="glossary-form">
-                                    <span class="glossary-lang">Albanian:</span>
-                                    <span property="name" lang="sq">xhami</span>
-                                    <span class="glossary-ipa">/ˈd͡ʒami/ <span class="glossary-ipa-approx">("JAH-mee")</span></span>
-                                    <span class="glossary-audio" property="audio" typeof="AudioObject">
-                                        <audio controls preload="none" property="contentUrl"
-                                            src="/assets/audio/al/xhami.mp3"
-                                            aria-label="Pronunciation: Albanian xhami"></audio>
+                                    <span class="glossary-form">
+                                        <span class="glossary-lang">Albanian:</span>
+                                        <span property="name" lang="sq">xhami</span>
+                                        <span class="glossary-ipa"
+                                            >/ˈd͡ʒami/
+                                            <span class="glossary-ipa-approx"
+                                                >("JAH-mee")</span
+                                            ></span
+                                        >
+                                        <span
+                                            class="glossary-audio"
+                                            property="audio"
+                                            typeof="AudioObject"
+                                        >
+                                            <!-- biome-ignore lint/a11y/useMediaCaption: single-word pronunciation clip;
+                                            the spoken word, IPA, and respelling are already provided as adjacent text,
+                                            which is the WCAG 1.2.1 audio-only accessible equivalent -->
+                                            <audio
+                                                controls
+                                                preload="none"
+                                                property="contentUrl"
+                                                src="/assets/audio/al/xhami.mp3"
+                                                aria-label="Pronunciation: Albanian xhami"
+                                            ></audio>
+                                        </span>
                                     </span>
-                                </span>
-                            </dt>
-                            <dd property="description">
-                                From Ottoman Turkish <em lang="tr">cami</em> — a mosque.
-                                The Gazi Husrev-beg Mosque described above is the foremost example in Bosnia and Herzegovina.
-                            </dd>
-                        </div>
-                    </dl>
-                </details>
-            </article>
-        </div>
-    </main>
-    <balkans-footer></balkans-footer>
-</body>
-
+                                </dt>
+                                <dd property="description">
+                                    From Ottoman Turkish <em lang="tr">cami</em> — a mosque. The
+                                    Gazi Husrev-beg Mosque described above is the foremost example
+                                    in Bosnia and Herzegovina.
+                                </dd>
+                            </div>
+                        </dl>
+                    </details>
+                </article>
+            </div>
+        </main>
+        <balkans-footer></balkans-footer>
+    </body>
 </html>

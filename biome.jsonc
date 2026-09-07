@@ -1,12 +1,22 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.4.13/schema.json",
+    "$schema": "https://biomejs.dev/schemas/2.5.12/schema.json",
     "assist": {
         "enabled": false
     },
     "css": {
         "formatter": {
+            "enabled": true,
+            "indentStyle": "space",
+            "indentWidth": 4,
+            "quoteStyle": "double" // Enforces standard double quotes in CSS selectors/urls
+        },
+        "linter": {
             "enabled": true
         }
+    },
+    "files": {
+        "ignoreUnknown": true
+        // "include": [ "**/*.html", "**/*.css", "**/*.json" ]
     },
     "formatter": {
         "enabled": true,
@@ -15,15 +25,34 @@
             "!dist/**"
         ],
         "indentStyle": "space",
-        "indentWidth": 4
+        "indentWidth": 4,
+        "lineEnding": "lf",
+        "lineWidth": 100
     },
     "html": {
-        // "experimentalFullSupportEnabled": true,
         "formatter": {
-            "enabled": true
+            "attributePosition": "auto", // Keeps attributes readable without aggressive splitting
+            "enabled": true,
+            "indentStyle": "space",
+            "indentWidth": 4,
+            "lineWidth": 100
         }
     },
     "linter": {
-        "enabled": true
+        "enabled": true,
+        "rules": {
+            "a11y": {
+                "recommended": true // Crucial for static sites: catches broken HTML structures & missing alt tags
+            },
+            // "style": {
+            //     "useBlockStatements": "error"
+            // }
+            "preset": "recommended"
+        }
+    },
+    "vcs": {
+        "clientKind": "git",
+        "enabled": true,
+        "useIgnoreFile": true
     }
 }
