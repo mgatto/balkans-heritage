@@ -14,5 +14,8 @@ screenshots/
 local.log
 .env
 
+# External-link checker redirect log (manual `check:links` runs)
+link-check-redirects.log
+
 # Local-only notes never meant to be committed to this public repo
 /private/

@@ -77,6 +77,7 @@
     "bs:screenshots:local": "vite build && node --env-file-if-exists=.env scripts/browserstack-screenshots.mjs --local",
     "build": "vite build",
     "build:preview": "vite build && vite preview",
+    "check:links": "node scripts/check-external-links.mjs",
     "deploy": "vite build && wrangler deploy",
     "dev": "vite",
     "intel:browser-features": "node scripts/browser-feature-intel.mjs",
