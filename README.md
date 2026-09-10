@@ -1,6 +1,6 @@
 # Balkans Heritage
 
-A small, hand-crafted static website — a **Poetic Tour of the Balkans** — celebrating the layered cultural heritage of the region across the empires and eras that shaped it. The tour is organized into parts by historical period, each highlighting points of interest with downloadable maps and imagery.
+A small, hand-crafted **digital humanities project** — a **Poetic Tour of the Balkans** — celebrating the layered cultural heritage of the region across the empires and eras that shaped it. The tour is organized into parts by historical period, each highlighting points of interest with downloadable maps and imagery.
 
 The site is built with [Vite](https://vitejs.dev/) as a multi-page app of static, standards-first HTML pages enhanced with a few lightweight, framework-free Web Components.
 
