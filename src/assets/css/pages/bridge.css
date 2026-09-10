@@ -59,14 +59,6 @@
     text-align: center;
 }
 
-/* Above-the-fold jump link to the video (sighted users). Small and muted so it
-   reads as a pointer, not competing with the h2. */
-.video-jump {
-    margin: 0 0 1rem;
-    font-size: 0.85rem;
-    text-align: center;
-}
-
 /* Offset the second skip link so it doesn't stack on the main-content one (both
    are position:absolute at top:0; left:0 in base.css). */
 .skip-link-video:focus {
