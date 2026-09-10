@@ -7,101 +7,101 @@
 # for the same header name. Cloudflare evaluates patterns top-to-bottom.
 
 /*
-  # ------------------------------------------------------------------
-  # HSTS: instruct browsers to only contact this origin over HTTPS.
-  # max-age=63072000 is two years (the recommended minimum for preload).
-  # `includeSubDomains` covers www. and any future subdomains.
-  # `preload` is intentionally absent — it submits the domain to the
-  # browser preload list baked into Chrome/Firefox, which is essentially
-  # irreversible. Add it only once the domain and HTTPS setup are confirmed
-  # permanent.
-  Strict-Transport-Security: max-age=63072000; includeSubDomains
+# ------------------------------------------------------------------
+# HSTS: instruct browsers to only contact this origin over HTTPS.
+# max-age=63072000 is two years (the recommended minimum for preload).
+# `includeSubDomains` covers www. and any future subdomains.
+# `preload` is intentionally absent — it submits the domain to the
+# browser preload list baked into Chrome/Firefox, which is essentially
+# irreversible. Add it only once the domain and HTTPS setup are confirmed
+# permanent.
+Strict-Transport-Security: max-age=63072000 ; includeSubDomains
 
-  # ------------------------------------------------------------------
-  # Prevent MIME-type sniffing. Stops browsers from second-guessing the
-  # Content-Type header (e.g. executing a .txt file as JavaScript if it
-  # looks like code). Low risk here, but costs nothing.
-  X-Content-Type-Options: nosniff
+# ------------------------------------------------------------------
+# Prevent MIME-type sniffing. Stops browsers from second-guessing the
+# Content-Type header (e.g. executing a .txt file as JavaScript if it
+# looks like code). Low risk here, but costs nothing.
+X-Content-Type-Options: nosniff
 
-  # ------------------------------------------------------------------
-  # Forbid this site from being loaded inside a <frame>, <iframe>, or
-  # <object> on any other origin. Defends against clickjacking.
-  # Redundant with CSP frame-ancestors below, but kept for older browsers
-  # that don't support CSP level 2.
-  X-Frame-Options: DENY
+# ------------------------------------------------------------------
+# Forbid this site from being loaded inside a <frame>, <iframe>, or
+# <object> on any other origin. Defends against clickjacking.
+# Redundant with CSP frame-ancestors below, but kept for older browsers
+# that don't support CSP level 2.
+X-Frame-Options: DENY
 
-  # ------------------------------------------------------------------
-  # Control the Referer header sent to other origins. `strict-origin-when-
-  # cross-origin` sends the full URL within the same origin (useful for
-  # analytics), only the bare origin to cross-origin destinations (hides
-  # paths/query strings), and nothing when downgrading from HTTPS to HTTP.
-  Referrer-Policy: strict-origin-when-cross-origin
+# ------------------------------------------------------------------
+# Control the Referer header sent to other origins. `strict-origin-when-
+# cross-origin` sends the full URL within the same origin (useful for
+# analytics), only the bare origin to cross-origin destinations (hides
+# paths/query strings), and nothing when downgrading from HTTPS to HTTP.
+Referrer-Policy: strict-origin-when-cross-origin
 
-  # ------------------------------------------------------------------
-  # Opt out of browser features this site doesn't use. An empty () means
-  # no origin — including this page itself — may access the feature.
-  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=()
+# ------------------------------------------------------------------
+# Opt out of browser features this site doesn't use. An empty () means
+# no origin — including this page itself — may access the feature.
+Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=()
 
-  # ------------------------------------------------------------------
-  # Content Security Policy.
-  # Each directive is explained inline; see the block comment at the
-  # bottom of this file for the reasoning behind 'unsafe-inline' on styles.
-  #
-  # default-src 'self'       Fallback for any directive not listed: only
-  #                          same-origin resources are allowed.
-  # script-src 'self'        Same-origin module scripts (the Vite-
-  #  + cloudflareinsights    fingerprinted bundles in /assets/), plus
-  #                          https://static.cloudflareinsights.com — the
-  #                          Web Analytics beacon (beacon.min.js) that
-  #                          Cloudflare auto-injects into HTML responses.
-  #                          No inline scripts, no eval, no other CDNs.
-  # style-src 'self'         Same-origin stylesheets (the Vite-bundled
-  #  + 'unsafe-inline'       index.css). 'unsafe-inline' is required because
-  #                          all three Web Components inject <style>...</style>
-  #                          blocks into their shadow roots via innerHTML — see
-  #                          the bottom-of-file note.
-  # img-src 'self' data:     Same-origin images plus data: URIs. Vite inlines
-  #                          small SVGs (flag emblems) as data: URIs at build
-  #                          time; footer placeholder images also use data:,.
-  # font-src 'self'          Self-hosted .woff2 files under /assets/fonts/.
-  #                          No Google Fonts, no external font CDN.
-  # connect-src 'self'       No external XHR, fetch, WebSocket, or EventSource,
-  #  + cloudflareinsights    except https://cloudflareinsights.com — the
-  #                          endpoint the Web Analytics beacon sends RUM
-  #                          metrics to (same-origin /cdn-cgi/rum on a proxied
-  #                          zone; the explicit origin covers the documented
-  #                          non-proxied endpoint too).
-  # object-src 'none'        No Flash, no <object> or <embed> plugins.
-  # base-uri 'self'          Prevent a rogue <base href="..."> from redirecting
-  #                          all relative URLs to an attacker's origin.
-  # form-action 'self'       Any form submission must stay on this origin.
-  # frame-ancestors 'none'   This page may not be embedded in a frame anywhere.
-  # frame-src youtube-nocookie  Allows ONLY the privacy-enhanced YouTube embed
-  #                          (the Old Stone Bridge video on ottoman/bridge).
-  #                          Restricted to the single nocookie origin — no other
-  #                          third-party framing source is permitted.
-  # manifest-src 'self'      The Web App Manifest (manifest.json) is same-origin.
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; frame-src https://www.youtube-nocookie.com; manifest-src 'self'
+# ------------------------------------------------------------------
+# Content Security Policy.
+# Each directive is explained inline; see the block comment at the
+# bottom of this file for the reasoning behind 'unsafe-inline' on styles.
+#
+# default-src 'self'       Fallback for any directive not listed: only
+#                          same-origin resources are allowed.
+# script-src 'self'        Same-origin module scripts (the Vite-
+#  + cloudflareinsights    fingerprinted bundles in /assets/), plus
+#                          https://static.cloudflareinsights.com — the
+#                          Web Analytics beacon (beacon.min.js) that
+#                          Cloudflare auto-injects into HTML responses.
+#                          No inline scripts, no eval, no other CDNs.
+# style-src 'self'         Same-origin stylesheets (the Vite-bundled
+#  + 'unsafe-inline'       index.css). 'unsafe-inline' is required because
+#                          all three Web Components inject <style>...</style>
+#                          blocks into their shadow roots via innerHTML — see
+#                          the bottom-of-file note.
+# img-src 'self' data:     Same-origin images plus data: URIs. Vite inlines
+#                          small SVGs (flag emblems) as data: URIs at build
+#                          time; footer placeholder images also use data:,.
+# font-src 'self'          Self-hosted .woff2 files under /assets/fonts/.
+#                          No Google Fonts, no external font CDN.
+# connect-src 'self'       No external XHR, fetch, WebSocket, or EventSource,
+#  + cloudflareinsights    except https://cloudflareinsights.com — the
+#                          endpoint the Web Analytics beacon sends RUM
+#                          metrics to (same-origin /cdn-cgi/rum on a proxied
+#                          zone; the explicit origin covers the documented
+#                          non-proxied endpoint too).
+# object-src 'none'        No Flash, no <object> or <embed> plugins.
+# base-uri 'self'          Prevent a rogue <base href="..."> from redirecting
+#                          all relative URLs to an attacker's origin.
+# form-action 'self'       Any form submission must stay on this origin.
+# frame-ancestors 'none'   This page may not be embedded in a frame anywhere.
+# frame-src youtube-nocookie  Allows ONLY the privacy-enhanced YouTube embed
+#                          (the Old Stone Bridge video on ottoman/bridge).
+#                          Restricted to the single nocookie origin — no other
+#                          third-party framing source is permitted.
+# manifest-src 'self'      The Web App Manifest (manifest.json) is same-origin.
+Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com ; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; frame-src https://www.youtube-nocookie.com; manifest-src 'self'
 
-  # ------------------------------------------------------------------
-  # HTML pages must revalidate on every request so a deployment reaches
-  # users immediately. Fingerprinted assets below override this with
-  # `immutable` — they have content-addressed URLs and never need checking.
-  Cache-Control: no-cache, must-revalidate
+# ------------------------------------------------------------------
+# HTML pages must revalidate on every request so a deployment reaches
+# users immediately. Fingerprinted assets below override this with
+# `immutable` — they have content-addressed URLs and never need checking.
+Cache-Control: no-cache, must-revalidate
 
 /assets/*
-  # Vite appends a content hash to every filename in /assets/ (e.g.
-  # index-a3f9b2.css, prizren_bridge-d81f3c.avif). Because the URL changes
-  # whenever the content changes, it is safe — and correct — to tell browsers
-  # and CDN edges to cache these files forever. `immutable` is an additional
-  # hint that the resource will never be updated at this URL, so browsers
-  # skip the conditional revalidation request entirely on revisits.
-  Cache-Control: public, max-age=31536000, immutable
+# Vite appends a content hash to every filename in /assets/ (e.g.
+# index-a3f9b2.css, prizren_bridge-d81f3c.avif). Because the URL changes
+# whenever the content changes, it is safe — and correct — to tell browsers
+# and CDN edges to cache these files forever. `immutable` is an additional
+# hint that the resource will never be updated at this URL, so browsers
+# skip the conditional revalidation request entirely on revisits.
+Cache-Control: public, max-age=31536000, immutable
 
 /assets/*.mp3
-  # prevent browsers from displaying 0:00 timestamps in audio controls.
-  Accept-Ranges: bytes
-  Cache-Control: public, max-age=31536000, no-transform
+# prevent browsers from displaying 0:00 timestamps in audio controls.
+Accept-Ranges: bytes
+Cache-Control: public, max-age=31536000, no-transform
 
 # ------------------------------------------------------------------
 # Note on style-src 'unsafe-inline'
