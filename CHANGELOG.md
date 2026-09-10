@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.5.2](https://github.com/mgatto/balkans-heritage/compare/v2.5.1...v2.5.2) (2026-09-10)
+
+### Bug Fixes
+
+* force duration display ([8d2bd62](https://github.com/mgatto/balkans-heritage/commit/8d2bd62a286608345cd51638f02f8545e5377fc7))
 ## [2.5.1](https://github.com/mgatto/balkans-heritage/compare/v2.5.0...v2.5.1) (2026-09-10)
 
 ### Bug Fixes
