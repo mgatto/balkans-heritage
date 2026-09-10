@@ -1,8 +1,8 @@
-/* Ottoman hub — loaded after base.css. Holds the maps download UI and the hub's
-   star-bullet list overrides. The .page-grid figure grid is shared with the home
-   Parts index; it is duplicated into both page files (rather than promoted to
-   base.css) so the five pages that never use it don't carry it. Keep the two
-   copies in sync. */
+/* Ottoman hub — loaded after base.css. Holds the hub's responsive width/type
+   layout, the maps download UI, and the hub's star-bullet list overrides. The
+   .page-grid figure grid is shared with the home Parts index; it is duplicated
+   into both page files (rather than promoted to base.css) so the five pages
+   that never use it don't carry it. Keep the two copies in sync. */
 
 /* Shared figure-link grid, used by both the home Parts index and the Ottoman hub.
    Declared here (ahead of the id-scoped hub rules) so its lower-specificity
@@ -77,6 +77,31 @@
 button#maps-download {
     width: auto;
     background-color: #E30A17;
+}
+
+/* Wide screens: cap and center the content column exactly like the four
+   landmark pages (landmark.css `#<id> main { max-width: 70rem }`), replacing
+   Pico's narrower stepped container (510/700/950/1200/1450px at the
+   576/768/1024/1280/1536 breakpoints), which leaves wide horizontal gutters
+   the landmark pages don't have. The id selector outranks Pico's `body > main`
+   media queries at every breakpoint, so a single declaration covers all widths. */
+#ottoman main {
+    max-width: 70rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Fluid body copy — the same clamp() the landmark pages use (see landmark.css).
+   On engines without clamp() the declaration is dropped and text falls back to
+   the fixed 16px root. */
+#ottoman {
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+}
+
+/* Unitless line-height so paragraph spacing tracks the now-fluid font size
+   instead of the base fixed 1.4rem (same value as the landmark pages). */
+#ottoman main p {
+    line-height: 1.5;
 }
 
 /* Breadcrumbs are injected as the first child of <main>, so on the hub they sit
