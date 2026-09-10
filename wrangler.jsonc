@@ -1,10 +1,15 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "assets": {
+    "binding": "ASSETS",
     "directory": "./dist",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    // Only audio requests invoke src/worker.js (for byte-range 206s — see that
+    // file's header comment); every other path is served straight from assets.
+    "run_worker_first": ["/assets/audio/*"]
   },
   "compatibility_date": "2026-09-03",
+  "main": "src/worker.js",
   "name": "balkans-heritage",
   "routes": [
     {
