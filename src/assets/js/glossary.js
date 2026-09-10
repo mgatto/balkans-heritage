@@ -2,9 +2,11 @@
 // The <details> glossary and the native Popover API invokers both work with no
 // JS. This module only layers on three things:
 //   1. the iOS/iPadOS light-dismiss workaround (WebKit bug 267688),
-//   2. opening the <details> when a #glossary-* fragment is the navigation
-//      target (so the popover "Full entry" link and external deep-links reveal
-//      the entry instead of scrolling to a collapsed panel), and
+//   2. opening the <details> when a #glossary fragment (the block itself) or a
+//      #glossary-* fragment (a single entry) is the navigation target (so the
+//      in-article jump link, the popover "Full entry" link, and external
+//      deep-links reveal the entry instead of scrolling to a collapsed panel),
+//      and
 //   3. on browsers without the Popover API, rewriting the otherwise-inert
 //      invoker buttons into anchors that jump to the matching glossary entry.
 // See docs/future/ottoman-vocabulary-glossary.md.
@@ -24,10 +26,13 @@ document.addEventListener(
     { passive: true }
 );
 
-// (2) Reveal a glossary entry when its fragment is the navigation target.
+// (2) Reveal the glossary when its fragment is the navigation target. "#glossary"
+// targets the <details> block itself (the in-article jump link), so `entry` is
+// the details and closest() matches it; "#glossary-<slug>" targets one entry
+// inside it (the popover "Full entry" links and no-Popover fallback anchors).
 function openGlossaryForHash() {
     const { hash } = window.location;
-    if (!hash.startsWith("#glossary-")) return;
+    if (!hash.startsWith("#glossary")) return;
     const entry = document.getElementById(hash.slice(1));
     if (!entry) return;
     const details = entry.closest("details.glossary");
