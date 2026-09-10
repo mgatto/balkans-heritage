@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.5.0](https://github.com/mgatto/balkans-heritage/compare/v2.4.2...v2.5.0) (2026-09-10)
+
+### Features
+
+* add acknowledgments section ([0a3f7d6](https://github.com/mgatto/balkans-heritage/commit/0a3f7d604599c47f14323e345c79c0ee1d211ce1))
+* add skipling to vocabulary ([00d4e22](https://github.com/mgatto/balkans-heritage/commit/00d4e22ca6347723ada6da27801807fc3b0caea3))
+* add walking video for Prizren ([fe656d2](https://github.com/mgatto/balkans-heritage/commit/fe656d29d23de63f8ea46315015a087959a5e4b0))
+* ensure vocab section isn’t missed by readers ([a91b24f](https://github.com/mgatto/balkans-heritage/commit/a91b24fd2386f1306baa66aae5e9e9d0a40d2459))
+* reduce sizes for modern browsers ([93a253f](https://github.com/mgatto/balkans-heritage/commit/93a253fda53a5fcdce754c8252468bdd717c28fa))
+* use tables to align vocabulary term parts ([7bfb2d6](https://github.com/mgatto/balkans-heritage/commit/7bfb2d66307feebd50b1b4252d8adad20422d380))
+
+### Bug Fixes
+
+* ottoman home page’s content width too narrow ([31198c8](https://github.com/mgatto/balkans-heritage/commit/31198c89a4b5edfee39853cffd9dc0bc0c08e7d8))
+* permit Cloudflare’s beacon in CSP ([a34761f](https://github.com/mgatto/balkans-heritage/commit/a34761f9f67aa09bd43df3b93ffd1ba390ee81ac))
+* wording, plus reformatted by Biome… ([fc8ee6a](https://github.com/mgatto/balkans-heritage/commit/fc8ee6ae23d1b981754badbc79ab0fabdd5c0514))
 ## [2.4.2](https://github.com/mgatto/balkans-heritage/compare/v2.4.1...v2.4.2) (2026-09-10)
 
 ### Bug Fixes

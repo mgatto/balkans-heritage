@@ -105,7 +105,7 @@
     "validate:rdfa": "node scripts/validate-rdfa.mjs"
   },
   "type": "module",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "allowScripts": {
     "fsevents@2.3.3": true,
     "workerd@1.20260903.1": true,
