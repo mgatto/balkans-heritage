@@ -29,3 +29,47 @@
 #bridge main section div {
     margin-top: 1rem;
 }
+
+/* YouTube embed: below-the-fold video of the bridge. `clear: both` drops it out
+   of the 52%-width floated hero's shape-outside wrap so it sits full-width under
+   the prose, not squeezed into the text column. The .video-embed-frame caps the
+   width on large monitors so the player never dominates; aspect-ratio keeps a
+   16/9 box with no fixed px dimensions (mobile-safe). */
+.video-embed {
+    clear: both;
+    margin: 2rem 0;
+}
+
+.video-embed-frame {
+    max-width: 40rem;
+    margin-inline: auto;
+    aspect-ratio: 16 / 9;
+}
+
+.video-embed iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.video-embed figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+/* Above-the-fold jump link to the video (sighted users). Small and muted so it
+   reads as a pointer, not competing with the h2. */
+.video-jump {
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* Offset the second skip link so it doesn't stack on the main-content one (both
+   are position:absolute at top:0; left:0 in base.css). */
+.skip-link-video:focus {
+    top: 3rem;
+}
+
