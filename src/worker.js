@@ -18,6 +18,25 @@
 
 const AUDIO_CACHE_CONTROL = 'public, max-age=31536000, no-transform';
 
+// Cloudflare's static-assets MIME mapping is purely extension-based and
+// labels .webm as video/webm even for these audio-only clips, while the
+// glossary markup declares audio/* on its <source> elements. Normalize the
+// served Content-Type so the two agree (and so Safari's source selection
+// never sees a video/* type on an <audio> element).
+const AUDIO_CONTENT_TYPES = new Map([
+    ['.webm', 'audio/webm'],
+    ['.m4a', 'audio/mp4'],
+    ['.mp3', 'audio/mpeg'],
+]);
+
+// Maps the request path's extension to the normalized audio Content-Type,
+// or undefined to leave the platform's own type untouched.
+function normalizedContentType(pathname) {
+    const match = /\.[a-z0-9]+$/i.exec(pathname);
+    if (match === null) return undefined;
+    return AUDIO_CONTENT_TYPES.get(match[0].toLowerCase());
+}
+
 // Parses a single HTTP byte-range (`bytes=0-1`, `bytes=100-`, `bytes=-500`)
 // against a known representation size. Returns the inclusive {start, end} to
 // serve with 206; 'unsatisfiable' for syntactically valid ranges outside the
@@ -67,6 +86,8 @@ export default {
         if (!assetResponse.ok) return assetResponse;
 
         const headers = audioHeaders(assetResponse.headers);
+        const contentType = normalizedContentType(new URL(request.url).pathname);
+        if (contentType !== undefined) headers.set('Content-Type', contentType);
         const rangeHeader = request.headers.get('Range');
         const ifRange = request.headers.get('If-Range');
 

@@ -1,7 +1,7 @@
 // Unit tests for the audio conversion pipeline's pure logic — output naming,
 // skip rules, and command construction — without invoking real ffmpeg.
 import { describe, expect, it } from 'vitest';
-import { destFor, planConversion } from './convert-audio.mjs';
+import { destFor, needsPadding, planConversion } from './convert-audio.mjs';
 
 describe('destFor', () => {
     it('replaces the .mp3 extension with the target extension', () => {
@@ -40,5 +40,19 @@ describe('planConversion', () => {
         const [webm, m4a] = planConversion('/x/sadrvan.mp3');
         expect(webm.codec).toBe('opus');
         expect(m4a.codec).toBe('aac');
+    });
+});
+
+describe('needsPadding', () => {
+    it('flags sub-second clips whose duration label would render as 0:00', () => {
+        expect(needsPadding(0.6)).toBe(true);
+        expect(needsPadding(0.88)).toBe(true);
+        expect(needsPadding(1.19)).toBe(true);
+    });
+
+    it('leaves clips at or beyond the minimum untouched, so re-runs never double-pad', () => {
+        expect(needsPadding(1.2)).toBe(false);
+        expect(needsPadding(1.202)).toBe(false);
+        expect(needsPadding(4)).toBe(false);
     });
 });

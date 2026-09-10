@@ -4,12 +4,19 @@
 // fallback), keeping the original mp3 as the legacy fallback. The landmark
 // pages then serve all three via <audio><source> (see each page's glossary).
 //
+// Before converting, any source clip shorter than MIN_CLIP_SECONDS is padded
+// in place with trailing silence: native <audio> controls render whole
+// seconds, so a sub-second clip's duration label reads 0:00 —
+// indistinguishable from a broken player. The pad is idempotent (a padded
+// clip no longer needs it), so newly recorded clips are handled on the next
+// run automatically.
+//
 // Requires ffmpeg + ffprobe on PATH (Homebrew: `brew install ffmpeg`). The
 // script preflights that and fails fast with a remediation hint if they are
 // missing or broken. Usage: node scripts/convert-audio.mjs [--dry-run] [--force]
 
 import { execFile } from 'node:child_process';
-import { readdir, stat } from 'node:fs/promises';
+import { readdir, rename, stat } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
@@ -33,6 +40,49 @@ export function destFor(src, ext) {
 
 export function planConversion(src) {
     return TARGETS.map((target) => ({ src, dest: destFor(src, target.ext), ...target }));
+}
+
+// Native <audio> controls display whole seconds, so any clip shorter than
+// this shows a duration of 0:00 — looking broken even though it loaded fine.
+// 1.2 s guarantees a 0:01 label while adding at most ~0.6 s of trailing
+// silence to the current recordings (all 0.59–0.88 s).
+const MIN_CLIP_SECONDS = 1.2;
+
+// Pure predicate (exported for unit tests): does a clip of this duration
+// need silence padding to reach the minimum?
+export function needsPadding(durationSeconds) {
+    return durationSeconds < MIN_CLIP_SECONDS;
+}
+
+async function durationOf(file) {
+    const { stdout } = await run('ffprobe', [
+        '-v', 'error',
+        '-show_entries', 'format=duration',
+        '-of', 'csv=p=0',
+        file,
+    ]);
+    const duration = Number.parseFloat(stdout.trim());
+    if (Number.isNaN(duration)) throw new Error(`ffprobe returned no duration for ${file}`);
+    return duration;
+}
+
+// Re-encodes the mp3 in place with trailing silence up to MIN_CLIP_SECONDS.
+// 64k matches the bitrate of the source recordings, so the lossy-to-lossy
+// generation pass is imperceptible for mono voice. Written to a temp file
+// (a `.tmp` suffix, so collectMp3s never mistakes a leftover for a source)
+// and atomically renamed over the original.
+async function pad(src, dryRun) {
+    const tmp = `${src}.tmp`;
+    const args = [
+        '-y', '-i', src,
+        '-af', `apad=whole_dur=${MIN_CLIP_SECONDS}`,
+        '-c:a', 'libmp3lame', '-b:a', '64k',
+        '-f', 'mp3', tmp,
+    ];
+    if (dryRun) return { cmd: `ffmpeg ${args.join(' ')}` };
+    await run('ffmpeg', args, { maxBuffer: 16 * 1024 * 1024 });
+    await rename(tmp, src);
+    return { cmd: null };
 }
 
 async function collectMp3s(dir) {
@@ -92,10 +142,30 @@ export async function main({ dryRun = false, force = false } = {}) {
     }
 
     let built = 0;
+    let padded = 0;
     let skipped = 0;
     const failures = [];
 
     for (const src of mp3s) {
+        // Pad sub-second clips before converting so every output inherits the
+        // silence; a padding failure skips this clip's conversions entirely
+        // rather than shipping a fresh-but-still-sub-second pair.
+        try {
+            const duration = await durationOf(src);
+            if (needsPadding(duration)) {
+                const { cmd } = await pad(src, dryRun);
+                if (cmd) {
+                    console.log(cmd);
+                } else {
+                    padded++;
+                    console.log(`${src.replace(AUDIO_ROOT + '/', '')} padded to ${MIN_CLIP_SECONDS}s (was ${duration.toFixed(2)}s)`);
+                }
+            }
+        } catch (err) {
+            failures.push(`${src}: padding failed: ${err.message}`);
+            continue;
+        }
+
         for (const target of TARGETS) {
             if (!(await needsBuild(src, destFor(src, target.ext), force))) {
                 skipped++;
@@ -118,7 +188,7 @@ export async function main({ dryRun = false, force = false } = {}) {
         }
     }
 
-    console.log(`\n${built} file(s) converted, ${skipped} up-to-date, ${failures.length} failure(s).`);
+    console.log(`\n${built} file(s) converted, ${padded} padded, ${skipped} up-to-date, ${failures.length} failure(s).`);
     if (failures.length > 0) {
         for (const f of failures) console.error(`  FAIL ${f}`);
         process.exit(1);
