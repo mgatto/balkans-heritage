@@ -38,7 +38,7 @@
     "htmlparser2": "^9.1.0",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
-    "lighthouse": "^12.8.2",
+    "lighthouse": "^13.4.1",
     "lightningcss": "^1.33.0",
     "lint-staged": "^16.4.0",
     "puppeteer": "^24.43.1",
