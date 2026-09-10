@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.4.1](https://github.com/mgatto/balkans-heritage/compare/v2.4.0...v2.4.1) (2026-09-10)
+
+### Bug Fixes
+
+* show actual mp3 audio length ([795f212](https://github.com/mgatto/balkans-heritage/commit/795f212e7b577698f00b6656df746638f6410cca))
 ## [2.4.0](https://github.com/mgatto/balkans-heritage/compare/v2.3.0...v2.4.0) (2026-09-04)
 
 ### Features
