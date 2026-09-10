@@ -92,30 +92,14 @@
   #
   # The `! Cache-Control` detach is load-bearing: without it, the
   # `no-cache, must-revalidate` inherited from the /* rule above is
-  # comma-joined onto the value below, producing
-  # `no-cache, must-revalidate, public, max-age=31536000, immutable` — which
-  # silently defeats the year-long caching and makes responses ineligible for
-  # Cloudflare's range-slicing (see the /assets/*.mp3 rule).
+  # comma-joined onto the value below, silently defeating the year-long
+  # caching. (Audio under /assets/audio/ is excepted: those requests run
+  # through src/worker.js — see wrangler.jsonc's run_worker_first — because
+  # this static-assets server never emits 206 Partial Content, which Safari's
+  # <audio> needs to display duration. Custom _headers rules don't apply to
+  # Worker-handled responses, so the audio cache policy lives in the Worker.)
   ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
-
-/assets/*.mp3
-  # Safari's <audio> controls display "0:00" for the clip duration unless the
-  # server answers Range requests with 206 Partial Content (Chrome and Firefox
-  # don't require this). Cloudflare produces 206s by caching the full response
-  # and slicing byte ranges out of it — which only happens if the response is
-  # storable. Merely advertising `Accept-Ranges: bytes` did not fix this,
-  # because the comma-joined `no-cache` from the /* rule kept the response
-  # uncacheable; the `! Cache-Control` detach below is the actual fix.
-  # `no-transform` forbids the CDN from re-encoding the audio in transit.
-  #
-  # Note: unlike Vite-emitted assets, these MP3s are copied verbatim from
-  # src/public/, so their URLs are not content-fingerprinted. A year of
-  # caching is safe because the clips are fixed vocabulary pronunciations —
-  # if one is ever re-recorded, rename the file to bust the cache.
-  ! Cache-Control
-  Accept-Ranges: bytes
-  Cache-Control: public, max-age=31536000, no-transform
 
 # ------------------------------------------------------------------
 # Note on style-src 'unsafe-inline'
