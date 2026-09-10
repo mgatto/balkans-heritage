@@ -3,8 +3,12 @@
 # See docs/admin/web-infrastructure-principles.md for rationale.
 #
 # Syntax: a path pattern on its own line, then indented header: value pairs below.
-# When multiple patterns match a request, headers are merged; later rules win
-# for the same header name. Cloudflare evaluates patterns top-to-bottom.
+# When multiple patterns match a request, the headers from ALL matching rules
+# are applied — and if the same header name appears in more than one matching
+# rule, its values are joined with a comma (later rules do NOT override).
+# To replace an inherited (or Cloudflare-default) header, detach it first with
+# `! Header-Name` on its own indented line, then set the new value — see the
+# /assets/* rules below for the pattern.
 
 /*
   # ------------------------------------------------------------------
@@ -73,21 +77,43 @@
 
   # ------------------------------------------------------------------
   # HTML pages must revalidate on every request so a deployment reaches
-  # users immediately. Fingerprinted assets below override this with
-  # `immutable` — they have content-addressed URLs and never need checking.
+  # users immediately. The /assets/* rules below detach this header (see the
+  # note on comma-joining at the top of this file) and set `immutable`
+  # instead — they have content-addressed URLs and never need checking.
   Cache-Control: no-cache, must-revalidate
 
 /assets/*
-  # Vite appends a content hash to every filename in /assets/ (e.g.
+  # Vite appends a content hash to every filename it emits into /assets/ (e.g.
   # index-a3f9b2.css, prizren_bridge-d81f3c.avif). Because the URL changes
   # whenever the content changes, it is safe — and correct — to tell browsers
   # and CDN edges to cache these files forever. `immutable` is an additional
   # hint that the resource will never be updated at this URL, so browsers
   # skip the conditional revalidation request entirely on revisits.
+  #
+  # The `! Cache-Control` detach is load-bearing: without it, the
+  # `no-cache, must-revalidate` inherited from the /* rule above is
+  # comma-joined onto the value below, producing
+  # `no-cache, must-revalidate, public, max-age=31536000, immutable` — which
+  # silently defeats the year-long caching and makes responses ineligible for
+  # Cloudflare's range-slicing (see the /assets/*.mp3 rule).
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 /assets/*.mp3
-  # prevent browsers from displaying 0:00 timestamps in audio controls.
+  # Safari's <audio> controls display "0:00" for the clip duration unless the
+  # server answers Range requests with 206 Partial Content (Chrome and Firefox
+  # don't require this). Cloudflare produces 206s by caching the full response
+  # and slicing byte ranges out of it — which only happens if the response is
+  # storable. Merely advertising `Accept-Ranges: bytes` did not fix this,
+  # because the comma-joined `no-cache` from the /* rule kept the response
+  # uncacheable; the `! Cache-Control` detach below is the actual fix.
+  # `no-transform` forbids the CDN from re-encoding the audio in transit.
+  #
+  # Note: unlike Vite-emitted assets, these MP3s are copied verbatim from
+  # src/public/, so their URLs are not content-fingerprinted. A year of
+  # caching is safe because the clips are fixed vocabulary pronunciations —
+  # if one is ever re-recorded, rename the file to bust the cache.
+  ! Cache-Control
   Accept-Ranges: bytes
   Cache-Control: public, max-age=31536000, no-transform
 
