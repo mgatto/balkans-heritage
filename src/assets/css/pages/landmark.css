@@ -266,6 +266,49 @@ article > header {
     letter-spacing: 0.04em;
 }
 
+/* --- Glossary table (experiment: monastery only) -----------------------------
+   The monastery's <details> glossary renders each term's two language forms as
+   a 3-column <table> (language label / term+IPA / audio) instead of the flex
+   .glossary-form spans the other landmarks use. width:auto + table-layout:auto
+   make the table shrink-to-fit: it takes only the width its columns' content
+   needs (not the full container), and each column sizes to its widest cell —
+   so the label column is exactly "Albanian:"-wide and the rows stay aligned.
+   Gaps come from cell padding, widest ahead of the audio column so the control
+   never crowds the IPA. The audio keeps the shared .glossary-audio sizing
+   (max-width: 16rem). Pico's content/table module is disabled (pico.scss), so
+   there are no default borders/stripes to undo. */
+.glossary-table {
+    width: auto;
+    margin: 0.25rem 0 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: auto;
+}
+
+.glossary-table td {
+    padding: 0.35rem 0.9rem 0.35rem 0;
+    vertical-align: middle;
+}
+
+/* Wider gap ahead of the audio column so the control and the IPA never touch. */
+.glossary-table .glossary-cell-term {
+    padding-right: 1.5rem;
+}
+
+/* Narrow screens: an auto-layout table can't wrap, so the nowrap IPA plus the
+   audio control can exceed the article width. Do NOT fall back to flex rows
+   here — rows laid out independently size their cells to their own content,
+   which breaks the cross-row column alignment that is the entire reason this
+   is a table. Keep the table grid intact and give the box a horizontal-scroll
+   escape hatch instead (overflow lives on the widget, never the page). */
+@media (width <= 768px) {
+    .glossary-table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+}
+
 /* Inline prose invoker. Reset Pico's button chrome so it reads as dotted-
    underlined body text, visually distinct from the site's (dark) links.
    Kept `display: inline` so it flows and wraps inside a sentence; per WCAG 2.2
