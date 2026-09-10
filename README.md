@@ -135,8 +135,10 @@ npm run preview
 The site is hosted on [Cloudflare Workers (Static Assets)](https://developers.cloudflare.com/workers/static-assets/) and published from the CLI via [Wrangler](https://developers.cloudflare.com/workers/wrangler/):
 
 ```bash
-npm run deploy   # vite build && wrangler deploy
+npm run deploy   # vite build && wrangler deploy --tag <git describe> --message "Release <git describe>"
 ```
+
+Each deploy records the current `git describe --tags --always` value (e.g. `v2.4.0`, or `v2.4.0-3-g<sha>` for post-release commits) as the Wrangler version tag and deployment message, so `npx wrangler deployments list` shows which release is live.
 
 `npm run deploy` intentionally runs `vite build` directly rather than `npm run build`, skipping the slow Lighthouse/accessibility `postbuild` gate. Run `npm run build` locally first as your pre-release quality check, then `npm run deploy` to ship. Deploy config (asset directory, custom domain route) lives in `wrangler.jsonc`.
 

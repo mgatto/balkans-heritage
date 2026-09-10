@@ -27,7 +27,7 @@ nvm use            # reads .nvmrc; installs the version first if missing (`nvm i
 - `npm run dev` — start the Vite dev server with hot reloading.
 - `npm run build` — produce a production build in `dist/`. **Slow**: its `postbuild` hook runs Lighthouse (desktop + mobile) and `a11y`. For a quick "does it build" check use `npx vite build` (which `npm run deploy` also runs directly, skipping the gate).
 - `npm run preview` — preview the production build locally.
-- `npm run deploy` — `vite build && wrangler deploy` to Cloudflare Workers (Static Assets). Runs `vite build` directly, bypassing `postbuild`; run `npm run build` first as your pre-release gate.
+- `npm run deploy` — `vite build && wrangler deploy --tag $(git describe --tags --always) --message "Release $(git describe --tags --always)"` to Cloudflare Workers (Static Assets). Runs `vite build` directly, bypassing `postbuild`; run `npm run build` first as your pre-release gate. The `git describe` value (e.g. `v2.4.0`, or `v2.4.0-3-g<sha>` for post-release commits) is recorded as the Wrangler version tag and deployment message — visible in `npx wrangler deployments list`.
 - `npm run lint:html` — validate HTML with `html-validate`.
 - `npm run lint:css` — lint CSS with Stylelint.
 - `npm run lint:js` — lint JS/JSON with ESLint.

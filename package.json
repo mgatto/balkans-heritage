@@ -78,7 +78,7 @@
     "build": "vite build",
     "build:preview": "vite build && vite preview",
     "check:links": "node scripts/check-external-links.mjs",
-    "deploy": "vite build && wrangler deploy",
+    "deploy": "vite build && wrangler deploy --tag $(git describe --tags --always) --message \"Release $(git describe --tags --always)\"",
     "dev": "vite",
     "intel:browser-features": "node scripts/browser-feature-intel.mjs",
     "intel:bugs": "node scripts/browser-bugs.mjs --feature",
