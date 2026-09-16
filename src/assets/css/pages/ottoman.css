@@ -13,7 +13,7 @@
 
 @keyframes slide-from-left {
     from {
-        /* Arrive from the left */
+        /* Arrive from the right */
         transform: translateX(-100vw);
     }
 
@@ -40,46 +40,52 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     margin: 2rem 0;
-}
 
-.page-grid a {
-    display: block;
-    text-decoration: none;
-}
+    a {
+        display: block;
+        text-decoration: none;
+    }
 
-.page-grid figure {
-    margin: 0;
-}
+    figure {
+        margin: 0;
+    }
 
-.page-grid img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    filter: sepia(50%) drop-shadow(6px 6px 8px gray);
-}
+    img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        filter: sepia(50%) drop-shadow(6px 6px 8px gray);
+    }
 
-.page-grid li.planned img {
-    filter: grayscale(100%);
-}
+    /* Not-yet-built Parts on the home index read as muted/inactive: desaturate the thumbnail
+       entirely in CSS (no pre-processed greyscale image needed), matching the existing #home
+       .hero sepia-filter precedent. */
+    li.planned img {
+        filter: grayscale(100%);
+    }
 
-.page-grid figcaption {
-    margin-top: 0.75rem;
-    padding-left: 0;
-    font-family: "EB Garamond", serif;
-    font-size: 1.3rem;
-    font-style: normal;
-    text-align: center;
-}
+    figcaption {
+        margin-top: 0.75rem;
+        padding-left: 0;
+        font-family: "EB Garamond", serif;
+        font-size: 1.3rem;
+        font-style: normal;
+        text-align: center;
 
-.page-grid figcaption small {
-    font-family: inherit;
-    font-size: 0.7em;
-    color: #595959;
-}
+        /* The "(planned)" status note on not-yet-built Parts. The global reset (in base.css)
+           directly targets `small`, overriding the caption's font-family and forcing font-size back
+           to 100%, so without this the note renders in Oswald at the caption's full size. Re-inherit
+           the caption's EB Garamond, shrink it back to a subordinate size, and mute it so it reads as
+           an annotation rather than part of the title. */
+        small {
+            font-family: inherit;
+            font-size: 0.7em;
+            color: #595959;
+        }
+    }
 
-@media (width <= 600px) {
-    .page-grid {
+    @media (width <= 600px) {
         grid-template-columns: 1fr;
     }
 }
@@ -107,64 +113,66 @@ button#maps-download {
     background-color: #e30a17;
 }
 
-/* Wide screens: cap and center the content column exactly like the four
-   landmark pages (landmark.css `#<id> main { max-width: 70rem }`), replacing
-   Pico's narrower stepped container (510/700/950/1200/1450px at the
-   576/768/1024/1280/1536 breakpoints), which leaves wide horizontal gutters
-   the landmark pages don't have. The id selector outranks Pico's `body > main`
-   media queries at every breakpoint, so a single declaration covers all widths. */
-#ottoman main {
-    max-width: 70rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Fluid body copy — the same clamp() the landmark pages use (see landmark.css).
-   On engines without clamp() the declaration is dropped and text falls back to
-   the fixed 16px root. */
 #ottoman {
+    /* Fluid body copy — the same clamp() the landmark pages use (see landmark.css).
+       On engines without clamp() the declaration is dropped and text falls back to
+       the fixed 16px root. */
     font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
-}
 
-/* Unitless line-height so paragraph spacing tracks the now-fluid font size
-   instead of the base fixed 1.4rem (same value as the landmark pages). */
-#ottoman main p {
-    line-height: 1.5;
-}
+    /* Wide screens: cap and center the content column exactly like the four
+       landmark pages (landmark.css `#<id> main { max-width: 70rem }`), replacing
+       Pico's narrower stepped container (510/700/950/1200/1450px at the
+       576/768/1024/1280/1536 breakpoints), which leaves wide horizontal gutters
+       the landmark pages don't have. The id selector outranks Pico's `body > main`
+       media queries at every breakpoint, so a single declaration covers all widths. */
+    main {
+        max-width: 70rem;
+        margin-left: auto;
+        margin-right: auto;
 
-/* Breadcrumbs are injected as the first child of <main>, so on the hub they sit
-   between Pico's <main> top padding and the hero. The shared `.breadcrumbs`
-   top margin stacked on that padding reads as too much air above them, and the
-   hero title's top margin opens a second gap below; zero the breadcrumb's own
-   vertical margins here and let the padding/hero margins carry the rhythm. */
-#ottoman .breadcrumbs {
-    margin-top: 0;
-    margin-bottom: 0;
-}
+        /* Unitless line-height so paragraph spacing tracks the now-fluid font size
+           instead of the base fixed 1.4rem (same value as the landmark pages). */
+        p {
+            line-height: 1.5;
+        }
+    }
 
-/* The opening pull-quote is long; the site's default 1.4rem body leading packs
-   it tight, so open it up a little for readability. */
-#ottoman article > p {
-    line-height: 1.7rem;
-}
+    /* Breadcrumbs are injected as the first child of <main>, so on the hub they sit
+       between Pico's <main> top padding and the hero. The shared `.breadcrumbs`
+       top margin stacked on that padding reads as too much air above them, and the
+       hero title's top margin opens a second gap below; zero the breadcrumb's own
+       vertical margins here and let the padding/hero margins carry the rhythm. */
+    .breadcrumbs {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 
-/* The Ottoman hub's maps list gets star bullets; the page-grid (also a <ul> on the hub)
-   cancels them for its figure links. Both are id-scoped so the cancel keeps outranking the
-   star on the hub, and so the home Parts index (a page-grid with no plain list) is unaffected. */
-#ottoman ul {
-    list-style-type: none;
-}
+    /* The opening pull-quote is long; the site's default 1.4rem body leading packs
+       it tight, so open it up a little for readability. Must stay after `main p`
+       above — same specificity (1,0,2), so only source order lets the looser
+       leading win for the article's direct-child paragraphs. */
+    article > p {
+        line-height: 1.7rem;
+    }
 
-#ottoman ul li {
-    line-height: 1.5rem;
-}
+    /* The Ottoman hub's maps list gets star bullets; the page-grid (also a <ul> on the hub)
+       cancels them for its figure links. Both are id-scoped so the cancel keeps outranking the
+       star on the hub, and so the home Parts index (a page-grid with no plain list) is unaffected. */
+    ul {
+        list-style-type: none;
 
-#ottoman ul li::before {
-    content: "\2605";
-    margin: 0 1em;
-}
+        li {
+            line-height: 1.5rem;
 
-#ottoman .page-grid li::before {
-    content: none;
-    margin: 0;
+            &::before {
+                content: "\2605";
+                margin: 0 1em;
+            }
+        }
+    }
+
+    .page-grid li::before {
+        content: none;
+        margin: 0;
+    }
 }

@@ -16,9 +16,13 @@ export default {
     // text-decoration is likewise "partial" only because of newer sub-features
     // (text-decoration-thickness etc.); the decoration-line/decoration-style
     // longhands used by the glossary term underline are solid at the Safari 16.4 floor.
+    // css-nesting sits above the Safari 16.4 / Firefox 102 floor (it landed in
+    // Safari 16.5 / Firefox 117), but Lightning CSS (Vite's CSS transformer, see
+    // vite.config.js) lowers authored nesting to flat selectors for those targets,
+    // so the shipped CSS stays in-range; silence the warning noise it would add.
     "plugin/no-unsupported-browser-features": [
       true,
-      { severity: "warning", ignore: ["css-clip-path", "css-masks", "text-decoration"] },
+      { severity: "warning", ignore: ["css-clip-path", "css-masks", "text-decoration", "css-nesting"] },
     ],
   },
   ignoreFiles: ["dist/**/*"],

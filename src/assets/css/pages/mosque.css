@@ -17,12 +17,12 @@
 	   text -- something shape-margin alone can't do once the arch's straight
 	   side already reaches the float's box edge. */
     margin-right: 2rem;
-}
 
-/* The source image is small (512px wide); let it scale up to always fill the
-   arch box so the shape reads consistently instead of leaving slack on wide
-   screens. */
-#mosque .hero img {
-    display: block;
-    width: 100%;
+    /* The source image is small (512px wide); let it scale up to always fill the
+       arch box so the shape reads consistently instead of leaving slack on wide
+       screens. */
+    img {
+        display: block;
+        width: 100%;
+    }
 }

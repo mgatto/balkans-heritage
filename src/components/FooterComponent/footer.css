@@ -1,18 +1,22 @@
 :host {
     display: grid;
     text-align: center;
-    margin: 2rem auto;
-    transform:
-        scale(0.7);
-}
-
-:host>footer {
     margin: 0 auto;
+    transform: scale(0.7);
+
+    > footer {
+        margin: 0 auto;
+    }
+
+    hr {
+        border: none;
+        border-bottom: 1px solid rgb(0 0 0 / 10%);
+        margin-top: -1px;
+    }
 }
 
 .year {
-    font-weight:
-        bold;
+    font-weight: bold;
     font-size: larger;
     display: block;
     line-height: 2rem;
@@ -25,20 +29,13 @@
     margin-top: 1rem;
 }
 
-:host hr {
-    border: none;
-    border-bottom: 1px solid rgb(0 0 0 / 10%);
-    margin-top:
-        -1px;
-}
-
 /* Utility nav (About, and any future License/Credits). The shadow root isolates
    the component from the site's global link styles, so the muted secondary color
    used elsewhere (breadcrumbs, attributions) is restated here to match. */
 .footer-nav {
     margin-top: 1rem;
-}
 
-.footer-nav a {
-    color: #595959;
+    a {
+        color: #595959;
+    }
 }
