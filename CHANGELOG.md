@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.6.0](https://github.com/mgatto/balkans-heritage/compare/v2.5.2...v2.6.0) (2026-09-16)
+
+### Features
+
+* add cross-page view transitions ([2926c84](https://github.com/mgatto/balkans-heritage/commit/2926c84844a84a7ef4095c021f60e676486b6b06))
 ## [2.5.2](https://github.com/mgatto/balkans-heritage/compare/v2.5.1...v2.5.2) (2026-09-10)
 
 ### Bug Fixes
