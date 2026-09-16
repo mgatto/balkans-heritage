@@ -11,10 +11,10 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-}
 
-#medallion img {
-    height: 40px;
-    position: absolute;
-    top: 0;
+    img {
+        height: 40px;
+        position: absolute;
+        top: 0;
+    }
 }

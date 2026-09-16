@@ -16,14 +16,14 @@
     shape-outside: polygon(9.5% 100%, 0% 10%, 50% 0%, 100% 10%, 90.5% 100%);
     shape-margin: 1.5rem;
     margin-right: 2rem;
-}
 
-#bridge .hero img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    clip-path: polygon(9.5% 100%, 0% 10%, 50% 0%, 100% 10%, 90.5% 100%);
+    img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        clip-path: polygon(9.5% 100%, 0% 10%, 50% 0%, 100% 10%, 90.5% 100%);
+    }
 }
 
 #bridge main section div {
@@ -38,6 +38,19 @@
 .video-embed {
     clear: both;
     margin: 2rem 0;
+
+    iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    figcaption {
+        margin-top: 0.5rem;
+        font-size: 0.7rem;
+        text-align: center;
+    }
 }
 
 .video-embed-frame {
@@ -46,22 +59,8 @@
     aspect-ratio: 16 / 9;
 }
 
-.video-embed iframe {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-.video-embed figcaption {
-    margin-top: 0.5rem;
-    font-size: 0.7rem;
-    text-align: center;
-}
-
 /* Offset the second skip link so it doesn't stack on the main-content one (both
    are position:absolute at top:0; left:0 in base.css). */
 .skip-link-video:focus {
     top: 3rem;
 }
-

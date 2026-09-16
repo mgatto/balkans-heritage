@@ -8,15 +8,15 @@
 #about ul {
     list-style-type: none;
     margin-bottom: 1.2rem;
-}
 
-#about ul li {
-    /* Body weight is now uniform (Oswald 300) site-wide, so no per-element weight
-       patch is needed here anymore; keep only the list line-height. */
-    line-height: 1.5rem;
-}
+    li {
+        /* Body weight is now uniform (Oswald 300) site-wide, so no per-element weight
+           patch is needed here anymore; keep only the list line-height. */
+        line-height: 1.5rem;
 
-#about ul li::before {
-    content: '\2605';
-    margin: 0 1em;
+        &::before {
+            content: '\2605';
+            margin: 0 1em;
+        }
+    }
 }
