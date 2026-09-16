@@ -75,7 +75,7 @@
     --pico-border-radius: 3px;
 }
 
-@media (width >= 768px) or (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) {
     /* not supported by FF, even in late 2026 */
     @view-transition {
         navigation: auto;
