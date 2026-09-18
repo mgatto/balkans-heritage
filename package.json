@@ -1,4 +1,11 @@
 {
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.3": true,
+    "puppeteer@24.43.1": true,
+    "workerd@1.20260903.1": true
+  },
   "author": "Michael Gatto <gatto_omar@hotmail.com>",
   "browserslist": [
     "Chrome >= 104",
@@ -20,15 +27,15 @@
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
-    "@eslint/json": "^2.0.1",
+    "@eslint/json": "^2.1.0",
     "@lhci/cli": "^0.15.1",
     "@mdn/browser-compat-data": "^8.1.1",
     "@vitest/coverage-v8": "^4.1.11",
-    "browserslist": "^4.28.9",
+    "browserslist": "^4.29.0",
     "browserslist-to-esbuild": "^2.1.1",
     "browserstack-local": "^1.5.14",
     "caniuse-lite": "^1.0.30001809",
-    "commit-and-tag-version": "^13.2.0",
+    "commit-and-tag-version": "^13.2.1",
     "eslint": "^10.10.0",
     "eslint-plugin-compat": "^7.0.2",
     "feed": "^6.0.0",
@@ -43,19 +50,19 @@
     "lint-staged": "^16.4.0",
     "puppeteer": "^24.43.1",
     "rdfa-streaming-parser": "^3.0.2",
-    "rollup": "^4.63.1",
-    "sass": "^1.104.0",
+    "rollup": "^4.63.3",
+    "sass": "^1.104.1",
     "selenium-webdriver": "^4.49.0",
     "sitemap": "^9.0.1",
     "start-server-and-test": "^3.0.12",
     "stylelint": "^17.15.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-no-unsupported-browser-features": "^8.1.2",
-    "vite": "^8.2.1",
+    "vite": "^8.3.0",
     "vite-plugin-minify": "^3.0.0",
     "vitest": "^4.1.10",
     "web-features": "^3.38.0",
-    "wrangler": "^4.131.0"
+    "wrangler": "^4.133.0"
   },
   "engines": {
     "node": "24.20.0"
@@ -105,12 +112,5 @@
     "validate:rdfa": "node scripts/validate-rdfa.mjs"
   },
   "type": "module",
-  "version": "2.6.0",
-  "allowScripts": {
-    "fsevents@2.3.3": true,
-    "workerd@1.20260903.1": true,
-    "esbuild@0.28.1": true,
-    "puppeteer@24.43.1": true,
-    "@parcel/watcher@2.6.0": true
-  }
+  "version": "2.6.0"
 }
