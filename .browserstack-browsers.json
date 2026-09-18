@@ -28,20 +28,39 @@
     "osVersion": "17",
     "realMobile": true
   },
-  [
-    {
-      "browser": "Safari",
-      "device": "iPad Pro 11 2024",
-      "os": "ios",
-      "os_version": "17",
-      "real_mobile": true
-    },
-    {
-      "browser": "Chrome",
-      "device": "Samsung Galaxy Tab S9",
-      "os": "android",
-      "os_version": "13.0",
-      "real_mobile": true
-    }
-  ]
+  {
+    "deviceName": "iPad Pro 11 2024",
+    "osVersion": "17",
+    "realMobile": true
+  },
+  {
+    "deviceName": "Samsung Galaxy Tab S9",
+    "osVersion": "13.0",
+    "realMobile": true
+  },
+  {
+    "deviceName": "iPhone 16 Pro",
+    "osVersion": "18",
+    "realMobile": true
+  },
+  {
+    "deviceName": "iPhone 13",
+    "osVersion": "16",
+    "realMobile": true
+  },
+  {
+    "deviceName": "Samsung Galaxy S23",
+    "osVersion": "13.0",
+    "realMobile": true
+  },
+  {
+    "deviceName": "OnePlus 12R",
+    "osVersion": "14.0",
+    "realMobile": true
+  },
+  {
+    "deviceName": "Google Pixel 8 Pro",
+    "osVersion": "14.0",
+    "realMobile": true
+  }
 ]
